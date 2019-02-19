@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+
+    <style>
+        html, body{
+                font-family: "DFP King Gothic TC Regular", "Noto Sans CJK TC Regular", Arial, FontAwesome, "Microsoft YaHei", Helvetica, octicons!important;
+        }
+        
+        .container{
+            width: 40vw;
+            height: 50vh;
+            margin: auto;  
+            padding: 5vh;
+            border: 1px solid #888;
+            border-radius: 5px;
+            box-shadow:5px 10px #ddd;
+            visibility: hidden;
+        }
+        
+        .container button{
+            float: right;
+        }
+        
+        .input-group-text{
+            background-color: #FAFAFA
+        }
+        
+        .newEmployeeDialog{
+            visibility: hidden;
+        }
+        
+        .newEmployeeDialog.show{
+            visibility: visible;            
+        }
+        
+        .newEmployeeDialog.show .dialog{
+            -webkit-animation: fadein 0.5s;
+            animation: fadein 0.5s;
+        }
+        
+        .newEmployeeDialog .layerMask{
+            width: 100%;
+            height: 100%;
+            background: #000;
+            left: 0;
+            position: absolute;
+            top: 0;
+            opacity: 0.5;
+            z-index: 1;
+        }
+        
+        .newEmployeeDialog .dialog{
+            width: 40%;
+            height: 60%;
+            position: absolute;
+            margin: auto;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            z-index: 2;
+            border-radius: 5px;
+            box-shadow:5px 5px 5px 2px #555;
+            overflow: hidden;
+        }
+        
+        .newEmployeeDialog .dialog .title{
+            width:100%;
+            height: 15%;
+            background-color: dimgray;            
+            padding: 0 8px 0 24px;
+            color: white;
+            font-size: 1.25vw;
+        }
+        
+        .newEmployeeDialog .dialog .title:before {
+            content: "";
+            height: 100%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .newEmployeeDialog .dialog .content{
+            padding: 5vh;
+        }
+        
+        .newEmployeeDialog .dialog .buttonContainer{
+            float: right;
+        }
+        
+        @-webkit-keyframes fadein {
+        from {
+            opacity: 0;
+            width: 0%;
+        }
+
+        to {
+            opacity: 1;
+            width: 40%;
+        }
+    }
+
+    @keyframes fadein {
+        from {
+            opacity: 0;
+            width: 20%;
+            height: 30%;
+        }
+
+        to {
+            opacity: 1;
+            width: 40%;
+            height: 60%;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <button type="button" id="create-employee" class="btn btn-dark">新增成員</button>
+    <div id="newEmployeeDialog" class="newEmployeeDialog">
+        <div class="layerMask"></div>
+        <div class="dialog">
+            <div class="title">
+                新增成員
+            </div>
+            <div class="content">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="UserID" aria-label="UserID" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2">@dynacw.com</span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Name</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">First and last name</span>
+                    </div>
+                    <input type="text" aria-label="First name" class="form-control">
+                    <input type="text" aria-label="Last name" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Department</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="buttonContainer">
+                    <button type="button" id="cancel" class="btn btn-outline-danger">取消</button>
+                    <button type="button" id="creat" class="btn btn-outline-primary">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="UserID" aria-label="UserID" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">@dynacw.com</span>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Name</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">First and last name</span>
+            </div>
+            <input type="text" aria-label="First name" class="form-control">
+            <input type="text" aria-label="Last name" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Department</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-outline-primary">Add</button>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $('#create-employee').click(function() {
+        console.log("expand dialog");
+        $('#newEmployeeDialog').addClass('show');
+    });
+
+    $('#newEmployeeDialog button').click(function() {
+        $('#newEmployeeDialog').removeClass('show');
+    });
+
+</script>
