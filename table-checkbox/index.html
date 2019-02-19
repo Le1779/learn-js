@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <style>
+        .container{
+            padding: 5vw 5vh 5vw 5vh;
+            margin: 0;
+        }
+        
+        .container .nav{
+            width: 100%;
+            height: 10%;
+            background-color: navy;
+            padding: 1vw;
+            color: white;
+            font-size: 1.5vw;
+        }
+        
+        .container .content{
+            margin-top: 1vw;
+            text-align: center;
+        }
+        
+        .container .content div, .container .content table{
+            float:left;
+        }
+        
+        .container .content .table{
+            width: 80%;
+        }
+        
+        .toolbar{
+            width: 20%;
+            height: 50vh;
+            text-align: center;
+            padding: 1vw;
+        }
+        
+        .toolbar .title{
+            width: 100%;
+            border-bottom: #AAA 1px solid;
+        }
+        
+        .toolbar .content{
+            width: 100%;
+        }
+        
+        .toolbar .content button{
+            width: 100%;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+        
+        .toolbar .content .file-control{
+            width: 100%;
+            visibility: hidden;
+        }
+        
+        .toolbar .content .file-control.show{
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav">NAV</div>
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="table-column-checkbox table-head"><input type="checkbox" value="sdfdsf"></th>
+                        <th class="table-column-1">Column1</th>
+                        <th class="table-column-2">Column2</th>
+                        <th class="table-column-3">Column3</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+            <div class="toolbar">
+                <div class="title">title</div>
+                <div class="content">
+                    <button type="button" class="btn btn-outline-primary">新增資料夾</button>
+                    <div id="toolbar-file-control" class="file-control">
+                        <button type="button" class="btn btn-outline-primary">Move</button>
+                        <button id="delete-file" type="button" class="btn btn-outline-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(init());
+
+    function init() {
+        initTable();
+        initCheckBox();
+        initDeleteButton();
+    }
+
+    function initTable() {
+        let rows = 10;
+        for (let i = 0; i < rows; i++) {
+            $('#table-body').append(getRowContent(i));
+        }
+
+        function getRowContent(id) {
+            let html = '<tr>'
+            html += '<th class="table-column-checkbox"><input type="checkbox"></th>';
+            html += '<th class="table-column-1">C1</th>';
+            html += '<th class="table-column-2">C2</th>';
+            html += '<th class="table-column-3">C3</th>';
+            html += '</tr>';
+            return html;
+        }
+    }
+
+    function initCheckBox() {
+        $('.table-column-checkbox input').click(function() {
+            if ($(this).parent().hasClass('table-head')) {
+                if ($(this).prop('checked')) {
+                    $('.table-column-checkbox input').prop('checked', true);
+                } else {
+                    $('.table-column-checkbox input').prop('checked', false);
+                }
+            } else {
+                $('.table-column-checkbox.table-head input').prop('checked', false);
+            }
+
+            if ($('.table-column-checkbox input').is(':checked')) {
+                $('#toolbar-file-control').addClass('show');
+            } else {
+                $('#toolbar-file-control').removeClass('show');
+            }
+        });
+    }
+    
+    function initDeleteButton(){
+        $('#delete-file').click(function(){
+            console.log($('.table-column-checkbox input:checked').length);
+        });
+    }
+
+</script>
