@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <style>
+        html,
+        body {
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+        }
+
+        .cardView-group {
+            width: 85vw;
+            margin: auto;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            padding: 1vh 1vw 3vh 1vw;
+            background-color: #fff;
+            z-index: 1;
+            border: 0.1vw solid #C1C7CD;
+            border-radius: 5px;
+            box-shadow: 3px 3px 1px 0px #DDD;
+            overflow: hidden;
+            display: table;
+        }
+
+        .cardView-group-title {
+            width: 100%;
+            height: 15%;
+            padding: 1vh 0 0 2vw;
+            font-size: 1.5vw;
+        }
+
+        .cardView {
+            width: 25vw;
+            height: 15vw;
+            margin: 1vw;
+            padding: 2vh 1vw 0vh 2vw;
+            z-index: 2;
+            background-color: #fff;
+            box-shadow: 0px 0px 4px 1px #555;
+            overflow: hidden;
+            float: left;
+            position:relative;
+            transition: transform .1s;
+        }
+        
+        .cardView:hover{
+            z-index: 3;
+            box-shadow: 3px 3px 10px 1px #555;
+            transform: scale(1.05, 1.05);
+        }
+        
+        .cardView.create::after{
+            font-size: 10vw;
+            line-height: 12vw;
+            content: "+";
+            background-color: #FFFFFF;
+            opacity: 0.8;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border: 0.2vw solid #444;
+            border-style:dashed;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .cardView .employee-no {
+            font-size: 0.5vw;
+        }
+
+        .cardView .employee-name {
+            font-size: 3vh;
+        }
+
+        .cardView .employee-eng-name {
+            font-size: 2vh;
+        }
+        
+        .cardView .employee-department {
+            margin-top: 3vh;
+            font-size: 1vh;
+        } 
+        
+        .cardView .employee-email {
+            font-size: 1vh;
+        }
+        
+        .cardView .right-block{
+            width:30%;
+            height: 25%;
+            position:absolute;
+            top:0;
+            right:0;
+            background-color: gainsboro;
+            border-bottom-left-radius:1vw;
+        }
+        
+        .cardView .bottom-block{
+            width:45%;
+            height: 21%;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            background-image: linear-gradient(to left, #7F57A1, #2D71B8);
+            border-top-right-radius:1vw;
+        }
+        
+        .dialog {       
+            width: 100vw;
+            visibility: hidden;
+        }
+
+        .dialog.show {
+            visibility: visible;
+        }
+
+       .dialog .dialog-layer-mask {
+           width: 100%;
+           height: 100%;
+           background: #000;
+           left: 0;
+           position: fixed;
+           top: 0;
+           opacity: 0.5;
+           z-index: 100;
+       }
+        
+        .dialog .dialog-container{
+            width: 40vw;
+            position: fixed;
+            margin: auto;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            z-index: 101; 
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px 2px #555;
+            overflow: hidden;
+        }
+        
+        .dialog .dialog-container .dialog-colse-button{
+            position: absolute;
+            right: 0;
+            margin: 1vh 1vw 0 0;
+            border-radius: 2vh
+        }
+        
+        .dialog .dialog-container .dialog-colse-button svg{
+            margin: 1vh;
+        }
+        
+        .dialog .dialog-container .dialog-colse-button:hover{
+            background-color: #EEE;
+        }
+        
+        .dialog .dialog-container .dialog-title{
+            padding: 1vh 0 0 2vw;
+            font-size: 1.5vw;
+            border-bottom: 0.1vw solid #C1C7CD;
+        }
+        
+        .dialog .dialog-container .dialog-content{
+            padding: 1vw 1vh 4vw 1vh;
+        }
+    
+        .dialog .dialog-container .cardView{
+            margin: auto;
+            float: inherit;
+        }
+        
+        .dialog .dialog-container .cardView:hover{
+            z-index: 102;
+            box-shadow: 0px 0px 4px 1px #555;
+            transform: scale(1, 1);
+        }
+        
+        .dialog .dialog-container .cardView input[type=text] {
+            border: none;            
+            background-color: transparent;
+        }
+        
+        .dialog .dialog-container .cardView input[type=text]:focus {
+            outline:none;
+            border-bottom: 1px solid blue;
+        }
+        
+        .dialog .dialog-container .cardView .employee-info{
+            z-index: 103;
+        }
+        
+        .dialog .dialog-container .cardView .right-block, .dialog .dialog-container .cardView .bottom-block{
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cardView-group" style="display: none">
+        <div class="cardView-group-title">部門名稱</div>
+        <div class="cardView-group-body">
+            <div class="cardView">
+                <div class="employee-no">No.1116</div>
+                <div class="employee-name">樂仲珉</div>
+                <div class="employee-eng-name">Kevin Le</div>
+                <div class="employee-department">XXX部</div>
+                <div class="employee-email">kevinle@dynacw.com</div>
+                <div class="right-block"></div>
+                <div class="bottom-block"></div>
+            </div>
+            <div class="cardView">
+                <div class="employee-no">No.1116</div>
+                <div class="employee-name">樂仲珉</div>
+                <div class="employee-eng-name">Kevin Le</div>
+                <div class="employee-department">XXX部</div>
+                <div class="employee-email">kevinle@dynacw.com</div>
+                <div class="right-block"></div>
+                <div class="bottom-block"></div>
+            </div>
+            <div class="cardView">
+                <div class="employee-no">No.1116</div>
+                <div class="employee-name">樂仲珉</div>
+                <div class="employee-eng-name">Kevin Le</div>
+                <div class="employee-department">XXX部</div>
+                <div class="employee-email">kevinle@dynacw.com</div>
+                <div class="right-block"></div>
+                <div class="bottom-block"></div>
+            </div>
+        </div>
+    </div>
+    <div id="dialog" class="dialog">
+        <div class="dialog-layer-mask"></div>
+        <div class="dialog-container">
+            <div class="dialog-colse-button">
+                <svg x="0px" y="0px" width="1vw" height="1vw" viewBox="0 0 10 10" focusable="false">
+                    <polygon class="a-s-fa-Ha-pa" fill="#000000" points="10,1.01 8.99,0 5,3.99 1.01,0 0,1.01 3.99,5 0,8.99 1.01,10 5,6.01 8.99,10 10,8.99 6.01,5 "></polygon>
+                </svg>
+            </div>
+            <div class="dialog-title"></div>
+            <div class="dialog-content">
+                <div class="cardView">
+                    <div class="employee-info">
+                        <div class="employee-no">No.<input type="text" placeholder="UserNo" aria-label="UserNo"></div>
+                        <div class="employee-name"><input type="text" placeholder="Name" aria-label="Name"></div>
+                        <div class="employee-eng-name"><input type="text" placeholder="English Name" aria-label="English Name"></div>
+                        <div class="employee-department"><input type="text" placeholder="Department" aria-label="Department"></div>
+                        <div class="employee-email"><input type="text" placeholder="Email" aria-label="Email">@dynacw.com</div>
+                    </div>
+                    <div class="right-block"></div>
+                    <div class="bottom-block"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    class Dialog {
+        constructor(builder) {
+            this.builder = builder;
+        }
+        static Builder = class {
+            constructor() {
+                this.type = "detail";
+            }
+
+            style(type) {
+                this.type = type;
+                return this;
+            }
+
+            build() {
+                return new Dialog(this);
+            }
+        }
+
+        show() {
+            this.initCloseButton();
+            this.initTitle();
+            this.initContent();
+            $('#dialog').addClass('show');
+        }
+
+        dismiss() {
+            $('#dialog').removeClass('show');
+        }
+
+        initTitle() {
+            let title = "";
+            switch (this.builder.type) {
+                case 'detail':
+                    title = '檢視';
+                    break;
+                case 'create':
+                    title = '建立';
+                    break;
+            }
+            $('#dialog .dialog-container .dialog-title').html(title);
+        }
+
+        initContent() {
+            switch (this.builder.type) {
+                case 'detail':
+                    this.getDetailView();
+                    break;
+                case 'create':
+                    this.getCreateView();
+                    break;
+            }
+            initText($(window).width(), $(window).height());
+            if($(window).width() < 1200){
+                $('.right-block').css({"display": "none"});
+                $('.bottom-block').css({"display": "none"});
+            }
+        }
+
+        initCloseButton() {
+            let dialog = this;
+            $('#dialog .dialog-colse-button').unbind('click').click(function() {
+                dialog.dismiss();
+            });
+        }
+
+        getDetailView() {
+            let html = '<div class="cardView">';
+            html += '<div class="employee-no">No.1116</div>';
+            html += '<div class="employee-name">樂仲珉</div>';
+            html += '<div class="employee-eng-name">Kevin Le</div>';
+            html += '<div class="employee-department">XXX部</div>';
+            html += '<div class="employee-email">kevinle@dynacw.com</div>';
+            html += '<div class="right-block"></div>';
+            html += '<div class="bottom-block"></div>';
+            html += '</div>';
+            $('#dialog .dialog-container .dialog-content').html(html);
+        }
+
+        getCreateView() {
+            let html = '<div class="cardView">';
+            html += '<div class="employee-no">No.<input type="text" placeholder="UserNo" aria-label="UserNo"></div>';
+            html += '<div class="employee-name"><input type="text" placeholder="Name" aria-label="Name" autofocus></div>';
+            html += '<div class="employee-eng-name"><input type="text" placeholder="English Name" aria-label="English Name"></div>';
+            html += '<div class="employee-department"><input type="text" placeholder="Department" aria-label="Department"></div>';
+            html += '<div class="employee-email"><input type="text" placeholder="Email" aria-label="Email">@dynacw.com</div>';
+            html += '<div class="right-block"></div>';
+            html += '<div class="bottom-block"></div>';
+            html += '</div>';
+            $('#dialog .dialog-container .dialog-content').html(html);
+            $('#dialog .dialog-container .dialog-content').append('<button type="button" id="creat" class="btn btn-primary" style="float: right;">新增</button>');
+        }
+    }
+    $(document).ready(function() {
+        initDepartmentCardView();
+        initWindows();
+    });
+    
+    function initWindows(){
+        initText($(window).width(), $(window).height());
+        $(window).resize(function(){
+           console.log("width: " + $(window).width() + ", height: " + $(window).height()) 
+            initText($(window).width(), $(window).height());
+            if($(window).width() < 1200){
+                $('.right-block').css({"display": "none"});
+                $('.bottom-block').css({"display": "none"});
+            }else{
+                $('.right-block').css({"display": ""});
+                $('.bottom-block').css({"display": ""});
+            }
+        });
+    }
+    
+    function initText(width, height){
+        let widthPX = width/100;
+        let heightPX = height/100;
+        $('.employee-no').css({"font-size": Math.min(0.5*widthPX, 1*heightPX) + "px"});
+        $('.employee-name').css({"font-size": Math.min(1.5*widthPX, 3*heightPX) + "px"});
+        $('.employee-eng-name').css({"font-size": Math.min(1*widthPX, 2*heightPX) + "px"});
+        $('.employee-department').css({"font-size": Math.min(1*widthPX, 2*heightPX) + "px", "margin-top": Math.min(1*widthPX, 3*heightPX) + "px"});
+        $('.employee-email').css({"font-size": Math.min(1*widthPX, 2*heightPX) + "px"});
+    }
+
+    function initDepartmentCardView() {
+        let departmentCount = 2;
+        for (let i = 0; i < departmentCount; i++) {
+            let html = '<div id="department-' + i + '" class="cardView-group">';
+            html += '<div class="cardView-group-title">' + '部門名稱' + i + '</div>';
+            html += '<div class="cardView-group-body">';
+            html += '</div>';
+            html += '</div>';
+            $('body').append(html);
+            initEmployeeCardView('department-' + i, (i + 1) * 3);
+            initCreateCardView('department-' + i);
+        }
+    }
+
+    function initEmployeeCardView(parentID, employeeCount) {
+        for (let i = 0; i < employeeCount; i++) {
+            let html = '<div class="cardView">';
+            html += '<div class="employee-no">No.1116</div>';
+            html += '<div class="employee-name">樂仲珉</div>';
+            html += '<div class="employee-eng-name">Kevin Le</div>';
+            html += '<div class="employee-department">XXX部</div>';
+            html += '<div class="employee-email">kevinle@dynacw.com</div>';
+            html += '<div class="right-block"></div>';
+            html += '<div class="bottom-block"></div>';
+            html += '</div>';
+            $('#' + parentID).append(html);
+        }
+
+        $('.cardView').unbind('click').click(function() {
+            let dialog = new Dialog.Builder().build();
+            dialog.show();
+        });
+    }
+
+    function initCreateCardView(parentID) {
+        let html = '<div class="cardView create">';
+        html += '<div class="employee-no">No.0001</div>';
+        html += '<div class="employee-name">User Name</div>';
+        html += '<div class="employee-eng-name">English Name</div>';
+        html += '<div class="employee-department">Department</div>';
+        html += '<div class="employee-email">Email@dynacw.com</div>';
+        html += '<div class="right-block"></div>';
+        html += '<div class="bottom-block"></div>';
+        html += '</div>';
+        $('#' + parentID).append(html);
+        $('.cardView.create').unbind('click').click(function() {
+            let dialog = new Dialog.Builder().style('create').build();
+            dialog.show();
+        });
+    }
+
+</script>
