@@ -14,7 +14,7 @@
         }
 
         .cardView-group {
-            width: 85vw;
+            width: 100%;
             margin: auto;
             margin-top: 5vh;
             margin-bottom: 5vh;
@@ -88,10 +88,29 @@
         .cardView .employee-department {
             margin-top: 3vh;
             font-size: 1vh;
+            float: left;
         } 
+        
+        .cardView .employee-role{
+            margin-left: 5%;
+            display: inline-block;
+        }
         
         .cardView .employee-email {
             font-size: 1vh;
+        }
+        
+        .cardView .employee-country{
+            float: left;
+            width: 55%;
+            height: 100%;
+            padding-left: 2%;
+        }
+        
+        .cardView .employee-country div{
+            float: left;
+            font-size: 0.5vw;
+            padding: 1%;
         }
         
         .cardView .right-block{
@@ -105,13 +124,56 @@
         }
         
         .cardView .bottom-block{
-            width:45%;
+            width:100%;
             height: 21%;
             bottom: 0;
             left: 0;
             position: absolute;
+            
+        }
+        
+        .cardView .bottom-block .color-block{
             background-image: linear-gradient(to left, #7F57A1, #2D71B8);
             border-top-right-radius:1vw;
+            height: 100%;
+            width:45%;
+            float: left;
+        }
+        
+        .cardView .toolbar{
+            opacity: 1;
+            max-height: 0;
+            transition: max-height 0.2s ease-out;
+            overflow: hidden;
+            bottom: 0;
+            right: 0;
+            position: absolute;            
+            border-radius:2vw;
+            margin: 1vh;
+            fill:gray;
+        }
+        
+        .cardView:hover .toolbar{
+            opacity: 1;
+            max-height: 100%;
+            transition: max-height 0.2s ease-in;
+        }
+        
+        .cardView .toolbar div{            
+            padding: 1vh;
+            border-radius:2vw;
+        }
+        
+        .cardView .toolbar div:hover{
+            background-color: #EEE;
+        }
+        
+        .cardView .toolbar .delete-button:hover{
+            fill:black;
+        }
+        
+        .cardView .toolbar .edit-button:hover{
+            fill:black;
         }
         
         .dialog {       
@@ -206,7 +268,7 @@
 </head>
 
 <body>
-    <div class="cardView-group" style="display: none">
+    <div class="cardView-group" style="display: ">
         <div class="cardView-group-title">部門名稱</div>
         <div class="cardView-group-body">
             <div class="cardView">
@@ -214,9 +276,33 @@
                 <div class="employee-name">樂仲珉</div>
                 <div class="employee-eng-name">Kevin Le</div>
                 <div class="employee-department">XXX部</div>
+                <div class="employee-role">職員</div>
                 <div class="employee-email">kevinle@dynacw.com</div>
+                
                 <div class="right-block"></div>
-                <div class="bottom-block"></div>
+                <div class="bottom-block">
+                    <div class="color-block"></div>
+                    <div class="employee-country">  
+                    <div class="taipei">台灣<br>Taipei</div>
+                    <div class="japan">日本<br>Japan</div>
+                    <div class="china">中國<br>China</div>
+                </div>
+                </div>
+                <div class="toolbar">
+                    <div class="delete-button">
+                        <svg class="a-s-fa-Ha-pa" x="0px" y="0px" width="1.5vw" height="1.5vw" viewBox="0 0 24 24" focusable="false">
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                        </svg>
+                    </div>
+                    <div class="edit-button">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1.5vw" height="1.5vw" viewBox="0 0 528.899 528.899" style="enable-background:new 0 0 528.899 528.899;" xml:space="preserve">
+                            <path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981
+		c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611
+		C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069
+		L27.473,390.597L0.3,512.69z" />
+                        </svg>
+                    </div>
+                </div>
             </div>
             <div class="cardView">
                 <div class="employee-no">No.1116</div>
@@ -305,6 +391,12 @@
                 case 'create':
                     title = '建立';
                     break;
+                case 'delete':
+                    title = '刪除';
+                    break;
+                case 'edit':
+                    title = '編輯';
+                    break;
             }
             $('#dialog .dialog-container .dialog-title').html(title);
         }
@@ -362,6 +454,8 @@
     $(document).ready(function() {
         initDepartmentCardView();
         initWindows();
+        initDeleteButton();
+        initEditButton();
     });
     
     function initWindows(){
@@ -386,6 +480,7 @@
         $('.employee-name').css({"font-size": Math.min(1.5*widthPX, 3*heightPX) + "px"});
         $('.employee-eng-name').css({"font-size": Math.min(1*widthPX, 2*heightPX) + "px"});
         $('.employee-department').css({"font-size": Math.min(1*widthPX, 2*heightPX) + "px", "margin-top": Math.min(1*widthPX, 3*heightPX) + "px"});
+        $('.employee-role').css({"font-size": Math.min(1*widthPX, 2*heightPX) + "px", "margin-top": Math.min(1*widthPX, 3*heightPX) + "px"});
         $('.employee-email').css({"font-size": Math.min(1*widthPX, 2*heightPX) + "px"});
     }
 
@@ -413,12 +508,29 @@
             html += '<div class="employee-email">kevinle@dynacw.com</div>';
             html += '<div class="right-block"></div>';
             html += '<div class="bottom-block"></div>';
+            html += '<div class="toolbar">';
+            html += '<div class="delete-button"><svg class="a-s-fa-Ha-pa" x="0px" y="0px" width="1.5vw" height="1.5vw" viewBox="0 0 24 24" focusable="false"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg></div>';
+            html += '<div class="edit-button"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1.5vw" height="1.5vw" viewBox="0 0 528.899 528.899" style="enable-background:new 0 0 528.899 528.899;" xml:space="preserve"><path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069L27.473,390.597L0.3,512.69z" /></svg></div>';
+            html += '</div>';
             html += '</div>';
             $('#' + parentID).append(html);
         }
-
-        $('.cardView').unbind('click').click(function() {
-            let dialog = new Dialog.Builder().build();
+        //$('.cardView').unbind('click').click(function() {
+        //    let dialog = new Dialog.Builder().build();
+        //    dialog.show();
+        //});
+    }
+    
+    function initDeleteButton(buttonID){
+        $('.delete-button').unbind('click').click(function() {
+            let dialog = new Dialog.Builder().style('delete').build();
+            dialog.show();
+        });
+    }
+    
+    function initEditButton(buttonID){
+        $('.edit-button').unbind('click').click(function() {
+            let dialog = new Dialog.Builder().style('edit').build();
             dialog.show();
         });
     }
