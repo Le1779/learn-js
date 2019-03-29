@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/gitgraph.min.css">
+</head>
+
+<body>
+    <canvas id="gitGraph"></canvas>
+    <div id="rd_to_member" class="gitgraph-detail">
+      <p>The following use cases have been included for inspiration:</p>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../script/gitgraph.min.js"></script>
+<script type="text/javascript">
+    var myTemplateConfig = {
+  colors: [ "#979797", "#008FB5", "#F1C109", "#67AB49", "#F05C75" ], // branches colors, 1 per column
+  branch: {
+    lineWidth: 8,
+    spacingX: 50,
+    showLabel: false,                  // display branch names on graph
+  },
+  commit: {
+    spacingY: -80,
+    dot: {
+      size: 12
+    },
+    message: {
+      displayAuthor: false,
+      displayBranch: false,
+      displayHash: false,
+      font: "normal 12pt Arial"
+    },
+    shouldDisplayTooltipsInCompactMode: false, // default = true
+    tooltipHTMLFormatter: function ( commit ) {
+      //return "" + commit.sha1 + "" + ": " + commit.message;
+        return "";
+    }
+  }
+};
+var myTemplate = new GitGraph.Template( myTemplateConfig );
+var gitgraph = new GitGraph({
+  template: myTemplate
+});
+
+    var master = gitgraph.branch("PM");
+    
+    master.commit({ message: "PM start order", detailId: "detail-presentation" });
+    
+    
+    var rdBranch = master.branch("研發部");
+    
+    var fdBranch = master.branch("財務部");
+    var qaBranch = master.branch("財務部");
+    
+    fdBranch.checkout();
+    fdBranch.commit({ message: "PM to FD", detailId: "detail-base" });
+    
+    rdBranch.checkout();
+    rdBranch.commit({ message: "PM to RD", detailId: "detail-base" });
+    
+    fdBranch.commit({ message: "FD to Member", detailId: "detail-base" });
+    rdBranch.commit({ message: "RD to Member", detailId: "detail-base" });
+    fdBranch.commit({ message: "FD Member To Leader", detailId: "detail-base" });
+    fdBranch.commit({ message: "FD to Member", detailId: "detail-base" });
+    fdBranch.commit({ message: "FD Member To Leader", detailId: "detail-base" });
+    fdBranch.merge(master,{message: "FD to PM", detailId: "detail-base" });
+    fdBranch.merge(rdBranch,{message: "FD to RD", detailId: "detail-base" });
+    
+    var gaijiBranch = fdBranch.branch("研發部");
+    gaijiBranch.commit({message: "FD to Gaiji", detailId: "detail-base" });
+    //finBranch.delete();
+    
+    //rdBranch.checkout();
+    rdBranch.commit({ message: "RD Member To Leader", detailId: "rd_to_member" });
+    master.merge(fdBranch,{message: "PM to FD", detailId: "detail-base" });
+    rdBranch.merge(master,{message: "RD to PM", detailId: "detail-base" });
+    rdBranch.commit({ message: "PM to RD", detailId: "detail-base" });
+    rdBranch.commit({ message: "RD Member To Leader", detailId: "detail-base" });
+    rdBranch.merge(master,{message: "RD to PM", detailId: "detail-base" });
+    rdBranch.merge(fdBranch,{message: "RD to FD", detailId: "detail-base" });
+
+    master.merge(qaBranch,{message: "PM to QA", detailId: "detail-base" });
+    master.merge(rdBranch,{message: "PM to RD", detailId: "detail-base" });
+    rdBranch.merge(fdBranch,{message: "RD to FD", detailId: "detail-base" });
+    rdBranch.merge(fdBranch,{message: "RD to FD", detailId: "detail-base" });
+    qaBranch.commit({ message: "QA to Member", detailId: "detail-base" });
+    fdBranch.merge(master,{message: "FD to PM", detailId: "detail-base" });
+    master.merge(qaBranch,{message: "PM to QA", detailId: "detail-base" });
+    master.merge(qaBranch,{message: "PM to QA", detailId: "detail-base" });
+    qaBranch.commit({ message: "QA Member To Leader", detailId: "detail-base" });
+    
+    qaBranch.merge(master,{message: "end", detailId: "detail-base" });
+</script>

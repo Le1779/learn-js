@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/gitgraph.min.css">
+    <style>
+        .temp {
+            position: absolute;
+            height: 600px;
+            width: 100%;
+            overflow: auto;
+        }
+
+        .message_title {
+            display: inline-block;
+        }
+
+        .message_date {
+            float: right;
+        }
+
+        .message_text {}
+
+        .message {
+            display: flow-root;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 3px;
+            background-color: rgba(0, 0, 0, .1);
+        }
+
+        .title_tag {
+            display: inline-block;
+            padding: 0 20px 0 20px;
+            height: 26px;
+            position: relative;
+            float: left;
+            color: white;
+        }
+
+        .title_tag.left {
+            background-color: currentColor;
+            margin-right: -10px;
+            border-radius: 3px 0px 0px 3px;
+        }
+
+        .title_tag.right {
+            background-color: currentColor;
+            border-radius: 0px 3px 3px 0px;
+        }
+
+        .title_tag.direction {
+            background-color: transparent;
+            padding: 0 0px 0 20px;
+            margin-right: -10px;
+        }
+
+        .title_tag.direction.east::after {
+            background: transparent;
+            border-bottom: 13px solid transparent;
+            border-left: 10px solid currentColor;
+            border-top: 13px solid transparent;
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+            filter: drop-shadow(6px 0px 3px rgba(0, 0, 0, .6));
+        }
+
+        .title_tag.direction.west::after {
+            content: "";
+            float: left;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-color: transparent currentColor transparent transparent;
+            border-style: solid;
+            border-width: 13px 10px 13px 0;
+            filter: drop-shadow(-3px 0px 3px rgba(0, 0, 0, .6));
+        }
+
+    </style>
+</head>
+
+<body>
+    <div style="position: relative">
+        <div id="temp" class="temp">
+            <canvas id="gitGraph"></canvas>
+            <div id="gitGraphStart" class="gitgraph-detail">
+                <div class="message_title">
+                    <div class="title_tag" style="background-color:#979797;">PM 建立了工單</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rd_to_member" class="gitgraph-detail">
+        <p>The following use cases have been included for inspiration:</p>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../script/gitgraph.min.js"></script>
+<script type="text/javascript">
+    let data;
+    let gitgraph;
+    let master;
+    let fdBranch;
+    let retailBranch;
+    let gaijiBranch;
+    let iaBranch;
+    let qaBranch;
+    let tempDate;
+    $(document).ready(function() {
+        init();
+    });
+
+    function init() {
+        console.log("init");
+        initData();
+        initGitGraph();
+        readData();
+    }
+
+    function initData() {
+        data = [{
+            "ChangedUserID": 2006,
+            "ChangedUser": "謝明憲",
+            "NextUserID": 2066,
+            "NextUserName": "簡亨儒",
+            "Status": 1001,
+            "ChangedTime": "\/Date(1553593636033)\/",
+            "Remark": "go",
+            "ChangedUserDept": "HQ-03",
+            "NextUserDept": "HQ-52"
+        }, {
+            "ChangedUserID": 2066,
+            "ChangedUser": "簡亨儒",
+            "NextUserID": 2068,
+            "NextUserName": "葛幼寧",
+            "Status": 1005,
+            "ChangedTime": "\/Date(1553593663093)\/",
+            "Remark": "	健保局本週新增標楷體3個字已完成 ( 含 24 Bitmap) 字碼如下： 11-7B72 部首：亠，筆劃數：22 倉頡 : 卜竹月一 4-6370 部首：目，筆劃數：20 倉頡 : 月山女戈木 4-673E 部首：言，筆劃數：21 倉頡 : 卜口卜竹山 P.S.其中 4-6370 4-673E字碼是楷體檔案已有的，解bug重新匯出",
+            "ChangedUserDept": "HQ-52",
+            "NextUserDept": "HQ-52-02-01"
+        }, {
+            "ChangedUserID": 679,
+            "ChangedUser": "戴彧寧",
+            "NextUserID": 2056,
+            "NextUserName": "陳明芬",
+            "Status": 1006,
+            "ChangedTime": "\/Date(1553593697740)\/",
+            "Remark": "to member",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-51-03"
+        }, {
+            "ChangedUserID": 2068,
+            "ChangedUser": "葛幼寧",
+            "NextUserID": 2066,
+            "NextUserName": "簡亨儒",
+            "Status": 1001,
+            "ChangedTime": "\/Date(1553593806963)\/",
+            "Remark": "完成",
+            "ChangedUserDept": "HQ-52-02-01",
+            "NextUserDept": "HQ-52"
+        }, {
+            "ChangedUserID": 2066,
+            "ChangedUser": "簡亨儒",
+            "NextUserID": 2071,
+            "NextUserName": "許益慧",
+            "Status": 1005,
+            "ChangedTime": "\/Date(1553593888373)\/",
+            "Remark": "45678",
+            "ChangedUserDept": "HQ-52",
+            "NextUserDept": "HQ-52-02-04"
+        }, {
+            "ChangedUserID": 2071,
+            "ChangedUser": "許益慧",
+            "NextUserID": 2066,
+            "NextUserName": "簡亨儒",
+            "Status": 1001,
+            "ChangedTime": "\/Date(1553594091630)\/",
+            "Remark": "87654",
+            "ChangedUserDept": "HQ-52-02-04",
+            "NextUserDept": "HQ-52"
+        }, {
+            "ChangedUserID": 2066,
+            "ChangedUser": "簡亨儒",
+            "NextUserID": 2006,
+            "NextUserName": "謝明憲",
+            "Status": 1009,
+            "ChangedTime": "\/Date(1553594189117)\/",
+            "Remark": "給你們倆試試看囉！",
+            "ChangedUserDept": "HQ-52",
+            "NextUserDept": "HQ-03"
+        }, {
+            "ChangedUserID": 2066,
+            "ChangedUser": "簡亨儒",
+            "NextUserID": 679,
+            "NextUserName": "戴彧寧",
+            "Status": 1002,
+            "ChangedTime": "\/Date(1553594189137)\/",
+            "Remark": "給你們倆試試看囉！",
+            "ChangedUserDept": "HQ-52",
+            "NextUserDept": "HQ-51-03"
+        }, {
+            "ChangedUserID": 2066,
+            "ChangedUser": "簡亨儒",
+            "NextUserID": 648,
+            "NextUserName": "林俊男",
+            "Status": 1003,
+            "ChangedTime": "\/Date(1553594189167)\/",
+            "Remark": "給你們倆試試看囉！",
+            "ChangedUserDept": "HQ-52",
+            "NextUserDept": "HQ-51-02"
+        }, {
+            "ChangedUserID": 2056,
+            "ChangedUser": "陳明芬",
+            "NextUserID": 679,
+            "NextUserName": "戴彧寧",
+            "Status": 1002,
+            "ChangedTime": "\/Date(1553594293380)\/",
+            "Remark": "upload big file",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-51-03"
+        }, {
+            "ChangedUserID": 2006,
+            "ChangedUser": "謝明憲",
+            "NextUserID": 2066,
+            "NextUserName": "簡亨儒",
+            "Status": -1001,
+            "ChangedTime": "\/Date(1553594343427)\/",
+            "Remark": "測試第二次PM能否退回上一關。",
+            "ChangedUserDept": "HQ-03",
+            "NextUserDept": "HQ-52"
+        }, {
+            "ChangedUserID": 679,
+            "ChangedUser": "戴彧寧",
+            "NextUserID": 2006,
+            "NextUserName": "謝明憲",
+            "Status": 1009,
+            "ChangedTime": "\/Date(1553594365657)\/",
+            "Remark": "明芬作完",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-03"
+        }, {
+            "ChangedUserID": 679,
+            "ChangedUser": "戴彧寧",
+            "NextUserID": 2060,
+            "NextUserName": "吳國揚",
+            "Status": 1006,
+            "ChangedTime": "\/Date(1553594385057)\/",
+            "Remark": "給國揚",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-51-03"
+        }, {
+            "ChangedUserID": 2060,
+            "ChangedUser": "吳國揚",
+            "NextUserID": 679,
+            "NextUserName": "戴彧寧",
+            "Status": 1002,
+            "ChangedTime": "\/Date(1553594505117)\/",
+            "Remark": "多檔",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-51-03"
+        }, {
+            "ChangedUserID": 679,
+            "ChangedUser": "戴彧寧",
+            "NextUserID": 2006,
+            "NextUserName": "謝明憲",
+            "Status": 1009,
+            "ChangedTime": "\/Date(1553594541263)\/",
+            "Remark": "給ㄟ幅低",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-03"
+        }, {
+            "ChangedUserID": 679,
+            "ChangedUser": "戴彧寧",
+            "NextUserID": 2066,
+            "NextUserName": "簡亨儒",
+            "Status": 1001,
+            "ChangedTime": "\/Date(1553594541317)\/",
+            "Remark": "給ㄟ幅低",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-52"
+        }, {
+            "ChangedUserID": 2006,
+            "ChangedUser": "謝明憲",
+            "NextUserID": 2072,
+            "NextUserName": "楊育芳",
+            "Status": 1010,
+            "ChangedTime": "\/Date(1553594905437)\/",
+            "Remark": "ok",
+            "ChangedUserDept": "HQ-03",
+            "NextUserDept": "HQ-53"
+        }, {
+            "ChangedUserID": 2006,
+            "ChangedUser": "謝明憲",
+            "NextUserID": 679,
+            "NextUserName": "戴彧寧",
+            "Status": -1002,
+            "ChangedTime": "\/Date(1553594946460)\/",
+            "Remark": "ok",
+            "ChangedUserDept": "HQ-03",
+            "NextUserDept": "HQ-51-03"
+        }, {
+            "ChangedUserID": 679,
+            "ChangedUser": "戴彧寧",
+            "NextUserID": 2006,
+            "NextUserName": "謝明憲",
+            "Status": 1009,
+            "ChangedTime": "\/Date(1553595083450)\/",
+            "Remark": "都先給FD",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-03"
+        }, {
+            "ChangedUserID": 679,
+            "ChangedUser": "戴彧寧",
+            "NextUserID": 2066,
+            "NextUserName": "簡亨儒",
+            "Status": 1001,
+            "ChangedTime": "\/Date(1553595083480)\/",
+            "Remark": "都先給FD",
+            "ChangedUserDept": "HQ-51-03",
+            "NextUserDept": "HQ-52"
+        }, {
+            "ChangedUserID": 2072,
+            "ChangedUser": "楊育芳",
+            "NextUserID": 2073,
+            "NextUserName": "黃孟維",
+            "Status": 1011,
+            "ChangedTime": "\/Date(1553595149340)\/",
+            "Remark": "123",
+            "ChangedUserDept": "HQ-53",
+            "NextUserDept": "HQ-53"
+        }, {
+            "ChangedUserID": 2066,
+            "ChangedUser": "簡亨儒",
+            "NextUserID": 2006,
+            "NextUserName": "謝明憲",
+            "Status": 1009,
+            "ChangedTime": "\/Date(1553595189370)\/",
+            "Remark": "PMgo",
+            "ChangedUserDept": "HQ-52",
+            "NextUserDept": "HQ-03"
+        }, {
+            "ChangedUserID": 2006,
+            "ChangedUser": "謝明憲",
+            "NextUserID": 2072,
+            "NextUserName": "楊育芳",
+            "Status": 1010,
+            "ChangedTime": "\/Date(1553595201533)\/",
+            "Remark": "qd",
+            "ChangedUserDept": "HQ-03",
+            "NextUserDept": "HQ-53"
+        }, {
+            "ChangedUserID": 2006,
+            "ChangedUser": "謝明憲",
+            "NextUserID": 2072,
+            "NextUserName": "楊育芳",
+            "Status": 1010,
+            "ChangedTime": "\/Date(1553595218510)\/",
+            "Remark": "ok",
+            "ChangedUserDept": "HQ-03",
+            "NextUserDept": "HQ-53"
+        }, {
+            "ChangedUserID": 2073,
+            "ChangedUser": "黃孟維",
+            "NextUserID": 2072,
+            "NextUserName": "楊育芳",
+            "Status": 1010,
+            "ChangedTime": "\/Date(1553595218610)\/",
+            "Remark": "tototo",
+            "ChangedUserDept": "HQ-53",
+            "NextUserDept": "HQ-53"
+        }, {
+            "ChangedUserID": 2072,
+            "ChangedUser": "楊育芳",
+            "NextUserID": 0,
+            "NextUserName": null,
+            "Status": 4,
+            "ChangedTime": "\/Date(1553595234713)\/",
+            "Remark": "",
+            "ChangedUserDept": "HQ-53",
+            "NextUserDept": ""
+        }, {
+            "ChangedUserID": 0,
+            "ChangedUser": null,
+            "NextUserID": 0,
+            "NextUserName": null,
+            "Status": 4,
+            "ChangedTime": "\/Date(1553595275037)\/",
+            "Remark": "專案已結案",
+            "ChangedUserDept": "",
+            "NextUserDept": ""
+        }];
+        
+        //data = [{"ChangedUserID":2066,"ChangedUser":"簡亨儒","NextUserID":2006,"NextUserName":"謝明憲","Status":1009,"ChangedTime":"\/Date(1553827219690)\/","Remark":"edit upload","ChangedUserDept":"HQ-52","NextUserDept":"HQ-03"},{"ChangedUserID":2006,"ChangedUser":"謝明憲","NextUserID":2072,"NextUserName":"楊育芳","Status":1010,"ChangedTime":"\/Date(1553827237373)\/","Remark":"edit upload","ChangedUserDept":"HQ-03","NextUserDept":"HQ-53"},{"ChangedUserID":2072,"ChangedUser":"楊育芳","NextUserID":2006,"NextUserName":"謝明憲","Status":-1009,"ChangedTime":"\/Date(1553827268680)\/","Remark":"edit upload","ChangedUserDept":"HQ-53","NextUserDept":"HQ-03"},{"ChangedUserID":2006,"ChangedUser":"謝明憲","NextUserID":2072,"NextUserName":"楊育芳","Status":1010,"ChangedTime":"\/Date(1553827306190)\/","Remark":"edit upload","ChangedUserDept":"HQ-03","NextUserDept":"HQ-53"}];
+    }
+
+    function initGitGraph() {
+        gitgraph = new GitGraph({
+            template: getGraphTemplate()
+        });
+
+        master = gitgraph.branch("PM");
+        master.commit({
+            message: "PM 建立了工單",
+            detailId: "gitGraphStart"
+        });
+
+        function getGraphTemplate() {
+            return new GitGraph.Template({
+                colors: ["#979797", "#008FB5", "#F1C109", "#67AB49", "#F05C75"],
+                branch: {
+                    lineWidth: 8,
+                    spacingX: 50,
+                    showLabel: false,
+                },
+                commit: {
+                    spacingY: -50,
+                    dot: {
+                        size: 12
+                    },
+                    message: {
+                        display: false,
+                        displayAuthor: false,
+                        displayBranch: false,
+                        displayHash: false,
+                        font: "normal 8pt Arial"
+                    },
+                    shouldDisplayTooltipsInCompactMode: false,
+                    tooltipHTMLFormatter: function(commit) {
+                        return "" + commit.sha1 + "" + ": " + commit.message;
+                        //return "";
+                    }
+                }
+            });
+        }
+    }
+
+    function getDeptBranch(deptCode) {
+        switch (deptCode) {
+            case "HQ-03":
+                console.log("master");
+                return master;
+            case "HQ-52":
+                return fdBranch;
+            case "HQ-51-01":
+                return gaijiBranch;
+            case "HQ-51-02":
+                return iaBranch;
+            case "HQ-51-03":
+                return retailBranch;
+            case "HQ-53":
+                return qaBranch;
+            default:
+                console.log("master");
+                return master;
+        }
+    }
+
+    function branchFactory(deptCode, from = master) {
+        switch (deptCode) {
+            case "HQ-03":
+                return master;
+            case "HQ-52":
+                fdBranch = from.branch("FD");
+                return fdBranch;
+            case "HQ-51-01":
+                gaijiBranch = from.branch("Gaiji");
+                return gaijiBranch;
+            case "HQ-51-02":
+                iaBranch = from.branch("IA");
+                return iaBranch;
+            case "HQ-51-03":
+                retailBranch = from.branch("Retail");
+                return retailBranch;
+            case "HQ-53":
+                qaBranch = from.branch("QA");
+                return qaBranch;
+            default:
+                console.log("master");
+                return master;
+        }
+    }
+
+    function getDeptName(deptCode) {
+        switch (deptCode) {
+            case "HQ-03":
+                return "PM";
+            case "HQ-52":
+                return "FD";
+            case "HQ-51-01":
+                return "Gaiji";
+            case "HQ-51-02":
+                return "IA";
+            case "HQ-51-03":
+                return "Retail";
+            case "HQ-53":
+                return "QA";
+            default:
+                return "PM";
+        }
+    }
+
+    function getDeptCode(deptCode) {
+        let pattern = /HQ-52/g;
+        let matches = deptCode.match(pattern);
+        if (matches == null) {
+            return deptCode;
+        } else {
+            return matches[0];
+        }
+    }
+
+    function readData() {
+        for (let i = 0; i < data.length; i++) {
+            let flowLog = data[i];
+            makeMessageBlock(flowLog);
+            drawGitGraph(flowLog);
+            getMessageBlockTitle(flowLog);
+        }
+    }
+
+    function drawGitGraph(flowLog) {
+        let from_dept = getDeptCode(flowLog.ChangedUserDept);
+        let to_dept = getDeptCode(flowLog.NextUserDept);
+        if (from_dept == to_dept) {
+            let branch = getDeptBranch(to_dept);
+            if (branch == null) {
+                branch = branchFactory(to_dept);
+            }
+            branch.commit({
+                message: stringToDate(flowLog.ChangedTime),
+                detailId: stringToMilli(flowLog.ChangedTime)
+            });
+        } else {
+            let fromBranch = getDeptBranch(from_dept);
+            let toBranch = getDeptBranch(to_dept);
+            if(fromBranch == null){
+                fromBranch = branchFactory(from_dept);
+                fromBranch.commit({
+                    message: stringToDate(flowLog.ChangedTime),
+                    detailId: stringToMilli(flowLog.ChangedTime)
+                });
+            }
+            if (toBranch == null) {
+                toBranch = branchFactory(to_dept, fromBranch);
+                toBranch.commit({
+                    message: stringToDate(flowLog.ChangedTime),
+                    detailId: stringToMilli(flowLog.ChangedTime)
+                });
+            } else {
+                fromBranch.merge(toBranch, {
+                    message: stringToDate(flowLog.ChangedTime),
+                    detailId: stringToMilli(flowLog.ChangedTime)
+                });
+            }
+        }
+    }
+
+    function makeMessageBlock(flowLog) {
+        let from_dept = getDeptCode(flowLog.ChangedUserDept);
+        let to_dept = getDeptCode(flowLog.NextUserDept);
+        let html = '<div id="' + stringToMilli(flowLog.ChangedTime) + '" class="gitgraph-detail">';
+        html += '<div class="message_title"></div>'
+        html += '<div class="message">';
+        html += '<div class="message_text">' + flowLog.Remark + '</div>';
+        html += '<div class="message_date">' + stringToDate(flowLog.ChangedTime) + '</div>';
+        html += '</div>';
+        html += '</div>';
+        $('#temp').append(html);
+    }
+
+    function getMessageBlockTitle(flowLog) {
+        let from_dept = getDeptCode(flowLog.ChangedUserDept);
+        let to_dept = getDeptCode(flowLog.NextUserDept);
+        let from_dept_name = getDeptName(from_dept);
+        let to_dept_name = getDeptName(to_dept);
+
+        let from_branch_color = getDeptBranch(from_dept).color;
+        let to_branch_color = getDeptBranch(to_dept).color;
+
+        let direction = flowLog.Status < 0 ? "west" : "east";
+        let direction_color = flowLog.Status < 0 ? to_branch_color : from_branch_color;
+
+        let from_user_name = flowLog.ChangedUser;
+        let to_user_name = flowLog.NextUserName;
+        let html = '<div class="title_tag left" style="background-color:' + from_branch_color + ';">';
+        html += from_dept_name + ' (' + from_user_name + ')';
+        html += '</div>';
+        html += '<div class="title_tag direction ' + direction + '" style="color:' + direction_color + ';"></div>';
+        html += '<div class="title_tag right" style="background-color:' + to_branch_color + ';">';
+        html += to_dept_name + ' (' + to_user_name + ')';
+        html += '</div>';
+        $('#' + stringToMilli(flowLog.ChangedTime) + ' .message_title').append(html);
+    }
+
+    function stringToMilli(str) {
+        let leftParentheses = str.indexOf('(');
+        let rightParentheses = str.lastIndexOf(')');
+        return str.substring(leftParentheses + 1, rightParentheses);
+    }
+
+    function stringToDate(str) {
+        let milli = parseInt(stringToMilli(str));
+        let date = new Date(milli);
+        return formatDate(date);
+    }
+
+    function formatDate(date) {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        //return [year, month, day].join('/');
+
+        let hour = d.getHours();
+        let minute = d.getMinutes();
+        let second = d.getSeconds();
+        if (hour * 3600 + minute * 60 + second <= 43200) {
+            hour = "上午 " + hour;
+        } else {
+            hour = hour % 12;
+            hour = hour ? hour : 12;
+            hour = hour < 10 ? '0' + hour : hour;
+            hour = "下午 " + hour;
+        }
+
+        let t = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+        return [year, month, day].join('/') + ' ' + t;
+    }
+
+</script>

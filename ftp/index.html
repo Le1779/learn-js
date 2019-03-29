@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <style>
+        #ftp:before {
+            content: attr(title);
+        }
+
+        #icon_help.parent_hover {
+            fill: white;
+        }
+
+        #help {
+            display: inline-block;
+            fill: #778492;
+        }
+
+        #help:hover {
+            background: white;
+            border-radius: 50%;
+            fill: #778492;
+        }
+
+    </style>
+</head>
+
+<body>
+    <button type="button" class="btn btn-outline-primary" id="ftp" title="複製FTP網址">
+
+        <div id="help" onclick="window.open('MyPDF.pdf', '_blank', 'fullscreen=yes')">
+            <svg id="icon_help" class="a-s-fa-Ha-pa" width="24px" height="24px" viewBox="0 0 24 24" focusable="false">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"></path>
+            </svg>
+        </div>
+    </button>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#ftp').click(function(event) {
+        console.log("FTP click");
+        copyToClipboard("FTP click");
+        showHint();
+    });
+    $('#ftp').hover(function(event) {
+        $('#icon_help').toggleClass('parent_hover');
+    });
+    $('#help').click(function(event) {
+        console.log("help click");
+        event.stopPropagation();
+    });
+
+    function showHint() {
+        $('#ftp').animate({
+            'opacity': 0
+        }, 300, function() {
+            $('#ftp').attr("title", "已複製");
+        }).animate({
+            'opacity': 1
+        }, 300);
+
+        let second = 1;
+        let timer = setInterval(function() {
+            console.log("FTP click");
+            second -= 1;
+            if (second == 0) {
+                $('#ftp').animate({
+                    'opacity': 0
+                }, 300, function() {
+                    $('#ftp').attr("title", "複製FTP網址");
+                }).animate({
+                    'opacity': 1
+                }, 300);
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+    function copyToClipboard(str) {
+        var clip_area = document.createElement('textarea');
+        clip_area.textContent = str;
+
+        document.body.appendChild(clip_area);
+        clip_area.select();
+
+        document.execCommand('copy');
+        clip_area.remove();
+    }
+
+</script>

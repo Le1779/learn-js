@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.css" />
+</head>
+<body>
+    <table id="example" class="table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>工單號碼</th>
+                <th>工單建立日期</th>
+                <th>專案負責人</th>
+                <th>專案名稱</th>
+                <th>客戶名稱</th>
+                <th>預定完成日</th>
+                <th>工期進度(天數)</th>
+                <th>上一關處理人員</th>
+                <th>處理人員</th>
+                <th>工單詳情</th>
+            </tr>
+        </thead>
+        <tbody></tbody> 
+        <tfoot>
+            <tr>
+                <th>工單號碼</th>
+                <th>工單建立日期</th>
+                <th>專案負責人</th>
+                <th>專案名稱</th>
+                <th>客戶名稱</th>
+                <th>預定完成日</th>
+                <th>工期進度(天數)</th>
+                <th>上一關處理人員</th>
+                <th>處理人員</th>
+                <th>工單詳情</th>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    var t = $('#example').DataTable();
+    $.getJSON('./data.json', function(data) {
+        console.log("read");
+        t.page.len(10).draw();
+        for(var order in data){
+            console.log(order);
+            var isHead = true;
+            for(var item in data[order]){
+                if(isHead){
+                    t.row.add( [
+                        data[order][item].AppInstanceID,
+                        data[order][item].AppliedDate,
+                        data[order][item].Staff,
+                        data[order][item].ProjectName,
+                        data[order][item].CustomerName,
+                        data[order][item].PlanFinishDate,
+                        data[order][item].SpendDays,
+                        data[order][item].PreviousUserName,
+                        data[order][item].AssignedUserName,
+                        '<button id="button_expand" class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target=".order_child_' + order + '" aria-expanded="false">展開</button>'
+                        ] ).draw( false ).nodes().to$().addClass("order_head_" + order);
+                    isHead = false;
+                }else{
+                    t.row.add( [
+                        data[order][item].AppInstanceID,
+                        data[order][item].AppliedDate,
+                        data[order][item].Staff,
+                        data[order][item].ProjectName,
+                        data[order][item].CustomerName,
+                        data[order][item].PlanFinishDate,
+                        data[order][item].SpendDays,
+                        data[order][item].PreviousUserName,
+                        data[order][item].AssignedUserName,
+                        '<button id="button_expand" class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target=".order_child_@order.Key" aria-expanded="false">展開</button>'
+                        ] ).draw( false ).nodes().to$().addClass("collapse order_child_" + order);
+                }
+                console.log(data[order][item]);
+            }
+            
+        }
+        
+        
+});
+    
+    
+    
+    
+    $(document).ready(function() {
+        
+    $('#examples').DataTable( {
+        "ajax": "objects.txt",
+        "columns": [
+            { "data": "name" },
+            { "data": "position" },
+            { "data": "office" },
+            { "data": "extn" },
+            { "data": "start_date" },
+            { "data": "salary" }
+        ]
+    } );
+} );
+</script>

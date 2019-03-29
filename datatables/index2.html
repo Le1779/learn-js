@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.css" />
+</head>
+
+<body>
+    <table id="table" class="table" width="100%">
+        <thead>
+            <tr>
+                <th>工單號碼</th>
+                <th>工單建立日期</th>
+                <th>專案負責人</th>
+                <th>專案名稱</th>
+                <th>客戶名稱</th>
+                <th>預定完成日</th>
+                <th>工期進度(天數)</th>
+                <th>上一關處理人員</th>
+                <th>處理人員</th>
+                <th>工單詳情</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div></div>
+</body>
+</html>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    let table = $('#table');
+    let tbody = $('#table tbody');
+    $(document).ready(function() {
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                var row = oSettings.aoData[iDataIndex].nTr;
+                return $(row).hasClass('collapse') ? false : true;
+        }
+);
+    });
+    $.getJSON('./data.json', function(data) {
+        for(var order in data){
+            console.log(order);
+            var isHead = true;
+            for(var item in data[order]){
+                let html ='';     
+                if(isHead){
+                    html += '<tr id="order_head_' + order + '">';
+                    isHead = false;
+                }else{
+                    html += '<tr id="order_child_' + order + '" class="collapse order_child_' + order + '" style="background-color: gainsboro;">';
+                }
+                html += '<td>' + data[order][item].AppInstanceID + '</td>';
+                html += '<td>' + data[order][item].AppliedDate + '</td>';
+                html += '<td>' + data[order][item].Staff + '</td>';
+                html += '<td>' + data[order][item].ProjectName + '</td>';
+                html += '<td>' + data[order][item].CustomerName + '</td>';
+                html += '<td>' + data[order][item].PlanFinishDate + '</td>';
+                html += '<td>' + data[order][item].SpendDays + '</td>';
+                html += '<td>' + data[order][item].PreviousUserName + '</td>';
+                html += '<td>' + data[order][item].AssignedUserName + '</td>';
+                html += '<td>' + '<button id="button_expand" class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target=".order_child_' + order + '" aria-expanded="false">展開</button>' + '</td>';
+                html += '</tr>';
+                tbody.append(html);
+                console.log(data[order][item]);
+            }
+        }
+    });
+</script>

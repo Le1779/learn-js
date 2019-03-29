@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/gitgraph.min.css">
+</head>
+
+<body>
+    <canvas id="gitGraph"></canvas>
+    <div id="detail-examples" class="gitgraph-detail">
+      <p>The following use cases have been included for inspiration:</p>
+      <ul>
+        <li><a href="./examples/index.html">a generic workflow example</a></li>
+        <li><a href="./examples/gitflowsupport.html">a gitflow example</a></li>
+      </ul>
+      <p>You'll find <a href="http://github.com/nicoespeon/gitgraph.js/tree/master/examples">the source code</a> in the repository.</p>
+      <p>Well, you also can check the source code of this page ;)</p>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../script/gitgraph.min.js"></script>
+<script type="text/javascript">
+    
+var gitgraph = new GitGraph({
+  template: "metro",
+  author: ""
+});
+
+gitgraph.template.commit.message.font = "normal 24pt Calibri";
+
+var project = gitgraph.branch("project")
+  .commit({ message: "Project presentation", detailId: "detail-presentation" })
+  .commit({ message: "Quick start", detailId: "detail-init" });
+
+var example = gitgraph.branch("how-to")
+  .commit({ message: "Basics", detailId: "detail-base" })
+  .commit({ message: "Create a new branch", detailId: "detail-branch" })
+  .commit({ message: "Add some commits", detailId: "detail-commit" })
+  .commit({ message: "Checkout", detailId: "detail-checkout" })
+  .commit({ message: "Merge your branch", detailId: "detail-merge" })
+  .commit({ message: "Interact with the graph", detailId: "detail-interact" })
+  .commit({ message: "Define your own template", detailId: "detail-your-template" });
+
+var links = gitgraph.branch("contribution")
+  .commit({ message: "Wanna contribute?", detailId: "detail-contribute" })
+  .commit({ message: "Use cases examples", detailId: "detail-examples" });
+
+example.merge(project).delete();
+links.merge(project).delete();
+
+project.commit("See you soon \\o/");
+
+var sergio = gitgraph.branch("sergio")
+  .commit( { message: "Do you like George Michael?", detailId: "detail-sergio" });
+    
+
+</script>
