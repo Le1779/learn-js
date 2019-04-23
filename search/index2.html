@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        #multi-search-container {
+            margin: 10px;
+        }
+
+        #multi-search-container .inputBar {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 40px;
+        }
+
+        #multi-search-container .inputBar .tag {
+            background: #47484B;
+            color: #fff;
+            height: 40px;
+            float: left;
+            padding: 0px 15px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px 0px 0px 20px;
+        }
+
+        #multi-search-container .inputBar .condition {
+            background: #47484B;
+            color: #fff;
+            height: 40px;
+            padding-left: 5px;
+            padding-right: 5px;
+            float: left;
+            overflow: hidden;
+            border-left: 1px #fff dashed;
+            transition: all .5s;
+        }
+
+        #multi-search-container .inputBar .input.show~.condition {
+            width: 0;
+            padding: 0;
+            border-left: 0px;
+            transition: all .5s;
+        }
+
+        #multi-search-container .inputBar .input {
+            height: 40px;
+            width: 0px;
+            float: left;
+            margin-left: 0px;
+            margin-right: 0px;
+            outline: none;
+            border: none;
+            box-shadow: 0 0 25px 0 #ccc;
+            transition: all 1s;
+        }
+
+        #multi-search-container .inputBar .input.show {
+            width: 200px;
+            padding: 0 20px 0 20px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        #multi-search-container .inputBar .ctrl {
+            background: #47484B;
+            position: relative;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            float: left;
+            padding: 10px 15px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 0px 20px 20px 0px;
+            border-left: 1px #fff dashed;
+        }
+
+        #multi-search-container .inputBar .input.show~.ctrl {
+            border-left: 0px;
+        }
+
+        #multi-search-container .inputBar .ctrl::before {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 25px;
+            height: 2px;
+            background: white;
+            transform: rotate(45deg);
+            transition: all .5s;
+        }
+
+        #multi-search-container .inputBar .ctrl::after {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 25px;
+            height: 2px;
+            background: white;
+            transform: rotate(-45deg);
+            transition: all .5s;
+        }
+
+        #multi-search-container .inputBar .input.show~.ctrl::before {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 5px;
+            width: 20px;
+            height: 2px;
+            background: white;
+            transform: rotate(-50deg);
+            transition: all .5s;
+        }
+
+        #multi-search-container .inputBar .input.show~.ctrl::after {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: -5px;
+            left: -15px;
+            width: 15px;
+            height: 2px;
+            background: white;
+            transform: rotate(55deg);
+            transition: all .5s;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="multi-search-container">
+
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initMultiSearch();
+    });
+
+    function initMultiSearch() {
+        console.log("initMultiSearch");
+
+        let container = $("#multi-search-container");
+
+        addInputBar("XXX");
+
+        function addInputBar(tag) {
+            let html = '<div id="inputBar-' + tag + '" class="inputBar">';
+            html += getTagHtml(tag);
+
+            html += getInputHtml();
+            html += getConditionHtml();
+            html += getCtrlHtml();
+            html += '</div>';
+            container.append(html);
+
+            let inputBar = $("#inputBar-" + tag);
+
+            let inputBarTag = $("#inputBar-" + tag + " .tag");
+            inputBarTag.click(inputBarClickListener);
+
+            let inputBarCondition = $("#inputBar-" + tag + " .condition");
+            inputBarCondition.click(inputBarClickListener);
+
+            let inputBarCtrl = $("#inputBar-" + tag + " .ctrl");
+            inputBarCtrl.click(function(event) {
+                let input = $("#inputBar-" + tag + " input");
+                if (!input.hasClass("show")) {
+                    inputBar.remove();
+                }
+            });
+
+            let inputBarInput = $("#inputBar-" + tag + " input");
+            inputBarInput.focusout(inputBarClickListener);
+            
+            inputBarTag.click();
+
+            function inputBarClickListener(event) {
+                switch (event.type) {
+                    case "click":
+                        inputBarInput.toggleClass("show");
+                        inputBarInput.focus();
+                        break;
+                    case "focusout":
+                        inputBarInput.removeClass("show");
+                        if (inputBarInput.val() == null || "" == inputBarInput.val()) {
+                            inputBar.remove();
+                        }
+                        $("#inputBar-" + tag + " .condition").html(inputBarInput.val());
+                        break;
+                }
+            }
+
+            function getTagHtml(tag) {
+                let html = '<div class="tag">';
+                html += tag;
+                html += '</div>';
+                return html;
+            }
+
+            function getConditionHtml() {
+                let html = '<div class="condition">OOOOO</div>';
+                return html;
+            }
+
+            function getInputHtml() {
+                let html = '<input type="text" class="input" value="OOOOOOO">';
+                return html;
+            }
+
+            function getCtrlHtml() {
+                let html = '<div class="ctrl">';
+                html += '</div>';
+                return html;
+            }            
+        }
+    }
+
+</script>

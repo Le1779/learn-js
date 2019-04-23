@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="multi-search.css">
+    <script src="multi-search.js"></script>
+    
+    <style>
+        body {
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+<body>
+    <div id="multi-search-container">
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        let options = ["查詢條件1", "查詢條件2", "查詢條件3", "查詢條件4"];
+        initMultiSearch(options);
+    });
+
+</script>
