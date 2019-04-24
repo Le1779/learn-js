@@ -1,0 +1,153 @@
+#dialog-search-expand-button{
+    position: relative;
+    height: 40px;
+    width: 40px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 0 15px 0 #ccc;
+    transition: all .2s;
+}
+
+#dialog-search-expand-button:hover{
+    box-shadow: 0 0 5px 0 #333;
+}
+
+#dialog-search-expand-button::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    left: 20px;
+    width: 10px;
+    height: 2px;
+    background: black;
+    transform: rotate(45deg);
+    opacity: .7;
+    transition: all .5s;
+}
+
+#dialog-search-expand-button::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: -5px;
+    right: 0;
+    bottom: 0;
+    left: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid black;
+    opacity: .7;
+    transition: all .5s;
+}
+
+#dialog-search{
+    position: absolute;
+    background: #fff;
+    width: 40vw;
+    z-index: 1;
+    padding-top: 24px;
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: none;
+}
+
+#dialog-search.show {
+    display: block;
+}
+
+#dialog-search .dialog-search-table{
+    display: table;
+    width: 100%;
+}
+
+#dialog-search .dialog-search-row{
+    display: table-row;
+    line-height: 48px
+}
+
+#dialog-search .dialog-search-row .title{
+    display: table-cell;    
+    padding: 5px 10px;
+    padding-left: 24px;
+    opacity: .9;
+}
+
+#dialog-search .dialog-search-row .input{
+    display: table-cell;
+    padding-right: 24px;
+}
+
+#dialog-search .dialog-search-row input{
+    width: 100%;
+    line-height: normal;
+    border: none;
+    border-bottom: 1px solid #9F9F9F;
+}
+
+#dialog-search .dialog-search-row input:hover{
+    border-bottom: 2px solid #71A3F6;
+}
+
+#dialog-search .dialog-search-row select{
+    width: 100%;
+    line-height: normal;
+    border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #9F9F9F;
+}
+
+#dialog-search .dialog-search-row select:hover{
+    border-bottom: 2px solid #71A3F6;
+}
+
+#dialog-search .bottom-bar{
+    padding: 10px 24px;    
+    overflow: hidden;
+}
+
+#dialog-search .bottom-bar .button-search{
+    display: inline-block;
+    float: right;
+    background: #4285F4;
+    color: #fff;
+    padding: 5px 15px;
+    margin: 5px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+}
+
+#dialog-search .bottom-bar .button-search:hover{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+#dialog-search .bottom-bar .button-search.click{
+    box-shadow: none;
+}
+
+#dialog-search .bottom-bar .button-reset{
+    display: inline-block;
+    float: right;    
+    color: #000;
+    opacity: .7;
+    padding: 5px 15px;    
+    margin: 5px;
+}
+
+#dialog-search .bottom-bar .button-reset:hover{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+#dialog-search .bottom-bar .button-reset.click{
+    box-shadow: none;
+}

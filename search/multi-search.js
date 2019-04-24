@@ -10,6 +10,8 @@ function initMultiSearch(options) {
 
     let select;
     initSelect();
+    let searchButton;
+    initSearchButton();
 
     function initSelect() {
         console.log("initSelect");
@@ -44,6 +46,12 @@ function initMultiSearch(options) {
             }
         });
     }    
+    
+    function initSearchButton(){
+        let html = '<div class="searchButton"></div>';
+        container.append(html);
+        searchButton = $("#multi-search-container .searchButton");
+    }
 
     function addInputBar(tag) {
         let html = '<div id="inputBar-' + tag + '" class="inputBar">';
@@ -55,6 +63,7 @@ function initMultiSearch(options) {
         html += '</div>';
         container.append(html);
         conditionList.push(tag);
+        searchButton.appendTo(container);
 
         let inputBar = $("#inputBar-" + tag);
 

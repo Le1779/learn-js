@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <link rel="stylesheet" href="dialog-search.css">
+    <script src="dialog-search.js"></script>
+</head>
+
+<body>
+    <div id="dialog-search-expand-button"></div>
+
+    <div id="dialog-search">
+        <div class="dialog-search-table">
+            <div class="dialog-search-row">
+                <div class="title">
+                    工單號碼
+                </div>
+                <div class="input">
+                    <input type="text" id="workingOrderID" placeholder="工單號碼">
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    客戶
+                </div>
+                <div class="input">
+                    <input type="text" id"customer" placeholder="客戶">
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    專案名稱
+                </div>
+                <div class="input">
+                    <input type="text" id="projectName" placeholder="專案名稱">
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    結案
+                </div>
+                <div class="input">
+                    <select class="form-control" id="terminate" name="terminate">
+                        <option selected value>請選擇</option>
+                        <option value="結案">結案</option>
+                        <option value="未結案">未結案</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    建單日期
+                </div>
+                <div class="input">
+                    <input type="text" id="createDate" class="datepicker" placeholder="建單日期">
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    字型名稱
+                </div>
+                <div class="input">
+                    <input type="text" id="fontName" placeholder="字型名稱">
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    檔案名稱
+                </div>
+                <div class="input">
+                    <input type="text" id="fileName" placeholder="檔案名稱">
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    CodePage
+                </div>
+                <div class="input">
+                    <input type="text" class="codePage" placeholder="CodePage">
+                </div>
+            </div>
+            <div class="dialog-search-row">
+                <div class="title">
+                    人員姓名
+                </div>
+                <div class="input">
+                    <input type="text" id="userName" placeholder="人員姓名">
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <div class="button-search">搜尋</div>
+            <div class="button-reset">重設</div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initSearchDialog();
+        initDatePicker();
+    });
+
+    function initDatePicker() {
+        $('.datepicker').daterangepicker({
+            locale: {
+                format: "YYYY/MM/DD",
+                applyLabel: '確認',
+                cancelLabel: '取消',
+                fromLabel: '從',
+                toLabel: '到',
+                weekLabel: 'W',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+                monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            }
+        }, function(start, end, label) {});
+        $('.daterangepicker').bind('click', function(event) {
+            event.stopPropagation();
+        });
+    }
+
+</script>
