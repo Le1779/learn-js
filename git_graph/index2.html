@@ -18,7 +18,7 @@
 </html>
 <script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../script/gitgraph.min.js"></script>
+<script type="text/javascript" src="../script/gitgraph.js"></script>
 <script type="text/javascript">
     var myTemplateConfig = {
   colors: [ "#979797", "#008FB5", "#F1C109", "#67AB49", "#F05C75" ], // branches colors, 1 per column
@@ -30,7 +30,8 @@
   commit: {
     spacingY: -80,
     dot: {
-      size: 12
+      size: 12,
+        font: 'italic 12pt Calibri'
     },
     message: {
       displayAuthor: false,
@@ -47,7 +48,8 @@
 };
 var myTemplate = new GitGraph.Template( myTemplateConfig );
 var gitgraph = new GitGraph({
-  template: myTemplate
+  template: myTemplate,
+    //orientation:"horizontal"
 });
 
     var master = gitgraph.branch("PM");
@@ -61,12 +63,12 @@ var gitgraph = new GitGraph({
     var qaBranch = master.branch("財務部");
     
     fdBranch.checkout();
-    fdBranch.commit({ message: "PM to FD", detailId: "detail-base" });
+    fdBranch.commit({ message: "PM to FD", detailId: "detail-base", dotText: "1" });
     
     rdBranch.checkout();
-    rdBranch.commit({ message: "PM to RD", detailId: "detail-base" });
+    rdBranch.commit({ message: "PM to RD", detailId: "detail-base", dotText: "1" });
     
-    fdBranch.commit({ message: "FD to Member", detailId: "detail-base" });
+    fdBranch.commit({ message: "FD to Member", detailId: "detail-base", dotText: "1" });
     rdBranch.commit({ message: "RD to Member", detailId: "detail-base" });
     fdBranch.commit({ message: "FD Member To Leader", detailId: "detail-base" });
     fdBranch.commit({ message: "FD to Member", detailId: "detail-base" });
