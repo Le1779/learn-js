@@ -92,7 +92,7 @@ function initOrderTable(data) {
             function getChildHtml() {
                 let html = '<div class="order-table-row-child">';
                 html += '<div class="order-column">';
-                html += '<div class="order-staff-name">' + rowData.Staff + '</div>';
+                html += '<div class="order-staff-name"></div>';
                 html += '</div>';
                 html += '</div>';
                 return html;
