@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <style>
+        .analysis-container {
+            width: 80%;
+            margin: auto;
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+        }
+
+        .title .content {
+            display: inline-block;
+            font-size: xx-large;
+            color: #3D4060;
+        }
+
+        .title .content::after {
+            content: "for";
+            color: #B1B3C1;
+            margin: 10px;
+        }
+
+        .title #reportDatePicker {
+            display: inline-block;
+            position: relative;
+            border-radius: 20px;
+            border: 2px solid #EBECF1;
+            padding: 10px 30px 10px 20px;
+            text-align: center;
+            color: #3D4060;
+            font-size: medium;
+            font-weight: bold;
+        }
+
+        .title #reportDatePicker::after {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 10px;
+            bottom: 0;
+            width: 5px;
+            height: 5px;
+            background-color: transparent;
+            border-bottom: 2px solid #EC176A;
+            border-right: 2px solid #EC176A;
+            transform: rotate(45deg);
+            opacity: .7;
+        }
+
+        .body .block {            
+            display: inline-block;            
+            margin: 2% 2%;
+            padding: 30px 24px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .body .block .title {
+            color: #3D4060;
+            margin-bottom: 24px;
+        }
+
+        .body .block .content {
+            color: #3D4060;
+        }        
+
+        #block-1 .content .complete {
+            display: inline-block;
+            font-size: -webkit-xxx-large;
+            margin-right: 48px;
+        }
+
+        #block-1 .content .complete::before {
+            content: "完成的工單";
+            opacity: .7;
+            display: block;
+            font-size: small;
+            margin-bottom: 5px;
+        }
+
+        #block-1 .content .total {
+            display: inline-block;
+            font-size: -webkit-xxx-large;
+        }
+        
+        #block-1 .content .total::before {
+            content: "建立的工單";
+            opacity: .7;
+            display: block;
+            font-size: small;
+            margin-bottom: 5px;
+        }
+        
+        #block-2 .content .average{
+            font-size: -webkit-xxx-large;
+        }
+        
+        #block-2 .content .average:after{
+            content: "天";
+            margin-left: 10px;
+        }
+        
+        #block-1 {
+            width: 40%;
+            float: left;
+        }
+
+        #block-2 {
+            width: 20%;
+            float: left;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="analysis-container">
+        <div class="title">
+            <div class="content">Reports</div>
+            <div id="reportDatePicker" class="datepicker input"><span></span></div>
+        </div>
+        <div class="body">
+            <div id="block-1" class="block">
+                <div class="title">工單總數</div>
+                <div class="content">
+                    <div class="complete">102</div>
+                    <div class="total">150</div>
+                </div>
+                <canvas></canvas>
+            </div>
+            
+            <div id="block-2" class="block">
+                <div class="title">平均工時</div>
+                <div class="content">
+                    <div class="average">12</div>
+                </div>
+            </div>
+            
+            <div id="block-2" class="block">
+                <div class="title">平均工時</div>
+                <div class="content">
+                    <div class="average">12</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initReportDatePicker();
+
+        initBlock1();
+    });
+
+    function initBlock1() {
+        var ctx = $('#block-1 canvas')[0].getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: '已完成',
+                    backgroundColor: 'rgb(61,204,153, 0.3)',
+                    borderColor: 'rgb(61,204,153)',
+                    data: [0, 8, 5, 2, 5, 20, 40]
+                }, {
+                    label: '已建立',
+                    backgroundColor: 'rgb(255, 99, 132, 0.3)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+            options: {}
+        });
+    }
+
+    function initReportDatePicker() {
+        $('.datepicker').daterangepicker({
+            locale: {
+                format: "YYYY/MM/DD",
+                applyLabel: '確認',
+                cancelLabel: '取消',
+                fromLabel: '從',
+                toLabel: '到',
+                weekLabel: 'W',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+                monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            }
+        }, function(start, end, label) {
+            setDateText(start, end);
+        });
+
+        let today = moment(new Date());
+        let preMonth = moment().add(-1, 'months');
+        $('.datepicker').data('daterangepicker').setStartDate(preMonth);
+        $('.datepicker').data('daterangepicker').setEndDate(today);
+        setDateText(preMonth, today);
+
+        function setDateText(start, end) {
+            let startDateStr = start.format('YYYY.MM.DD');
+            let endDateStr = end.format('YYYY.MM.DD');
+            if (start.year() == end.year()) {
+                startDateStr = start.format('MM.DD');
+                endDateStr = end.format('MM.DD');
+                if (start.month() == end.month()) {
+                    endDateStr = end.format('DD');
+                }
+            }
+            $('.datepicker span').html(startDateStr + ' - ' + endDateStr);
+        }
+    }
+
+</script>

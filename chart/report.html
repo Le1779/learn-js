@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <style>
+        body {
+            width: 100%;
+            margin: auto;
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+        }
+
+        .report-title {
+            margin: 5px 24px;
+        }
+
+        .report-title .content {
+            display: inline-block;
+            font-size: xx-large;
+            color: #3D4060;
+        }
+
+        .report-title .content::after {
+            content: "for";
+            color: #B1B3C1;
+            margin: 10px;
+        }
+
+        .report-title #reportDatePicker {
+            display: inline-block;
+            position: relative;
+            border-radius: 20px;
+            border: 2px solid #EBECF1;
+            padding: 10px 30px 10px 20px;
+            text-align: center;
+            color: #3D4060;
+            font-size: medium;
+            font-weight: bold;
+        }
+
+        .report-title #reportDatePicker::after {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 10px;
+            bottom: 0;
+            width: 5px;
+            height: 5px;
+            background-color: transparent;
+            border-bottom: 2px solid #EC176A;
+            border-right: 2px solid #EC176A;
+            transform: rotate(45deg);
+            opacity: .7;
+        }
+
+        .block {
+            display: inline-block;
+            float: left;
+        }
+
+        #block1 {
+            width: 60%;
+            background-color: white;
+        }
+
+        #block2 {
+            width: 40%;
+            background-color: white;
+        }
+
+        #block3 {
+            width: 100%;
+            background-color: white;
+        }
+
+        #block4 {
+            width: 100%;
+            background-color: white;
+        }
+
+        #block5 {
+            width: 30%;
+            background-color: white;
+        }
+
+        #block6 {
+            width: 70%;
+            background-color: white;
+        }
+
+        .cardview {
+            background-color: white;
+            margin: 24px 10px;
+            padding: 30px 24px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .cardview .title {
+            color: #3D4060;
+            margin-bottom: 24px;
+        }
+
+        .cardview .content {
+            color: #3D4060;
+        }
+
+        #cardview-1 .content .complete {
+            display: inline-block;
+            font-size: -webkit-xxx-large;
+            margin-right: 48px;
+        }
+
+        #cardview-1 .content .complete::before {
+            content: "完成的工單";
+            opacity: .7;
+            display: block;
+            font-size: small;
+            margin-bottom: 5px;
+        }
+
+        #cardview-1 .content .total {
+            display: inline-block;
+            font-size: -webkit-xxx-large;
+        }
+
+        #cardview-1 .content .total::before {
+            content: "建立的工單";
+            opacity: .7;
+            display: block;
+            font-size: small;
+            margin-bottom: 5px;
+        }
+
+        #cardview-3 .content .average {
+            font-size: -webkit-xxx-large;
+        }
+
+        #cardview-3 .content .average:after {
+            content: "天";
+            margin-left: 10px;
+        }
+        
+        #block7 {
+            width: 50%;
+            background-color: white;
+        }
+        
+        #block8 {
+            width: 50%;
+            background-color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="report-title">
+        <div class="content">Reports</div>
+        <div id="reportDatePicker" class="datepicker input"><span></span></div>
+    </div>
+    <div class="body">
+        <div style="overflow: auto;">
+            <div id="block1" class="block">
+                <div id="cardview-1" class="cardview">
+                    <div class="title">工單總數</div>
+                    <div class="content">
+                        <div class="complete">102</div>
+                        <div class="total">150</div>
+                    </div>
+                    <canvas></canvas>
+                </div>
+            </div>
+            <div id="block2" class="block">
+                <div id="block3" class="block">
+                    <div id="cardview-4" class="cardview">
+                        <div class="title">達成率</div>
+                        <canvas style="width: 100%;"></canvas>
+                    </div>
+                </div>
+                <div id="block4" class="block">
+                    <div id="block5" class="block">
+                        <div id="cardview-3" class="cardview">
+                            <div class="title">平均工時</div>
+                            <div class="content">
+                                <div class="average">12</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="block6" class="block">
+                        <div id="cardview-5" class="cardview">
+                            <div class="title">地區</div>
+                            <canvas style="width: 100%; height: 60px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="overflow: auto;">
+            <div id="block7" class="block">
+                <div id="cardview-6" class="cardview">
+                    <div class="title">負責人</div>
+                    <canvas style="width: 100%;"></canvas>
+                </div>
+            </div>
+            <div id="block8" class="block">
+                <div id="cardview-7" class="cardview">
+                    <div class="title">經手部門</div>
+                    <canvas></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<script src="le-chart.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initReportDatePicker();
+
+        initCardView1();
+        initCardView4();
+        initCardView5();
+        initCardView6();
+        initCardView7();
+    });
+
+    function initCardView1() {
+        var ctx = $('#cardview-1 canvas')[0].getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: '已完成',
+                    backgroundColor: 'rgb(61,204,153, 0.3)',
+                    borderColor: 'rgb(61,204,153)',
+                    data: [15, 8, 5, 2, 5, 20, 40]
+                }, {
+                    label: '已建立',
+                    backgroundColor: 'rgb(255, 99, 132, 0.3)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [30, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+            options: {}
+        });
+    }
+    
+    function initCardView7() {
+        var ctx = $('#cardview-7 canvas')[0].getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'FD',
+                    backgroundColor: 'rgb(61,204,153, 0.0)',
+                    borderColor: 'rgb(61,204,153)',
+                    data: [10, 8, 5, 2, 5, 20, 40]
+                },{
+                    label: 'Retail',
+                    backgroundColor: 'rgb(57,118,244, 0.0)',
+                    borderColor: 'rgb(57,118,244)',
+                    data: [5, 0, 5, 0, 5, 15, 0]
+                }, {
+                    label: 'IA',
+                    backgroundColor: 'rgb(239,151,54, 0.0)',
+                    borderColor: 'rgb(239,151,54)',
+                    data: [1, 1, 1, 2, 3, 1, 5]
+                },{
+                    label: 'Gaiji',
+                    backgroundColor: 'rgb(137,109,254, 0.0)',
+                    borderColor: 'rgb(137,109,254)',
+                    data: [0, 0, 0, 2, 5, 0, 0]
+                },{
+                    label: '所有',
+                    backgroundColor: 'rgb(255, 99, 132, 0.0)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [30, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+            options: {}
+        });
+    }
+
+    function initCardView4() {
+        new CircleProgressBuilder($('#cardview-4 canvas')[0]).setMax(150).setProgress(102).build();
+    }
+
+    function initCardView5() {
+        new LineRateBuilder($('#cardview-5 canvas')[0]).setLabels(['台灣', '中國', '日本']).setRates([51, 27, 12]).build();
+    }
+    
+    function initCardView6() {
+        new CircleRateBuilder($('#cardview-6 canvas')[0]).setLabels(['李泓儒', '章君豪', '陳以祥', '姚遠', '姜政男']).setRates([5, 7, 2, 6, 3]).build();
+    }
+
+    function initReportDatePicker() {
+        $('.datepicker').daterangepicker({
+            locale: {
+                format: "YYYY/MM/DD",
+                applyLabel: '確認',
+                cancelLabel: '取消',
+                fromLabel: '從',
+                toLabel: '到',
+                weekLabel: 'W',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+                monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            }
+        }, function(start, end, label) {
+            setDateText(start, end);
+        });
+
+        let today = moment(new Date());
+        let preMonth = moment().add(-1, 'months');
+        $('.datepicker').data('daterangepicker').setStartDate(preMonth);
+        $('.datepicker').data('daterangepicker').setEndDate(today);
+        setDateText(preMonth, today);
+
+        function setDateText(start, end) {
+            let startDateStr = start.format('YYYY.MM.DD');
+            let endDateStr = end.format('YYYY.MM.DD');
+            if (start.year() == end.year()) {
+                startDateStr = start.format('MM.DD');
+                endDateStr = end.format('MM.DD');
+                if (start.month() == end.month()) {
+                    endDateStr = end.format('DD');
+                }
+            }
+            $('.datepicker span').html(startDateStr + ' - ' + endDateStr);
+        }
+    }
+
+</script>
