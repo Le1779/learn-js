@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="upload-file-view.css">
+    <style>
+        body {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upload-file-view">
+        <div class="upload-file-view-input">
+            <span class="content"></span>
+            <input type="file" id="fileInput">
+        </div>
+        <div class="upload-file-view-button"></div>
+    </div>
+</body></html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="upload-file-view.js"></script>
+<script type="text/javascript">
+    let uploadFileView;
+    $(document).ready(function() {
+        uploadFileView = new UploadFileView(callback);
+    });
+
+    function callback() {
+        setTimeout(function() {
+            uploadFileView.endLoad();
+        }, 2000);
+    }
+
+</script>

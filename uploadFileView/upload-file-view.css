@@ -1,0 +1,170 @@
+*, ::after, ::before{
+    box-sizing: border-box;
+}
+
+.upload-file-view {
+    position: relative;
+    height: 40px;
+    width: 200px;
+    margin-left: 24px;
+    margin-bottom: 5px;
+}
+
+.upload-file-view-button {
+    position: absolute;
+    top: 0;
+    height: 40px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 0 5px 0 #ccc;
+    padding-left: 40px;
+    padding-right: 24px;
+    line-height: 40px;
+    font-weight: bold;
+    float: left;
+    transition: all 2s, color 1s;
+    overflow: hidden;
+}
+
+.upload-file-view-button:hover {
+    box-shadow: 0 0 5px 0 #333;
+}
+
+.upload-file-view-button::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 10px;
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid orange;
+    border-right: 2px solid red;
+    opacity: .7;
+    transition: all .5s;
+}
+
+.upload-file-view-button::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    left: 18px;
+    top: 18px;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid blue;
+    border-left: 2px solid green;
+    opacity: .7;
+    transition: all .5s;
+}
+
+.upload-file-view-button.expand {
+    width: 40px;
+    margin-left: 180px;
+    padding: 0;
+    color: transparent;
+}
+
+.upload-file-view-button.expand::before {
+    top: 16px;
+    left: 16px;
+    width: 15px;
+    height: 10px;
+    border: 0;
+    border-bottom: 2px solid orange;
+    transform: rotate(90deg);
+}
+
+.upload-file-view-button.expand::after {
+    left: 15px;
+    top: 10px;
+    transform: rotate(45deg);
+}
+
+.upload-file-view-button.load::before {
+    top: 20px;
+    left: 20px;
+    width: 10px;
+    height: 10px;
+    border: 0;
+    background-color: orange;
+    border-radius: 5px;
+    transform-origin: 0px 0px;
+    animation: beforeRotate 2s infinite linear;
+}
+
+.upload-file-view-button.load::after {
+    left: 20px;
+    top: 20px;
+    border: 0;
+    background-color: blue;
+    border-radius: 5px;
+    transform-origin: 0px 0px;
+    animation: afterRotate 2s infinite linear;
+}
+
+@keyframes afterRotate {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    30% {
+        transform: scale(1.5) rotate(90deg);
+    }
+
+    70% {
+        transform: scale(1.2) rotate(270deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@keyframes beforeRotate {
+    0% {
+        transform: scale(1.5) rotate(0deg);
+    }
+
+    30% {
+        transform: scale(1.2) rotate(180deg);
+    }
+
+    70% {
+        transform: scale(1) rotate(270deg);
+    }
+
+    100% {
+        transform: scale(1.5) rotate(360deg);
+    }
+}
+
+.upload-file-view-input {
+    position: absolute;
+    background-color: white;
+    top: 5px;
+    height: 30px;
+    width: 0px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: #555;
+    box-shadow: 0 0 5px 0 #ccc;
+    overflow: hidden;
+    padding-left: 20px;
+    color: #FFF;
+    line-height: 30px;
+
+    transition: all 2s;
+}
+
+.upload-file-view-input.expand {
+    width: 200px;
+}
+
+.upload-file-view-input input {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+}
