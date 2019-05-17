@@ -1,11 +1,13 @@
-*, ::after, ::before{
+*,
+::after,
+::before {
     box-sizing: border-box;
 }
 
 .upload-file-view {
     position: relative;
     height: 40px;
-    width: 200px;
+    width: 300px;
     margin-left: 24px;
     margin-bottom: 5px;
 }
@@ -155,7 +157,7 @@
     padding-left: 20px;
     color: #FFF;
     line-height: 30px;
-
+    text-align: left;
     transition: all 2s;
 }
 
@@ -167,4 +169,113 @@
     position: absolute;
     left: 0;
     opacity: 0;
+}
+
+.upload-file-view-input .content {
+    position: absolute;
+    background: #555;
+}
+
+.upload-file-view .example {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    height: 40px;
+    width: 40px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 0 5px 0 #ccc;
+    line-height: 40px;
+    font-weight: bold;
+    float: left;    
+    padding: 8px;
+    opacity: 0;
+    transition: all 0s;
+}
+
+.upload-file-view .example:hover {
+    box-shadow: 0 0 5px 0 #333;
+}
+
+.upload-file-view .example.expand {
+    top: 0px;
+    left: 230px;
+    opacity: 1;
+    transition: all 1s, opacity 0.5s;
+    transition-delay: 1.5s;
+}
+
+.upload-file-view .example a{
+    position: absolute;
+    top: 0;
+    left: -5px;
+    height: 40px;
+    width: 50px;
+    color: #aaa;
+    font-size: 10px;
+}
+
+.upload-file-view .example a::before{
+    content: "下載範本";
+    position: absolute;
+    top: 30px;
+    left: 0;
+}
+
+.upload-file-view-error {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    opacity: 0;
+    font-size: 10px;
+    color: #FF0000;
+    line-height: 30px;
+    transition: opacity, bottom 1s;
+}
+
+.upload-file-view-error.show {
+    bottom: -17px;
+    left: 20px;
+    opacity: 1;
+    transition-delay: 1s;
+}
+
+.upload-file-view-button.success::before {
+    top: 10px;
+    left: 10px;
+    width: 20px;
+    height: 10px;
+    border: 0;
+    border-bottom: 3px solid orange;
+    transform: rotate(-45deg);
+}
+
+.upload-file-view-button.success::after {
+    left: 10px;
+    top: 15px;
+    border: 0;
+    border-bottom: 3px solid blue;
+    transform: rotate(45deg);
+}
+
+.upload-file-view-button.fail::before {
+    top: 12px;
+    left: 7px;
+    width: 20px;
+    height: 10px;
+    border: 0;
+    border-bottom: 3px solid orange;
+    transform: rotate(-45deg);
+}
+
+.upload-file-view-button.fail::after {
+    left: 12px;
+    top: 12px;
+    width: 20px;
+    height: 10px;
+    border: 0;
+    border-bottom: 3px solid red;
+    transform: rotate(45deg);
 }
