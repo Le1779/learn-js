@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="order-table.css">
+    <style>
+        #test-table{
+            display: table;
+            opacity: 0;
+        }
+        
+        .table-header{
+            display: table-row;
+        }
+        
+        .label{
+            display: table-cell;
+        }
+        
+        .table-body{
+            display: table-row;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test-table">
+        <div class="table-header">
+            <div class="label">XXX</div>
+            <div class="label">XXX</div>
+            <div class="label">XXX</div>
+            <div class="label">XXX</div>
+            <div class="label">XXX</div>
+        </div>
+        <div class="table-body">
+            <div class="table-row"></div>
+        </div>
+    </div>
+    <div id="table"></div>
+</body>
+
+</html>
+<script src="../../script/jquery-3.3.1.min.js"></script>
+<script src="order-table.js"></script>
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+        initTable();
+    });
+
+    function initTable() {
+        table = new OrderTableBuilder($('#table'))
+            .setLabels(['', '工單名稱', '負責人', '客戶名稱', '建立日期', '結案日期'])
+            .build();
+        table.addRow(['工單名稱1', '負責人1', '客戶名稱1', '2019.04.19', '2019.06.19']);
+    }
+
+</script>

@@ -1,0 +1,73 @@
+.order-table-header{
+    display: table-header-group;    
+    font-family: "Microsoft YaHei";
+}
+
+.order-table-header .order-table-label{
+    display: table-cell;
+    text-align: center;
+    opacity: .5;
+    padding-bottom: 12px;
+}
+
+.order-table-body{
+    display: table-row-group;
+    font-family: "Microsoft YaHei";
+}
+
+.order-table-body .order-table-row{
+    display: table-row;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.order-table-body .order-table-row .order-table-column{
+    display: table-cell;
+    padding: 15px 24px;
+}
+
+.order-table-body .order-table-row .order-table-column:nth-child(2){
+    font-size: xx-large;
+}
+
+.order-table-body .order-table-row .order-table-collapse-button{
+    position: relative;
+    display: table-column;
+    transition: all .2s;
+    width: 20px;
+}
+
+.order-table-body .order-table-row .order-table-collapse-button::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    right: 0;
+    bottom: -20%;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    transform: rotate(45deg);
+    opacity: .7;
+    transition: all .5s;
+}
+
+.order-table-body .order-table-row .order-table-collapse-button::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    right: 0;
+    bottom: -100%;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    transform: rotate(-45deg);
+    opacity: .7;
+    transition: all .5s;
+}
