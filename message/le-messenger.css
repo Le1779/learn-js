@@ -1,0 +1,145 @@
+.le-expand-button {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    height: 50px;
+    width: 50px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    background: #fff;
+    box-shadow: 0 0 5px 0 #333;
+    transition: all .2s;
+}
+
+.le-expand-button:hover {
+    box-shadow: 0 0 5px 0 #ccc;
+}
+
+.le-expand-button-icon {
+    margin: 8px;
+}
+
+.le-expand-button:hover .le-expand-menu {
+    display: block;
+    opacity: 1;
+}
+
+body {
+    font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+}
+
+.le-expand-menu {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #333;
+    min-width: 160px;
+    padding: 12px 0px;
+    z-index: 1;
+    transition: all .2s;
+}
+
+.le-expand-menu-item {
+    position: relative;
+    display: block;
+    float: none;
+    background-color: #f9f9f9;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 50px;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    padding: 5px 0px;
+    padding-left: 5px;
+    margin: 10px 0px;
+    overflow: hidden;
+}
+
+.le-expand-menu-item:hover {
+    background-color: #E3E3E3;
+}
+
+.le-expand-menu-item-icon {
+    float: left;
+}
+
+.le-expand-menu-item-title {
+    float: left;
+    transform: translateY(30%);
+    padding-left: 12px;
+}
+
+.le-expand-menu-item-hint {
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    height: 20px;
+    background-color: #FF4C64;
+    color: white;
+    border-radius: 2px;
+    padding: 2px 5px;
+    transform: translate(-80%, 15%);
+    box-shadow: 0 5px 5px 0 rgba(255, 76, 100, 0.14), 0 3px 1px -2px rgba(255, 76, 100, 0.12), 0 1px 5px 0 rgba(255, 76, 100, 0.2);
+    transition: all .5s;
+}
+
+.le-chatroom-list{
+    position: fixed;
+    bottom: 0;
+}
+
+.le-chatroom{
+    display: inline-block;
+    float: left;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 0px 10px;
+    min-width: 200px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+}
+
+.le-chatroom-title{
+    position: relative;
+    height: 32px;
+    padding: 5px 8px;
+}
+
+.le-chatroom-title-close-button{
+    position: absolute;
+    right: 24px;
+    transform: translate(80%, 15%);
+}
+
+.le-chatroom-title-close-button::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 8px;
+    left: 0;
+    width: 16px;
+    height: 1px;
+    background: black;
+    transform: rotate(45deg);
+    opacity: .5;
+    transition: all .5s;
+}
+
+.le-chatroom-title-close-button::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 8px;
+    left: 0;
+    width: 16px;
+    height: 1px;
+    background: black;
+    transform: rotate(-45deg);
+    opacity: .5;
+    transition: all .5s;
+}
