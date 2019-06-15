@@ -85,31 +85,52 @@ body {
     transition: all .5s;
 }
 
-.le-chatroom-list{
+.le-chatroom-list {
     position: fixed;
     bottom: 0;
 }
 
-.le-chatroom{
+.le-chatroom-item {
     display: inline-block;
-    float: left;
+    box-sizing: inherit;
+}
+
+.le-chatroom {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     margin: 0px 10px;
+    margin-bottom: -3px;
     min-width: 200px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+    overflow: hidden;
+}
+
+.le-chatroom-title {
+    position: relative;
+    height: 28px;
+    padding: 8px 8px 0px 8px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
 }
 
-.le-chatroom-title{
-    position: relative;
-    height: 32px;
-    padding: 5px 8px;
+.le-chatroom-title:hover {
+    background-color: #EEE;
 }
 
-.le-chatroom-title-close-button{
+.le-chatroom-title-icon {
+    float: left;
+}
+
+.le-chatroom-title-text {
+    float: left;
+    padding-left: 12px;
+}
+
+.le-chatroom-title-close-button {
     position: absolute;
     right: 24px;
-    transform: translate(80%, 15%);
+    width:28px;
+    height: 28px;
+    transform: translate(80%, 0%);
 }
 
 .le-chatroom-title-close-button::before {
@@ -143,3 +164,97 @@ body {
     opacity: .5;
     transition: all .5s;
 }
+
+.le-chatroom.expand {
+    min-width: 280px;
+}
+
+.le-chatroom.expand .le-chatroom-content {
+    position: relative;
+    height: 320px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.le-chatroom-content {
+    overflow: hidden;
+    opacity: 0;
+    display: none;
+}
+
+.le-chatroom-content-message-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: auto
+}
+
+.le-chatroom-content-send-bar {
+    min-height: inherit;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+}
+
+.le-chatroom-content-send-bar textarea {
+    width: 96%;
+    margin: 0 2%;
+    padding: 8px 0px;
+    border: none;
+    outline: none;
+    resize: none;
+    float: right;
+}
+
+.le-chatroom-content-send-bar textarea:focus::placeholder {
+    color: #AAA;
+}
+
+.le-chatroom-content-button {
+    float: right;
+    width: 100%;
+    padding-bottom: 8px;
+}
+
+.le-chatroom-content-button-send {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding-right: 10px;
+}
+
+.le-chatroom-content-button-send svg{
+     fill: #BEC3C9;
+}
+
+.le-chatroom-content-button-send.focus svg{
+    fill: #FF4C64;
+}
+
+.le-chatroom-content-message{
+}
+
+.le-chatroom-content-message.otherSide .le-chatroom-content-message-text{
+    display: inline-block;
+    float: left;
+    background-color: #f1f0f0;
+    color: #333;
+    border-radius: 50px;
+    padding: 5px 10px;
+    margin: 5px 0px;
+    margin-left: 5px;
+}
+
+.le-chatroom-content-message .le-chatroom-content-message-text{
+    display: inline-block;
+    float: right;
+    background-color: #3578e5;
+    color: white;
+    border-radius: 50px;
+    padding: 5px 10px;
+    margin: 5px 0px;
+    margin-right: 5px;
+}
+
