@@ -10,9 +10,11 @@ var setMessage = function (messages) {
 
 let leMessenger;
 let expandMenu;
+let chartroom = [];
 
 $(document).ready(function () {
     initView();
+    addWindowEvent();
 });
 
 function initView() {
@@ -76,8 +78,6 @@ function initExpandMenu(items) {
         expandMenu.append(html);
     });
 }
-
-let chartroom = [];
 
 function showChatroom(name) {
     let chatroomList = $('.le-chatroom-list');
@@ -197,14 +197,17 @@ function showChatroom(name) {
             messageContainer.append(html);
         }
     }
+    
+}
 
-    function hideChatroom(name) {
+function hideChatroom(name) {
         $('#le-chatroom-' + name).remove();
         if ($.inArray(name, chartroom) != -1) {
             delete chartroom[$.inArray(name, chartroom)];
+            chartroom.length = chartroom.length - 1;
+            console.log(chartroom);
         }
     }
-}
 
 function textareaAutoGrow(textarea) {
     setTimeout(function () {
@@ -216,4 +219,17 @@ function textareaAutoGrow(textarea) {
         }
     }, 0);
 
+}
+
+
+function addWindowEvent(){
+    $(window).resize(function() {
+        let amount = chartroom.length;
+        let windowWdth=$(window).width();
+        console.log(amount);
+        console.log(windowWdth);
+        if(amount * 300 + 80 > windowWdth){
+            hideChatroom(chartroom[amount-1]);
+        }
+    });
 }
