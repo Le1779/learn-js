@@ -1,0 +1,348 @@
+.notification_container {
+    margin: auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.notification_setting_container {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    float: left;
+}
+
+.notification_setting {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin: 24px 48px;
+    margin-right: 24px;
+    padding: 48px 24px;
+    overflow: auto;
+
+    display: grid;
+    grid-template-rows: 8% auto 10%;
+}
+
+.notification_setting_title {
+    position: relative;
+    font-size: x-large;
+    padding-bottom: 5px;
+}
+
+.notification_setting_title:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid #333;
+}
+
+.notification_setting_content {
+    padding-top: 24px;
+    display: grid;
+    grid-template-rows: 20% auto 20%;
+}
+
+.notification_setting_input {
+    padding-bottom: 24px;
+}
+
+.notification_setting_input .title {
+    opacity: 0.7;
+    font-size: small;
+}
+
+.notification_setting_input input,
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px 0 24px 0;
+    padding: 8px;
+    vertical-align: middle;
+    background-color: #fff;
+    outline: none;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    box-shadow: 0 0 0 2px transparent inset, 0 0 0 1px #e0e0e0 inset;
+
+    border: 2px solid transparent;
+    transition: all .5s;
+}
+
+.notification_setting_input input:focus,
+textarea:focus {
+    border: 2px solid #039BE5;
+}
+
+.notification_setting_input input.error,
+textarea.error {
+    border: 2px solid #FF5252;
+}
+
+.notification_setting_input textarea {
+    resize: none;
+    overflow: hidden;
+    height: 100%;
+}
+
+.notification_setting_button {
+    display: inline-block;
+    float: right;
+    background: #4285F4;
+    color: #fff;
+    padding: 5px 15px;
+    margin: 5px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+}
+
+.notification_setting_button:hover {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.notification_setting_error_message{
+    color: red;
+}
+
+.notification_list_container {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    float: left;
+}
+
+.notification_list {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin: 24px 48px;
+    margin-left: 24px;
+    padding: 48px 24px;
+    overflow: auto;
+    background-color: #181D2D;
+}
+
+.notification_list_title {
+    position: relative;
+    font-size: x-large;
+    padding-bottom: 5px;
+    color: white;
+}
+
+.notification_list_title:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid white;
+}
+
+
+.notification_list_content {
+    padding-top: 24px;
+}
+
+.notification_list_item {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.12), 0 1px 2px rgba(255, 255, 255, 0.24);
+    background-color: white;
+    padding: 24px 24px;
+    margin-bottom: 24px;
+
+    display: grid;
+    grid-template-columns: auto 40%;
+    grid-template-rows: 40px auto;
+    grid-template-areas:
+        "title time"
+        "main main";
+}
+
+.notification_list_item:hover .notification_remove {
+    display: block;
+}
+
+.notification_remove {
+    display: none;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #d1d1d1;
+    right: 0;
+    transform: translate(30%, -30%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.notification_remove:hover {
+    box-shadow: none;
+}
+
+.notification_remove::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0px;
+    left: 0;
+    width: 16px;
+    height: 2px;
+    background: black;
+    transform: rotate(45deg);
+    opacity: .7;
+    transition: all .5s;
+}
+
+.notification_remove::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0px;
+    left: 0;
+    width: 16px;
+    height: 2px;
+    background: black;
+    transform: rotate(-45deg);
+    opacity: .6;
+    transition: all .5s;
+}
+
+.notification_title {
+    grid-area: title;
+    font-size: x-large;
+    line-height: 40px;
+    white-space: nowrap;
+}
+
+.notification_time {
+    grid-area: time;
+    border-radius: 10px;
+    background-color: #d1d1d1;
+    text-align: center;
+    line-height: 40px;
+    overflow: hidden;
+}
+
+.notification_message {
+    grid-area: main;
+    padding: 0px 12px;
+    padding-top: 10px;
+}
+
+@media screen and (max-width: 1080px) {
+    .notification_setting_container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .notification_list_container {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.notification_reomve_dialog {
+    display: none;
+}
+
+.notification_reomve_dialog.show {
+    display: block;
+}
+
+.notification_reomve_dialog .layer-mask {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    left: 0;
+    position: fixed;
+    top: 0;
+    opacity: 0.5;
+}
+
+.notification_reomve_dialog .content {
+    position: fixed;
+    margin: auto;
+    padding: 24px 24px;
+    min-width: 300px;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 2px #555;
+    overflow: hidden;
+}
+
+.dialog_message {
+    font-size: x-large;
+}
+
+.dialog_error_message{
+    padding-top: 24px;
+    color: red;
+}
+
+.dialog_button_group {
+    padding-top: 24px;
+}
+
+.dialog_button_cancel, .dialog_button_remove {
+    display: inline-block;
+    float: right;
+    padding: 2px 5px;
+}
+
+.dialog_button_cancel:hover, .dialog_button_remove:hover {
+    border-radius: 5px;
+    background-color: #d1d1d1;
+    opacity: .9;
+}
+
+.dialog_button_cancel {
+    opacity: .7;
+}
+
+.dialog_button_remove {
+    color: red;
+    opacity: .9;
+}
+
+.loader {
+    display: none;
+    margin-left: 5px;
+    border: 5px solid transparent;
+    border-top: 5px solid #888888;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    animation: spin 2s linear infinite;
+}
+
+.loader.show {
+    display: inline-flex;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

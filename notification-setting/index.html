@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="le-notification-setting.css" />
+    <style>
+        body {
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+
+            width: 80vw;
+            height: 80vh;
+        }
+
+        div {
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <div class="notification_container">
+        <div class="notification_setting_container">
+            <div class="notification_setting">
+                <div class="notification_setting_title">設定通知</div>
+                <div class="notification_setting_content">
+                    <div class="notification_setting_input">
+                        <div class="title">通知標題</div>
+                        <input type="text" id="notification_title" class="" placeholder="通知標題">
+                    </div>
+                    <div class="notification_setting_input">
+                        <div class="title">通知內容</div>
+                        <textarea id="notification_message" rows="2" placeholder="通知內容"></textarea>
+                    </div>
+                    <div class="notification_setting_input">
+                        <div class="title">排定時間</div>
+                        <input type="text" id="notification_date" class="datepicker dateRangePicker" placeholder="排定時間">
+                    </div>
+                </div>
+                <div class="notification_setting_button_group">
+                    <div class="notification_setting_button" onclick="createNotification()">
+                        送出
+                        <div class="loader"></div>
+                    </div>
+                    <div class="notification_setting_error_message"></div>
+                </div>
+            </div>
+        </div>
+        <div class="notification_list_container">
+            <div class="notification_list">
+                <div class="notification_list_title">通知列表</div>
+                <div class="notification_list_content">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="notification_reomve_dialog">
+        <div class="layer-mask"></div>
+        <div class="content">
+            <div class="dialog_message">確認要刪除?</div>
+            <div class="dialog_error_message"></div>
+            <div class="dialog_button_group">
+                <div class="dialog_button_remove">
+                刪除
+                <div class="loader"></div>
+                </div>
+                <div class="dialog_button_cancel">取消</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="le-notification-setting.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript">
+
+</script>

@@ -1,0 +1,22 @@
+{
+  "short_name": "XXX",
+  "name": "XXXXXX",
+  "icons": [
+    {
+      "src": "./logo/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./logo/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000000",
+  "gcm_sender_id": "103953800507"
+}

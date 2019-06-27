@@ -1,0 +1,3 @@
+
+openssl pkcs12 -export -in localhost-rsa-cert.pem -inkey private.key  -certfile localhost-rsa-key.pem -out sample.pfx
+openssl pkcs12 -export -out newfile.pfx -inkey privcert.key -in localhost-rsa-key.pem -certfile localhost-rsa-cert.pem
