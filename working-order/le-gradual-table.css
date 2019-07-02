@@ -1,0 +1,129 @@
+#gradual-table {
+    position: relative;
+    width: 70vw;
+    height: 80vh;
+    margin: auto;
+    margin-top: 10vh;
+}
+
+#gradual-table-head {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 10% 10% 10% 10% 10% 10% 10%;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.gradual-table-item {
+    width: 100%;
+    height: 10vh;
+    background-color: #F1F1F1;
+    display: grid;
+    grid-template-columns: 30% 10% 10% 10% 10% 10% 10% 10%;
+}
+
+.gradual-table-item .gradual-table-columns {
+    position: relative;
+    display: grid;
+    grid-template-columns: 42px auto;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14);
+    padding: 5px;
+    color: #333;
+}
+
+
+.gradual-table-item .gradual-table-columns.active {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.25), 0 0px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.25), 3px 2px 5px rgba(0, 0, 0, 0.22);
+    z-index: 1;
+}
+
+.gradual-table-item .project-name-and-id {
+    display: block;
+    justify-items: left;
+    text-align: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    background-color: #F5F5F5;
+}
+
+.project-name {
+    font-size: x-large;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-id {
+    opacity: .5;
+}
+
+.gradual-table-item .icon {
+    padding: 0;
+}
+
+.gradual-table-item .principal {}
+
+.gradual-table-columns.action {
+    grid-template-columns: auto;
+    background-color: #F1F1F1;
+}
+
+.edit-button {
+    position: relative;
+    height: 36px;
+    width: 36px;
+    background-color: #E63061;
+    box-shadow: 0 3px 5px rgba(230, 48, 97, 0.25), 0 3px 5px rgba(230, 48, 97, 0.22);
+    border-radius: 28px;
+}
+
+.edit-button svg {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
+
+.info-button{
+    position: relative;
+    height: 36px;
+    width: 36px;
+    background-color: #5A5A5A;
+    box-shadow: 0 3px 5px rgba(90, 90, 90, 0.25), 0 3px 5px rgba(90, 90, 90, 0.22);
+    border-radius: 28px;
+}
+
+.info-button:hover{
+    box-shadow: 0 0px 3px rgba(90, 90, 90, 0.25), 0 0px 3px rgba(90, 90, 90, 0.22);
+}
+
+.info-button svg {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
+
+#gradual-table-toolbar{
+    display: inline-block;
+    float: right;    
+}
+
+#gradual-table-toolbar div{
+    float: left;
+    margin: 12px 4px;
+    padding: 8px 12px;
+    background-color: #F1F1F1;
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14);
+}
+
+#gradual-table-toolbar div:hover{
+    box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.24);
+}
+
+#gradual-table-length{
+}

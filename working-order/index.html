@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="le-gradual-table.css" />
+    <style>
+        body {
+            background-color: #F7F7F7;
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei" !important;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="gradual-table">
+        <div id="gradual-table-head">
+            <div>工單名稱</div>
+            <div>PM</div>
+            <div>FD</div>
+            <div>Retail</div>
+            <div>IA</div>
+            <div>Gaiji</div>
+            <div>QA</div>
+            <div>
+               每頁顯示:
+                <select id="gradual-table-length">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+        </div>
+        <div id="gradual-table-body"></div>
+        <div id="gradual-table-toolbar"></div>
+    </div>
+</body>
+
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="le-gradual-table.js"></script>
+<script type="text/javascript">
+    var fakeData = [{
+        "AppInstanceID": "WO-20180416-FEE8",
+        "ProjectName": "Test TT-DFFNB5_TVB",
+        "PM": [],
+        "FD": ["簡亨儒", "簡亨儒"],
+        "Retail": [],
+        "IA": [],
+        "Gaiji": ["謝明憲"],
+        "QA": []
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": ["謝明憲"],
+        "FD": [],
+        "Retail": [],
+        "IA": [],
+        "Gaiji": [],
+        "QA": []
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": [],
+        "FD": [],
+        "Retail": ["謝明憲"],
+        "IA": ["謝明憲"],
+        "Gaiji": [],
+        "QA": ["謝明憲"]
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": [],
+        "FD": [],
+        "Retail": [],
+        "IA": ["謝明憲"],
+        "Gaiji": [],
+        "QA": []
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": ["謝明憲"],
+        "FD": [],
+        "Retail": [],
+        "IA": [],
+        "Gaiji": [],
+        "QA": []
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": [],
+        "FD": [],
+        "Retail": ["謝明憲"],
+        "IA": ["謝明憲"],
+        "Gaiji": [],
+        "QA": ["謝明憲"]
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": [],
+        "FD": [],
+        "Retail": [],
+        "IA": ["謝明憲"],
+        "Gaiji": [],
+        "QA": []
+    }];
+
+
+    $(document).ready(function() {
+        let gradualTable = new GradualTable();
+        gradualTable.setData(fakeData);
+    });
+
+</script>

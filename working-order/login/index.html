@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #F5F5F5;
+                font-family: "DFP King Gothic TC Regular", "Microsoft YaHei" !important;
+        }
+
+        .view-container {
+            width: 70vw;
+            height: 70vh;
+            margin: 0 auto;
+            margin-top: 15vh;
+            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.12), 0 1px 15px rgba(0, 0, 0, 0.24);
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: auto 40%;
+            overflow: hidden;
+        }
+
+        .login-container {
+            padding: 48px 96px;
+            display: grid;
+            grid-template-rows: 40% auto auto auto auto auto auto auto;
+        }
+        
+        .logo{
+            overflow: hidden;
+        }
+        
+        .logo svg{
+            height: 100%;
+        }
+
+        .bulletin-container {
+            background-color: #5C5B59;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="view-container">
+        <div class="bulletin-container"></div>
+        <div class="login-container">
+            <div class="logo">
+                <svg viewBox="0 0 480 600">
+                    <rect x="10" y="10" rx="10" ry="10" width="140" height="60" style="fill:black; opacity:0.65" />
+                    <rect x="170" y="10" rx="10" ry="10" width="140" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="330" y="10" rx="10" ry="10" width="140" height="60" style="fill:black; opacity:0.45" />
+                    <rect x="10" y="90" rx="10" ry="10" width="140" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="170" y="90" rx="10" ry="10" width="140" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="330" y="90" rx="10" ry="10" width="140" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="10" y="170" rx="10" ry="10" width="100" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="130" y="170" rx="10" ry="10" width="100" height="60" style="fill:#E63061; opacity:1" />
+                    <rect x="250" y="170" rx="10" ry="10" width="100" height="60" style="fill:black; opacity:0.65" />
+                    <rect x="370" y="170" rx="10" ry="10" width="100" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="10" y="250" rx="10" ry="10" width="100" height="60" style="fill:black; opacity:0.5" />
+                    <rect x="130" y="250" rx="10" ry="10" width="100" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="250" y="250" rx="10" ry="10" width="100" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="370" y="250" rx="10" ry="10" width="100" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="10" y="330" rx="10" ry="10" width="220" height="60" style="fill:black; opacity:0.65" />
+                    <rect x="250" y="330" rx="10" ry="10" width="220" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="10" y="410" rx="10" ry="10" width="220" height="60" style="fill:black; opacity:0.83" />
+                    <rect x="250" y="410" rx="10" ry="10" width="220" height="60" style="fill:black; opacity:0.65" />
+                    <text fill="#000000" font-size="97" font-family="DFP King Gothic TC Regular" font-weight="bold" x="10" y="580" opacity="0.83">DynaFont</text>
+                </svg>
+            </div>
+            <div class="title">
+                <h1>字型工單管理系統</h1>
+            </div>
+            <div class="account">
+                <input type="text" id="inputAccount" name="inputAccount" class="form-control text-center" placeholder="帳號" required autofocus>
+            </div>
+            <div class="password">
+                <input type="password" id="inputPassword" name="inputPassword" class="form-control text-center" placeholder="密碼" required>
+            </div>
+            <div class="password-hint">
+                第一次登入預設密碼為：12345678
+            </div>
+            <div class="system-hint">建議瀏覽器:Google Chrome、Mozilla Firefox.</div>
+            <div class="copyright">&copy; DynaComware. 2018-2019</div>
+            <div class="version">版本:2019.6.838.82</div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+</script>
