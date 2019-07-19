@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei" !important;
+        }
+
+        .error-gif {          
+        }
+
+        .error-gif img {
+            position: fixed;
+            top: -10vw;
+            left: 0;
+            width: 100vw;
+        }
+
+        .error-message {
+            position: fixed;
+            width: 100vw;
+            line-height: 100vh;  
+            text-align: center;
+            color: white;
+            z-index: 2;
+            font-size: large;
+        }
+
+        .error-gif::after {
+            content: "";
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background-color: black;
+            opacity: .6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-gif">
+        <img src="error.gif" alt="error">
+        <div class="error-message">
+            系統內部發生錯誤，請聯絡系統管理人員~ 系統人員分機:282、658、676。
+        </div>
+    </div>
+</body></html>

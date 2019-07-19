@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="le-error.css" />
+    <style>
+        body {
+            background-color: #F7F7F7;
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei" !important;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="ripple" ></canvas>
+    <h5>TEST</h5>
+</body></html>
+<script src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="le-error.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        new ErrorViewBuilder($('#ripple')[0]).build();
+    });
+
+</script>
