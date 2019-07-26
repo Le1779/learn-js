@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="le-calendar.css" />
+</head>
+
+<body>
+    <div class="previous_month">←</div>
+    <div class="next_month">→</div>
+    <canvas id="calendar" style="width: 100%;"></canvas>
+</body></html>
+<script src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="le-calendar.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        let calendear = new CalendarBuilder($('#calendar')[0]).build();
+        
+        $('.previous_month').click(function(){
+            calendear.previous();
+        });
+        
+        $('.next_month').click(function(){
+            calendear.next();
+        });
+    });
+
+</script>

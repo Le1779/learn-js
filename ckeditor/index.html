@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="editor">
+        <h1>Hello world!</h1>
+        <p>I'm an instance of <a href="https://ckeditor.com">CKEditor</a>.</p>
+    </div>
+
+    <div id="editor2">
+        <h1>Hello world!</h1>
+        <p>I'm an instance of <a href="https://ckeditor.com">CKEditor</a>.</p>
+    </div>
+</body>
+
+</html>
+<script src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        //var editorElement = CKEDITOR.document.getById('editor');
+        CKEDITOR.replace('editor');
+
+        //var editorElement2 = CKEDITOR.document.getById('editor2');
+        
+
+        var toolbar_config_A = {
+            toolbar: [['Source'], ['Bold','Italic','Underline','Strike'], ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink'], ['NumberedList','BulletedList'], ['FontSize','Format','TextColor']]
+        };
+        CKEDITOR.replace('editor2', toolbar_config_A);
+        //editorElement2.config.removeButtons = 'Iframe,Pagebreak';
+        //config.toolbar = [ ['Bold','Italic','Underline','Strike','JustifyLeft','JustifyCenter','JustifyRight'], ['Image','Table','HorizontalRule','SpecialChar'], ['TextColor','BGColor','RemoveFormat','Font','FontSize','Source'] ]
+    });
+</script>
