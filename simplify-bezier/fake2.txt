@@ -1,0 +1,250 @@
+0: Point {x: 287, y: 137}
+1: Point {x: 286, y: 137}
+2: Point {x: 282, y: 140}
+3: Point {x: 278, y: 142}
+4: Point {x: 273, y: 144}
+5: Point {x: 268, y: 149}
+6: Point {x: 263, y: 152}
+7: Point {x: 259, y: 153}
+8: Point {x: 255, y: 156}
+9: Point {x: 252, y: 157}
+10: Point {x: 249, y: 159}
+11: Point {x: 248, y: 160}
+12: Point {x: 246, y: 162}
+13: Point {x: 245, y: 163}
+14: Point {x: 244, y: 164}
+15: Point {x: 242, y: 167}
+16: Point {x: 241, y: 170}
+17: Point {x: 239, y: 173}
+18: Point {x: 238, y: 177}
+19: Point {x: 236, y: 180}
+20: Point {x: 236, y: 184}
+21: Point {x: 235, y: 187}
+22: Point {x: 235, y: 191}
+23: Point {x: 235, y: 194}
+24: Point {x: 235, y: 196}
+25: Point {x: 235, y: 200}
+26: Point {x: 237, y: 201}
+27: Point {x: 238, y: 204}
+28: Point {x: 240, y: 207}
+29: Point {x: 243, y: 208}
+30: Point {x: 245, y: 210}
+31: Point {x: 250, y: 214}
+32: Point {x: 254, y: 215}
+33: Point {x: 258, y: 220}
+34: Point {x: 262, y: 221}
+35: Point {x: 267, y: 224}
+36: Point {x: 271, y: 225}
+37: Point {x: 275, y: 227}
+38: Point {x: 279, y: 228}
+39: Point {x: 284, y: 228}
+40: Point {x: 288, y: 228}
+41: Point {x: 291, y: 228}
+42: Point {x: 294, y: 226}
+43: Point {x: 296, y: 225}
+44: Point {x: 298, y: 224}
+45: Point {x: 299, y: 222}
+46: Point {x: 301, y: 221}
+47: Point {x: 301, y: 219}
+48: Point {x: 302, y: 218}
+49: Point {x: 302, y: 216}
+50: Point {x: 302, y: 214}
+51: Point {x: 302, y: 212}
+52: Point {x: 300, y: 209}
+53: Point {x: 299, y: 208}
+54: Point {x: 297, y: 207}
+55: Point {x: 296, y: 205}
+56: Point {x: 295, y: 204}
+57: Point {x: 293, y: 202}
+58: Point {x: 290, y: 201}
+59: Point {x: 286, y: 198}
+60: Point {x: 282, y: 197}
+61: Point {x: 279, y: 195}
+62: Point {x: 276, y: 195}
+63: Point {x: 272, y: 194}
+64: Point {x: 269, y: 194}
+65: Point {x: 265, y: 194}
+66: Point {x: 261, y: 194}
+67: Point {x: 258, y: 196}
+68: Point {x: 253, y: 197}
+69: Point {x: 249, y: 198}
+70: Point {x: 245, y: 200}
+71: Point {x: 242, y: 201}
+72: Point {x: 238, y: 203}
+73: Point {x: 236, y: 204}
+74: Point {x: 234, y: 207}
+75: Point {x: 231, y: 210}
+76: Point {x: 229, y: 211}
+77: Point {x: 228, y: 215}
+78: Point {x: 226, y: 218}
+79: Point {x: 225, y: 221}
+80: Point {x: 224, y: 224}
+81: Point {x: 222, y: 228}
+82: Point {x: 222, y: 232}
+83: Point {x: 221, y: 235}
+84: Point {x: 221, y: 237}
+85: Point {x: 221, y: 238}
+86: Point {x: 223, y: 240}
+87: Point {x: 224, y: 241}
+88: Point {x: 225, y: 242}
+89: Point {x: 228, y: 245}
+90: Point {x: 231, y: 248}
+91: Point {x: 233, y: 250}
+92: Point {x: 235, y: 251}
+93: Point {x: 238, y: 252}
+94: Point {x: 240, y: 254}
+95: Point {x: 244, y: 255}
+96: Point {x: 248, y: 257}
+97: Point {x: 251, y: 258}
+98: Point {x: 255, y: 259}
+99: Point {x: 260, y: 259}
+100: Point {x: 265, y: 261}
+101: Point {x: 271, y: 261}
+102: Point {x: 277, y: 261}
+103: Point {x: 282, y: 261}
+104: Point {x: 288, y: 261}
+105: Point {x: 294, y: 261}
+106: Point {x: 298, y: 261}
+107: Point {x: 304, y: 260}
+108: Point {x: 308, y: 259}
+109: Point {x: 312, y: 258}
+110: Point {x: 316, y: 256}
+111: Point {x: 319, y: 256}
+112: Point {x: 321, y: 255}
+113: Point {x: 322, y: 255}
+114: Point {x: 323, y: 255}
+115: Point {x: 325, y: 255}
+116: Point {x: 326, y: 255}
+
+0: Segment
+curve: (...)
+handleIn: (...)
+handleOut: (...)
+index: (...)
+location: (...)
+next: (...)
+path: (...)
+point: (...)
+previous: (...)
+selected: (...)
+selection: (...)
+_handleIn: SegmentPoint {_x: 0, _y: 0, _owner: Segment}
+_handleOut: SegmentPoint {_x: -5.318790009770623, _y: 0, _owner: Segment}
+_index: 0
+_path: Path {_closed: false, _segments: Array(7), _version: 118, _curves: undefined, _segmentSelection: 0, ¡K}
+_point: SegmentPoint {_x: 287, _y: 137, _owner: Segment}
+className: (...)
+__proto__: Base
+1: Segment
+curve: (...)
+handleIn: (...)
+handleOut: (...)
+index: (...)
+location: (...)
+next: (...)
+path: (...)
+point: (...)
+previous: (...)
+selected: (...)
+selection: (...)
+_handleIn: SegmentPoint {_x: 3.7914545749254103, _y: -3.033163659940328, _owner: Segment}
+_handleOut: SegmentPoint {_x: -14.75554617719726, _y: 11.804436941757814, _owner: Segment}
+_index: 1
+_path: Path {_closed: false, _segments: Array(7), _version: 118, _curves: undefined, _segmentSelection: 0, ¡K}
+_point: SegmentPoint {_x: 268, _y: 149, _owner: Segment}
+className: (...)
+__proto__: Base
+2: Segment
+curve: (...)
+handleIn: (...)
+handleOut: (...)
+index: (...)
+location: (...)
+next: (...)
+path: (...)
+point: (...)
+previous: (...)
+selected: (...)
+selection: (...)
+_handleIn: SegmentPoint {_x: -10.844288235660713, _y: -27.11072058915181, _owner: Segment}
+_handleOut: SegmentPoint {_x: 8.94953429826387, _y: 22.373835745659648, _owner: Segment}
+_index: 2
+_path: Path {_closed: false, _segments: Array(7), _version: 118, _curves: undefined, _segmentSelection: 0, ¡K}
+_point: SegmentPoint {_x: 235, _y: 200, _owner: Segment}
+className: (...)
+__proto__: Base
+3: Segment
+curve: (...)
+handleIn: (...)
+handleOut: (...)
+index: (...)
+location: (...)
+next: (...)
+path: (...)
+point: (...)
+previous: (...)
+selected: (...)
+selection: (...)
+_handleIn: SegmentPoint {_x: 11.757150912312227, _y: 29.392877280780596, _owner: Segment}
+_handleOut: SegmentPoint {_x: -12.999812803455768, _y: -32.49953200863948, _owner: Segment}
+_index: 3
+_path: Path {_closed: false, _segments: Array(7), _version: 118, _curves: undefined, _segmentSelection: 0, ¡K}
+_point: SegmentPoint {_x: 302, _y: 212, _owner: Segment}
+className: (...)
+__proto__: Base
+4: Segment
+curve: (...)
+handleIn: (...)
+handleOut: (...)
+index: (...)
+location: (...)
+next: (...)
+path: (...)
+point: (...)
+previous: (...)
+selected: (...)
+selection: (...)
+_handleIn: SegmentPoint {_x: 12.774045868563974, _y: -29.8061070266493, _owner: Segment}
+_handleOut: SegmentPoint {_x: -0.97391292979475, _y: 2.2724635028544355, _owner: Segment}
+_index: 4
+_path: Path {_closed: false, _segments: Array(7), _version: 118, _curves: undefined, _segmentSelection: 0, ¡K}
+_point: SegmentPoint {_x: 224, _y: 224, _owner: Segment}
+className: (...)
+__proto__: Base
+5: Segment
+curve: (...)
+handleIn: (...)
+handleOut: (...)
+index: (...)
+location: (...)
+next: (...)
+path: (...)
+point: (...)
+previous: (...)
+selected: (...)
+selection: (...)
+_handleIn: SegmentPoint {_x: -1.7801991949632736, _y: -2.670298792444896, _owner: Segment}
+_handleOut: SegmentPoint {_x: 24.868243718699432, _y: 37.30236557804915, _owner: Segment}
+_index: 5
+_path: Path {_closed: false, _segments: Array(7), _version: 118, _curves: undefined, _segmentSelection: 0, ¡K}
+_point: SegmentPoint {_x: 221, _y: 238, _owner: Segment}
+className: (...)
+__proto__: Base
+6: Segment
+curve: (...)
+handleIn: (...)
+handleOut: (...)
+index: (...)
+location: (...)
+next: (...)
+path: (...)
+point: (...)
+previous: (...)
+selected: (...)
+selection: (...)
+_handleIn: SegmentPoint {_x: -31.467881287403884, _y: 0, _owner: Segment}
+_handleOut: SegmentPoint {_x: 0, _y: 0, _owner: Segment}
+_index: 6
+_path: Path {_closed: false, _segments: Array(7), _version: 118, _curves: undefined, _segmentSelection: 0, ¡K}
+_point: SegmentPoint {_x: 326, _y: 255, _owner: Segment}
+className: (...)

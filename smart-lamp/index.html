@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #lamp {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: #363636;
+            top: 0;
+            left: 0;
+        }
+        
+        #switch{
+            position: fixed;
+            width: 30vw;
+            height: 50vh;
+            margin-top: 30vh;
+            margin-left: 10vw;
+        }
+        
+        .controll_button_group{            
+            position: fixed;
+            left: 12px;            
+            bottom: 10px;
+            display: none;
+        }
+
+        .controll_button {
+            display: inline-block;
+            background-color: white;
+            padding: 8px;
+            margin: 8px;
+            border-radius: 5px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="lamp"></canvas>
+    <canvas id="switch"></canvas>
+    <div class="controll_button_group">
+        <div class="controll_button" onclick="switchLed(0)">100</div>
+        <div class="controll_button" onclick="switchLed(25)">75</div>
+        <div class="controll_button" onclick="switchLed(50)">50</div>
+        <div class="controll_button" onclick="switchLed(75)">25</div>
+        <div class="controll_button" onclick="switchLed(100)">0</div>
+    </div>
+</body></html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="le-smart-lamp.js"></script>
+<script type="text/javascript" src="le-lamp-switch.js"></script>
+<script type="text/javascript">
+    let lampView;
+    let switchView;
+    $(document).ready(function(){
+        lampView = new SmartLampViewBuilder($('#lamp')[0]).build();
+        switchView = new LampSwitchViewBuilder($('#switch')[0]).build();
+        
+        switchView.setCallback(function(p){
+            lampView.setPower(p);
+        });
+        
+        $('#switch').mousedown(switchView.onMouseDown);
+        $('#switch').mouseup(switchView.onMouseUp);
+        $('#switch').mousemove(switchView.onMouseMove);
+    });
+    
+    function switchLed(i){
+        lampView.setPower(i/100);
+    }
+
+</script>

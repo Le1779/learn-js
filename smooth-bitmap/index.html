@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body><img src="test.bmp" style="display: none;">
+    <canvas id="bitmap" style="width: 40%;"></canvas>
+    <canvas id="newBitmap" style="width: 40%;"></canvas>
+</body></html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="le-smooth-bitmap.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        new BitmapViewBuilder($('#bitmap')[0]).setNewCanvas($('#newBitmap')[0]).build();
+    });
+
+</script>
