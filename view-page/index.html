@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="le-view-page.css" />
+    <style>
+        #page1 {
+            width: 40vw;
+        }
+
+        .search_wo_by_id {
+            display: grid;
+            grid-template-columns: auto 20%;
+            grid-template-areas: "input button";
+        }
+
+        .search_wo_by_id input {
+            grid-area: input;
+            margin: 1vh;
+        }
+
+        .search_wo_by_id .search_button {
+            grid-area: button;
+            background: #4285F4;
+            color: #fff;
+            padding: 0px 15px;
+            margin: 1vh;
+            -webkit-border-radius: 1px;
+            -moz-border-radius: 1px;
+            border-radius: 1px;
+            line-height: 5vh;
+            cursor: pointer;
+        }
+
+
+        .search_wo_by_id .search_button:hover {
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="view_page_container">
+        <div id="page1" class="page">
+            <div class="page_head">
+                <div class="page_action"></div>
+                <div class="page_title">PAGE 1</div>
+            </div>
+            <div class="page_body">
+                <div class="search_wo_by_id">
+                    <input type="text" placeholder="輸入文字">
+                    <div class="search_button">搜尋</div>
+                </div>
+
+            </div>
+            <div class="page_foot">
+                <div class="next_page disable" onclick="nextPage()">
+                    NEXT
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body></html>
+
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        
+    });
+    
+    function nextPage(){
+        
+    }
+</script>
