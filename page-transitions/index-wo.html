@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="le-page-transitions.css" />
+    <style>
+        body {
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+            background-color: #E6E6E6;
+        }
+
+        .search_wo_by_id {
+            display: grid;
+            grid-template-columns: auto 20%;
+            grid-template-areas: "input button";
+        }
+
+        .search_wo_by_id input {
+            grid-area: input;
+            margin: 1vh;
+        }
+
+        .search_wo_by_id .search_button {
+            grid-area: button;
+            background: #4285F4;
+            color: #fff;
+            margin: 1vh;
+            -webkit-border-radius: 1px;
+            -moz-border-radius: 1px;
+            border-radius: 1px;
+            line-height: 5vh;
+            cursor: pointer;
+            text-align: center;
+        }
+
+
+        .search_wo_by_id .search_button:hover {
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .table_result {
+            border-top: 1px solid #333;
+            margin-top: 12px;
+            padding-top: 12px;
+        }
+
+        .row_result {
+            display: grid;
+            grid-template-columns: auto 60% 30%;
+            grid-template-areas: "checkbox id handler""checkbox name handler";
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin-top: 12px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .row_result_checkbox {
+            grid-area: checkbox;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .row_result_wo_id {
+            grid-area: id;
+            font-size: small;
+            color: #999999;
+        }
+
+        .row_reslut_wo_name {
+            grid-area: name;
+            font-size: large;
+            color: #161616;
+        }
+
+        .row_result_wo_handler {
+            grid-area: handler;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="view_page_container">
+        <div id="page1" class="page show">
+            <div class="page_head">
+                <div class="page_title">選擇工單</div>
+            </div>
+            <div class="page_body">
+                <div class="search_wo_by_id">
+                    <input id="wo_id_keyword" type="text" placeholder="輸入文字">
+                    <div class="search_button" onclick="search()">搜尋</div>
+                </div>
+                <div class="table_result">
+                </div>
+            </div>
+            <div class="page_foot">
+                <div class="next_page disabled" onclick="nextPage()">
+                    下一步
+                </div>
+            </div>
+        </div>
+        <div id="page2" class="page right">
+            <div class="page_head">
+                <div class="page_action" onclick="backPage()"></div>
+                <div class="page_title">TITLE 2</div>
+            </div>
+            <div class="page_body">
+                PAGE #2
+            </div>
+            <div class="page_foot">
+                <div class="next_page" onclick="nextPage()">
+                    NEXT
+                </div>
+            </div>
+        </div>
+        <div id="page3" class="page right">
+            <div class="page_head">
+                <div class="page_action" onclick="backPage()"></div>
+                <div class="page_title">TITLE 3</div>
+            </div>
+            <div class="page_body">
+                PAGE #3
+            </div>
+            <div class="page_foot">
+
+            </div>
+        </div>
+    </div>
+    <div class="page_tag">
+        <div id="tag1" class="tag_container show">
+            <div class="tag">1</div>
+            <div class="step_bar"></div>
+            <div class="step_bar_cover"></div>
+        </div>
+        <div id="tag2" class="tag_container right">
+            <div class="tag">2</div>
+            <div class="step_bar"></div>
+            <div class="step_bar_cover"></div>
+        </div>
+        <div id="tag3" class="tag_container right">
+            <div class="tag">3</div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="le-page-transitions.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initView();
+        initPageView();
+    });
+
+    function initView() {
+        //initCheckBox();
+
+
+    }
+
+    var fakeData = [{
+        "AppInstanceID": "WO-20180416-FEE8",
+        "ProjectName": "Test TT-DFFNB5_TVB",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20190722-7A6C",
+        "ProjectName": "澳門政府增補字集(MSCS)",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20180416-44E4",
+        "ProjectName": "OT_DFKingGothicHK17",
+        "PM": "章君豪"
+    }];
+
+    let selectWO_ID;
+
+    function search() {
+        let input = $('#wo_id_keyword')
+        let keyword = input.val();
+        console.log(keyword);
+        if (!checkInput) {
+            input.addClass('error');
+            return;
+        }
+
+        $('.table_result').html('');
+        for (let i = 0; i < fakeData.length; i++) {
+            addRow(fakeData[i]);
+        }
+
+        function checkInput() {
+            return keyword != null && keyword != 'undefined';
+        }
+
+        function addRow(wo) {
+            let html = `<div id="${wo.AppInstanceID}" class="row_result">
+                        <div class="row_result_checkbox">
+                            <input type="checkbox">
+                        </div>
+                        <div class="row_result_wo_id">${wo.AppInstanceID}</div>
+                        <div class="row_reslut_wo_name">${wo.ProjectName}</div>
+                        <div class="row_result_wo_handler">${wo.PM}</div>
+                    </div>`;
+            $('.table_result').append(html);
+
+            initCheckBox();
+            initNextButton();
+
+            function initCheckBox() {
+                $('.row_result_checkbox input').click(function(event) {
+                    event.stopPropagation();
+                });
+                $('#' + wo.AppInstanceID).click(function(event) {
+                    if ($(this).find('.row_result_checkbox input').prop('checked')) {
+                        $(this).find('.row_result_checkbox input').prop('checked', false);
+                        selectWO_ID = "";
+                    } else {
+                        $('.row_result_checkbox input').prop('checked', false);
+                        $(this).find('.row_result_checkbox input').prop('checked', true);
+                        selectWO_ID = wo.AppInstanceID;
+                    }
+
+                    if ($('.row_result_checkbox input').is(':checked')) {
+                        $('#page1 .next_page').removeClass('disabled');
+                    } else {
+                        $('#page1 .next_page').addClass('disabled');
+                    }
+                    event.stopPropagation();
+                });
+            }
+
+            function initNextButton() {
+                $('#page1 .next_page').click(function() {
+                    $('#page2 .page_title').html(selectWO_ID);
+                });
+            }
+        }
+    }
+</script>

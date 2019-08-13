@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="le-page-transitions.css" />
+    <style>
+        body{
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+            background-color: #E6E6E6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="view_page_container">
+        <div id="page1" class="page show">
+            <div class="page_head">
+                <div class="page_title">TITLE 1</div>
+            </div>
+            <div class="page_body">
+                PAGE #1
+            </div>
+            <div class="page_foot">
+                <div class="next_page" onclick="nextPage()">
+                    NEXT
+                </div>
+            </div>
+        </div>
+        <div id="page2" class="page right">
+            <div class="page_head">
+                <div class="page_action" onclick="backPage()"></div>
+                <div class="page_title">TITLE 2</div>
+            </div>
+            <div class="page_body">
+                PAGE #2
+            </div>
+            <div class="page_foot">
+                <div class="next_page" onclick="nextPage()">
+                    NEXT
+                </div>
+            </div>
+        </div>
+        <div id="page3" class="page right">
+            <div class="page_head">
+                <div class="page_action" onclick="backPage()"></div>
+                <div class="page_title">TITLE 3</div>
+            </div>
+            <div class="page_body">
+                PAGE #3
+            </div>
+            <div class="page_foot">
+
+            </div>
+        </div>
+    </div>
+    <div class="page_tag">
+        <div id="tag1" class="tag_container show">
+            <div class="tag">1</div>
+            <div class="step_bar"></div>            
+            <div class="step_bar_cover"></div>
+        </div>
+        <div id="tag2" class="tag_container right">       
+            <div class="tag">2</div>
+            <div class="step_bar"></div>            
+            <div class="step_bar_cover"></div>
+        </div>
+        <div id="tag3" class="tag_container right">
+            <div class="tag">3</div>
+        </div>
+    </div>
+</body></html>
+
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="le-page-transitions.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initPageView();
+    });
+        
+    
+</script>
