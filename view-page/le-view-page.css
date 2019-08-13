@@ -1,4 +1,5 @@
 .view_page_container {
+    position: relative;
     margin: auto;
     overflow: hidden;
     border-radius: 20px;
@@ -13,6 +14,10 @@
     display: grid;
     grid-template-rows: 7vh 66vh 7vh;
     grid-template-areas: "head""body""foot";
+    top: 80vh;
+    transition: all 1s;
+    overflow: hidden;
+    background: white;
 }
 
 .page_head {
@@ -27,11 +32,44 @@
 }
 
 .page_action {
+    position: relative;
     grid-area: action;
     width: 20px;
     height: 100%;
     display: inline-block;
     float: left;
+}
+
+.page_action::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 10px;
+    width: 15px;
+    height: 2px;
+    background: black;
+    opacity: .7;
+    transition: all .5s;
+}
+
+.page_action::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    transform: rotate(45deg);
+    opacity: .7;
+    transition: all .5s;
 }
 
 .page_title {
@@ -76,11 +114,11 @@
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
-.next_page.disable {
-    background: #999999;    
+.next_page.disabled {
+    background: #999999;
     cursor: default;
 }
 
-.next_page.disable:hover {
+.next_page.disabled:hover {
     box-shadow: 0;
 }

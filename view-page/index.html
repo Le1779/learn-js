@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="le-view-page.css" />
     <style>
         #page1 {
+            width: 40vw;
+        }
+
+        #page2 {
+            position: absolute;
             width: 40vw;
         }
 
@@ -37,6 +43,48 @@
         .search_wo_by_id .search_button:hover {
             box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         }
+
+        .table_result {
+            border-top: 1px solid #333;
+            margin-top: 12px;
+            padding-top: 12px;
+        }
+
+        .row_result {
+            display: grid;
+            grid-template-columns: auto 60% 30%;
+            grid-template-areas: "checkbox id handler""checkbox name handler";
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin-top: 12px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .row_result_checkbox {
+            grid-area: checkbox;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .row_result_wo_id {
+            grid-area: id;
+            font-size: small;
+            color: #999999;
+        }
+
+        .row_reslut_wo_name {
+            grid-area: name;
+            font-size: large;
+            color: #161616;
+        }
+
+        .row_result_wo_handler {
+            grid-area: handler;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -50,13 +98,65 @@
             </div>
             <div class="page_body">
                 <div class="search_wo_by_id">
-                    <input type="text" placeholder="輸入文字">
-                    <div class="search_button">搜尋</div>
+                    <input id="wo_id_keyword" type="text" placeholder="輸入文字">
+                    <div class="search_button" onclick="search()">搜尋</div>
                 </div>
-
+                <div class="table_result">
+                    <div class="row_result">
+                        <div class="row_result_checkbox">
+                            <input type="checkbox">
+                        </div>
+                        <div class="row_result_wo_id">WO-20190722-7A6C</div>
+                        <div class="row_reslut_wo_name">澳門政府增補字集(MSCS)</div>
+                        <div class="row_result_wo_handler">章君豪</div>
+                    </div>
+                    <div class="row_result">
+                        <div class="row_result_checkbox">
+                            <input type="checkbox">
+                        </div>
+                        <div class="row_result_wo_id">WO-20180416-44E4</div>
+                        <div class="row_reslut_wo_name">OT_DFKingGothicHK17</div>
+                        <div class="row_result_wo_handler">章君豪</div>
+                    </div>
+                </div>
             </div>
             <div class="page_foot">
-                <div class="next_page disable" onclick="nextPage()">
+                <div class="next_page disabled">
+                    NEXT
+                </div>
+            </div>
+        </div>
+        <div id="page2" class="page">
+            <div class="page_head">
+                <div class="page_action"></div>
+                <div class="page_title">PAGE 2</div>
+            </div>
+            <div class="page_body">
+                <div class="search_wo_by_id">
+                    <input id="wo_id_keyword" type="text" placeholder="輸入文字">
+                    <div class="search_button" onclick="search()">搜尋</div>
+                </div>
+                <div class="table_result">
+                    <div class="row_result">
+                        <div class="row_result_checkbox">
+                            <input type="checkbox">
+                        </div>
+                        <div class="row_result_wo_id">WO-20190722-7A6C</div>
+                        <div class="row_reslut_wo_name">澳門政府增補字集(MSCS)</div>
+                        <div class="row_result_wo_handler">章君豪</div>
+                    </div>
+                    <div class="row_result">
+                        <div class="row_result_checkbox">
+                            <input type="checkbox">
+                        </div>
+                        <div class="row_result_wo_id">WO-20180416-44E4</div>
+                        <div class="row_reslut_wo_name">OT_DFKingGothicHK17</div>
+                        <div class="row_result_wo_handler">章君豪</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page_foot">
+                <div class="next_page disabled">
                     NEXT
                 </div>
             </div>
@@ -69,12 +169,61 @@
 
 <script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function() {
-        
+        initView();
+        nextPage();
     });
-    
-    function nextPage(){
-        
+
+    function initView() {
+        initCheckBox();
+
+        function initCheckBox() {
+            $('.row_result').click(function(event) {
+                if ($(this).find('.row_result_checkbox input').prop('checked')) {
+                    $('.row_result_checkbox input').prop('checked', false);
+                    $(this).find('.row_result_checkbox input').prop('checked', true);
+                } else {
+                    $(this).find('.row_result_checkbox input').prop('checked', false);
+                }
+
+                if ($('.row_result_checkbox input').is(':checked')) {
+                    $('.next_page').removeClass('disabled');
+                } else {
+                    $('.next_page').addClass('disabled');
+                }
+                event.stopPropagation();
+            });
+        }
+    }
+
+    function nextPage() {
+        $('#page1 .next_page').click(function() {
+            $('#page2').css('top', 0);
+        });
+    }
+
+    function search() {
+        let input = $('#wo_id_keyword')
+        let keyword = input.val();
+        console.log(keyword);
+        if (!checkInput) {
+            input.addClass('error');
+        }
+
+        function checkInput() {
+            return keyword != null && keyword != 'undefined';
+        }
+
+        function addRow() {
+            let html = `<div class="row_result">
+                        <div class="row_result_checkbox">
+                            <input type="checkbox">
+                        </div>
+                        <div class="row_result_wo_id">WO-20190722-7A6C</div>
+                        <div class="row_reslut_wo_name">澳門政府增補字集(MSCS)</div>
+                        <div class="row_result_wo_handler">章君豪</div>
+                    </div>`;
+            $('.table_result').append(html);
+        }
     }
 </script>
