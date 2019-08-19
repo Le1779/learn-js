@@ -1,0 +1,236 @@
+.dialog_history {
+    position: relative;
+    display: none;
+}
+
+.dialog_history.show {
+    display: block;
+}
+
+.dialog_container {
+    position: fixed;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    background-color: #FFFFFF;
+    color: #161616;
+    height: 80vh;
+    width: 40vw;
+    top: 50%;
+    margin-top: -40vh;
+
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+
+    display: grid;
+    grid-template-rows: 8vh 65vh 7vh;
+    grid-template-areas: "head""body""foot";
+}
+
+@media (min-width:480px){
+    .dialog_container{
+        width: 70vw;
+    }
+}
+
+@media (min-width:760px){
+    .dialog_container{
+        width: 50vw;
+    }
+}
+
+@media (min-width:1200px){
+    .dialog_container{
+        width: 40vw;
+    }
+}
+
+@media (min-width:1366px){
+    .dialog_container{
+        width: 30vw;
+    }
+}
+
+.dialog_view_mask {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.dialog_head {
+    grid-area: head;
+    display: grid;
+    grid-template-columns: auto 48px;
+    grid-template-rows: 3vh auto;
+    grid-template-areas: "title action""wo_id action";
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.dialog_close {
+    position: relative;
+    grid-area: action;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+}
+
+.dialog_close::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -16px;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid black;
+    border-top: 2px solid black;
+    transform: rotate(45deg);
+    opacity: .7;
+    transition: all .5s;
+}
+
+.dialog_close::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: -16px;
+    bottom: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    transform: rotate(45deg);
+    opacity: .7;
+    transition: all .5s;
+}
+
+.dialog_title {
+    grid-area: title;
+    height: 100%;
+    padding-left: 36px;
+    opacity: .7;
+    line-height: 3vh;
+}
+
+.dialog_wo_id {
+    grid-area: wo_id;
+    font-size: xx-large;
+    padding-left: 24px;
+    font-weight: bold;
+    line-height: 4vh;
+}
+
+.dialog_body {
+    grid-area: body;
+    overflow: auto;
+    padding: 12px 24px;
+}
+
+.dialog_foot {
+    grid-area: foot;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding-right: 40px;
+}
+
+.row_history {
+    display: grid;
+    grid-template-columns: auto 90%;
+    grid-template-areas: "tag type""tag id""tag name""tag date";
+    position: relative;
+    border-radius: 5px;
+    padding: 24px 12px;
+    margin-top: 24px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.row_history:hover {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.34), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.row_history:hover .tag{
+    box-shadow: 0 2px 2px 0 rgba(80, 136, 243, 0.54), 0 3px 1px -2px rgba(80, 136, 243, 0.12), 0 1px 5px 0 rgba(80, 136, 243, 0.2);
+}
+
+.row_history_tag {
+    grid-area: tag;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row_history_wo_type div{
+    font-size: small;
+    padding: 2px 8px;
+    margin-bottom: 12px;
+    background-color: #565656;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.row_history_wo_id {
+    grid-area: id;
+    font-size: small;
+    color: #999999;
+}
+
+.row_history_wo_name {
+    grid-area: name;
+    font-size: large;
+    color: #161616;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.row_history_wo_date {
+    grid-area: date;
+    font-size: small;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.row_history_wo_link{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tag {
+    position: relative;
+    display: inline-block;
+    height: 1vw;
+    width: 1vw;
+    border-radius: 2vw;
+    background: #4285F4;
+}
+
+.tag::before {
+    content: "";
+    position: absolute;
+    height: 20vw;
+    width: 0.2vw;
+    left: 0.4vw;
+    top: -20vw;
+    background: #4285F4;
+}
+
+.hide_overflow_text{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

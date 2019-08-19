@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="le-history-list.css" />
+    <style>
+        body {
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+            background-color: #E6E6E6;
+        }
+
+        .test_button {
+            background-color: #262626;
+            color: #e6e6e6;
+            padding: 8px 12px;
+            display: inline-block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="test_button">TEST</div>
+
+    <div class="dialog_history show">
+        <div class="dialog_view_mask"></div>
+        <div class="dialog_container">
+            <div class="dialog_head">
+                <div class="dialog_close" onclick=""></div>
+                <div class="dialog_title">延續歷史列表</div>
+                <div class="dialog_wo_id hide_overflow_text">WO-20190515-DE3C</div>
+            </div>
+            <div class="dialog_body">
+                <div class="history_list">
+
+                </div>
+            </div>
+            <div class="dialog_foot"></div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="le-history-list.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        let dialog = new HistoryDialog();
+        dialog.setHistoryData(fakeData);
+
+        $('.test_button').click(function() {
+            dialog.setHistoryData(fakeData);
+            dialog.show();
+        });
+    });
+
+    var fakeData = [{
+        "WorkingOrderType": "New-WO-20180416-5144",
+        "ProjectName": "這是用來測試分支延續的工單",
+        "AppliedDate": "\/Date(1565927780423)\/",
+        "AppInstanceID": "WO-20180416-5144"
+    }, {
+        "WorkingOrderType": "Co-WO-20180416-5144",
+        "ProjectName": "測試延續（會停在待處理）",
+        "AppliedDate": "\/Date(1565927961260)\/",
+        "AppInstanceID": "WO-20180416-C00A"
+    }, {
+        "WorkingOrderType": "Br-WO-20180416-C00A",
+        "ProjectName": "測試分支",
+        "AppliedDate": "\/Date(1565941615320)\/",
+        "AppInstanceID": "WO-20180416-5BBA"
+    }];
+</script>

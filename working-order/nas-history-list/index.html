@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="le-history-list.css" />
+    <style>
+        body {
+            font-family: "DFP King Gothic TC Regular", "Microsoft YaHei";
+            background-color: #E6E6E6;
+        }
+
+        .test_button {
+            background-color: #262626;
+            color: #e6e6e6;
+            padding: 8px 12px;
+            display: inline-block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="test_button" class="test_button">TEST</div>
+    <div id="pm_test_button" class="test_button">PM TEST</div>
+    <div id="fd_test_button" class="test_button">FD TEST</div>
+    <div id="rd_test_button" class="test_button">RD TEST</div>
+    <div id="qa_test_button" class="test_button">QA TEST</div>
+
+    <div class="dialog_history show">
+        <div class="dialog_view_mask"></div>
+        <div class="dialog_container">
+            <div class="dialog_head">
+                <div class="dialog_close" onclick=""></div>
+                <div class="dialog_title">歷史列表 - PM</div>
+                <div class="dialog_wo_id hide_overflow_text">WO-20190515-DE3C</div>
+            </div>
+            <div class="dialog_body">
+                <div class="history_list">
+
+                </div>
+            </div>
+            <div class="dialog_foot"></div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="le-history-list.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        let dialog = new HistoryDialog();
+        dialog.setHistoryData(fakeData);
+
+        $('#test_button').click(function() {
+            dialog.setDepartment("PM");
+            dialog.setHistoryData(fakeData);
+            dialog.show();
+        });
+
+        $('#pm_test_button').click(function() {
+            dialog.setDepartment("PM");
+            dialog.setNasHistory(pmFakeData);
+            dialog.show();
+        });
+
+        $('#fd_test_button').click(function() {
+            dialog.setDepartment("FD");
+            dialog.setHistoryData(fakeData);
+            dialog.show();
+        });
+
+        $('#rd_test_button').click(function() {
+            dialog.setDepartment("RD");
+            dialog.setNasHistory(rdFakeData);
+            dialog.show();
+        });
+
+        $('#qa_test_button').click(function() {
+            dialog.setDepartment("QA");
+            dialog.setHistoryData(fakeData);
+            dialog.show();
+        });
+    });
+
+    var fakeData = [{
+        "AppInstanceID": "WO-20180416-FEE8",
+        "ProjectName": "Test TT-DFFNB5_TVB",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20190722-7A6C",
+        "ProjectName": "澳門政府增補字集(MSCS)",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20180416-44E4",
+        "ProjectName": "OT_DFKingGothicHK17",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20180416-8E56",
+        "ProjectName": "蘭若寺斬妖行動",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20190722-7A6C",
+        "ProjectName": "澳門政府增補字集(MSCS)",
+        "PM": "章君豪"
+    }, {
+        "AppInstanceID": "WO-20180416-44E4",
+        "ProjectName": "OT_DFKingGothicHK17",
+        "PM": "章君豪"
+    }];
+
+    var pmFakeData = {
+        pm: [{
+            "AppInstanceID": "WO-20180416-FEE8",
+            "ProjectName": "Test TT-DFFNB5_TVB",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-8E56",
+            "ProjectName": "蘭若寺斬妖行動",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20190722-7A6C",
+            "ProjectName": "澳門政府增補字集(MSCS)",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-44E4",
+            "ProjectName": "OT_DFKingGothicHK17",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-8E56",
+            "ProjectName": "蘭若寺斬妖行動",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20190722-7A6C",
+            "ProjectName": "澳門政府增補字集(MSCS)",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-44E4",
+            "ProjectName": "OT_DFKingGothicHK17",
+            "PM": "章君豪"
+        }]
+    };
+    
+    var rdFakeData = {
+        Retail: [{
+            "AppInstanceID": "WO-20180416-FEE8",
+            "ProjectName": "Test TT-DFFNB5_TVB",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-8E56",
+            "ProjectName": "蘭若寺斬妖行動",
+            "PM": "章君豪"
+        }],
+        Gaiji: [{
+            "AppInstanceID": "WO-20180416-FEE8",
+            "ProjectName": "Test TT-DFFNB5_TVB",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-8E56",
+            "ProjectName": "蘭若寺斬妖行動",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20190722-7A6C",
+            "ProjectName": "澳門政府增補字集(MSCS)",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-44E4",
+            "ProjectName": "OT_DFKingGothicHK17",
+            "PM": "章君豪"
+        }],
+        IA: [{
+            "AppInstanceID": "WO-20180416-FEE8",
+            "ProjectName": "Test TT-DFFNB5_TVB",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-8E56",
+            "ProjectName": "蘭若寺斬妖行動",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20190722-7A6C",
+            "ProjectName": "澳門政府增補字集(MSCS)",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-44E4",
+            "ProjectName": "OT_DFKingGothicHK17",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-8E56",
+            "ProjectName": "蘭若寺斬妖行動",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20190722-7A6C",
+            "ProjectName": "澳門政府增補字集(MSCS)",
+            "PM": "章君豪"
+        }, {
+            "AppInstanceID": "WO-20180416-44E4",
+            "ProjectName": "OT_DFKingGothicHK17",
+            "PM": "章君豪"
+        }]
+    };
+</script>
