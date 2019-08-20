@@ -81,6 +81,7 @@
     display: inline-block;
     float: left;
     cursor: pointer;
+    margin-right: 20px;
 }
 
 .dialog_close::before {
