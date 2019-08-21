@@ -26,7 +26,7 @@
     margin-left: auto;
 
     display: grid;
-    grid-template-rows: 8vh 65vh 7vh;
+    grid-template-rows: 10vh 63vh 7vh;
     grid-template-areas: "head""body""foot";
 }
 
@@ -44,8 +44,8 @@
     grid-area: head;
     display: grid;
     grid-template-columns: auto 48px;
-    grid-template-rows: 3vh auto;
-    grid-template-areas: "title action""wo_id action";
+    grid-template-rows: 3vh auto 3vh;
+    grid-template-areas: "title action""wo_id action""department department";
     width: 100%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
@@ -221,4 +221,15 @@
 .history_list#IA{
     grid-area: IA;
     padding-left: 8px;
+}
+
+.dialog_department{
+    grid-area: department;
+    opacity: .7;
+    text-align: center;
+}
+
+.dialog_container.RD .dialog_department{
+    display: grid;
+    grid-template-columns: 33% auto 33%;
 }

@@ -58,6 +58,7 @@ let HistoryDialog = function () {
     }
 
     function makeNasHistyoryTable(history) {
+        let title = $('.dialog_department');
         let list = $('.history_list');
         let body = $('.dialog_body');
         let container = $('.dialog_container');
@@ -67,16 +68,24 @@ let HistoryDialog = function () {
         container.addClass(department);
         
         body.html('');
+        title.html('');
         $.each(history, function (i, item) {
             console.log(i);
             console.log(item);
+            makeTitle(i);
             makeTable(i);
             makeItem(i, item);
         });
+        
+        function makeTitle(id){
+            let html = `<div>${id}</div>`;
+            title.append(html);
+        }
 
         function makeTable(id) {
-            let html = `<div id="${id}" class="history_list">`;
+            let html = `<div id="${id}" class="history_list"></div>`;
             body.append(html);
+            
         }
 
         function makeItem(id, item) {
