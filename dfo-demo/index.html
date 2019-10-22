@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DFO</title>
+    <style>
+        .left-container {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 20vw;
+            height: 100vh;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.12), 0 1px 5px rgba(0, 0, 0, 0.24);
+            background: #FFFFFF;
+            z-index: 2;
+        }
+
+        .right-container {
+            position: fixed;
+            display: grid;
+            grid-template-rows: auto auto;
+            left: 20vw;
+            top: 0;
+            width: 90vw;
+            height: 100vh;
+            z-index: 0;
+        }
+
+        .font-list-title {
+            padding: 8px 24px;
+            font-size: 24px;
+            z-index: 1;
+        }
+        
+        .font-list-title.scrolling{
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .font-list {
+            padding: 12px 24px;
+            overflow: auto;
+        }
+
+        .font_item {
+            display: inline-block;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            overflow: hidden;
+            padding: 12px 24px;
+            margin: 12px 8px;
+            border-radius: 5px;
+            opacity: .7;
+        }
+
+        .font_item:hover{
+            opacity: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 5px 5px rgba(0, 0, 0, 0.24);
+        }
+
+        .font_item_title {
+            transition: all .2s;
+        }
+
+        .font_item_content {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="left-container"></div>
+    <div class="right-container">
+        <div class="font-list-title">字體列表</div>
+        <div class="font-list">
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康娃娃空心體W5
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康海報單框體W9
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康揮灑體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康小花體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康電晶體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康小皮體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康點點體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康筆墨體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康隸空體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康緣邊體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康彩儷體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康新華體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康水波體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康積雪體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康金石體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康圖象體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康緞帶體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康酒桶體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康圓溜體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康櫻花體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康斑剝體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+            <div class="font_item">
+                <div class="font_item_title">
+                    華康閃亮體
+                </div>
+                <div class="font_item_content" style="font-size: 128px;">
+                    -2
+                </div>
+            </div>
+        </div>
+    </div>
+</body></html>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.font-list').scroll(function (event) {
+            var scroll = $('.font-list').scrollTop();
+            if(scroll == 0){
+                $('.font-list-title').removeClass('scrolling');
+            }else{
+                $('.font-list-title').addClass('scrolling');
+            }
+        });
+    });
+        
+    
+</script>
