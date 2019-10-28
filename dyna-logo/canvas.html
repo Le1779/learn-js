@@ -5,13 +5,16 @@
     <title>Document</title>
 </head>
 <body>
+    <canvas id="split" style="width: 100vw; height: 100vh;"></canvas>
     <canvas id="ripple" style="width: 100vw; height: 100vh;"></canvas>
 </body>
 </html>
 <script type="text/javascript" src="le-dynacw-logo.js"></script>
+<script type="text/javascript" src="le-dynacw-logo-split.js"></script>
 <script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         new DynaCWLogoBuilder($('#ripple')[0]).build();
+        new DynaCWLogoSplitBuilder($('#split')[0]).build();
     });
 </script>
