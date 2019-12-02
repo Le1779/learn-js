@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="add-text-button.css">
     <style>
         body {
             margin: 0;
         }
-
+        
         .text_control_container {
             position: absolute;
             background-color: antiquewhite;
@@ -25,8 +26,11 @@
 </head>
 
 <body>
-    <canvas id="myCanvas" name="myCanvas" width="1000" height="500" style="border:1px dotted;float:left"></canvas>
-
+    <canvas id="myCanvas" name="myCanvas" width="1000" height="500" style="border:1px dotted;float:left">
+        
+    </canvas>
+    
+    <div class="addText" style="left: 950px; top: 10px;"></div>
 
     <div class="text_control_container">
         <label for="font-control">Font family:</label>
@@ -52,13 +56,14 @@
 
     $(document).ready(function() {
         init();
-        addText();
-        addText1();
+        //addText();
+        addTextDefault();
     });
 
     function init() {
         initCanvas();
         initTextControl();
+        initAddTextButton();
         selectedObject(null);
         canvas.renderAll();
 
@@ -82,13 +87,19 @@
         function initTextControl() {
             textControl = $('.text_control_container');
         }
+        
+        function initAddTextButton(){
+            $('.addText').click(function(){
+                addText();
+            });
+        }
     };
 
     function addText() {
         var text = new fabric.IText('我是誰 小拳石', {
             fontFamily: 'HanziPen TC',
-            left: 100,
-            top: 100,
+            left: Math.floor(Math.random()*800)+50,
+            top: Math.floor(Math.random()*300)+50,
         });
 
         canvas.add(text);
@@ -106,7 +117,7 @@
         });
     }
 
-    function addText1() {
+    function addTextDefault() {
         var text = new fabric.IText('我是誰 皮卡丘', {
             fontFamily: 'Libian TC',
             left: 50,
