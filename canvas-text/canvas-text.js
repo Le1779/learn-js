@@ -48,7 +48,7 @@ var RippleView = function (builder) {
         context.beginPath();
         context.fillStyle = "#000000";
         //context.lineWidth = viewWidth * 0.06;
-        context.fillText("Hello World", 10, 50);.
+        context.fillText("Hello World", 10, 50);
         
         context.fill();
         context.closePath();

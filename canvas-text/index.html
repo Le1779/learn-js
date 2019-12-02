@@ -1,18 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .text_control_container {
+            position: absolute;
+            background-color: antiquewhite;
+            padding: 12px;
+            width: 100px;
+            height: 50px;
+        }
+
+        @font-face {
+            font-family: 'MyFont';
+            src: url(https://d1eex2z7lomdjl.cloudfront.net/fonts/jester.ttf);
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="ripple" style="width: 100%;"></canvas>
-</body></html>
+    <canvas id="myCanvas" name="myCanvas" width="1000" height="500" style="border:1px dotted;float:left"></canvas>
+    <label for="font-control">Font family:</label>
+    <select id="font-control" name="font-control">
+        <option value="Arial">Arial</option>
+        <option value="Times New Roman">Times</option>
+        <option value="HanziPen TC">HanziPen</option>
+        <option value="Libian TC">Libian</option>
+        <option value="MyFont">MyFont</option>
+    </select>
+
+    <div class="text_control_container">
+
+    </div>
+
+</body>
+
+</html>
 <script src="../script/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="canvas-text.js"></script>
+<script src="fabric.js"></script>
+<script src="canvas-text.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        new RippleViewBuilder($('#ripple')[0]).setMax(150).setProgress(102).build();
+    var canvas;
+    $(document).ready(function() {
+        init();
+        addText();
+        addText1();
     });
 
+    function init() {
+        initCanvas();
+
+        canvas.renderAll();
+
+        function initCanvas() {
+            canvas = new fabric.Canvas('myCanvas', {});
+
+            fabric.Canvas.prototype.getAbsoluteCoords = function(object) {
+                return {
+                    left: object.left + this._offset.left,
+                    top: object.top + this._offset.top
+                };
+            }
+
+            canvas.on('selection:cleared', function() {
+                console.log("canvas selection cleared");
+            });
+
+        }
+
+
+    };
+
+    function addText() {
+        var text = new fabric.IText('我是誰 小拳石', {
+            fontFamily: 'HanziPen TC',
+            left: 100,
+            top: 100,
+        });
+
+        canvas.add(text);
+
+        text.on('moving', function() {
+            positionBtn(text)
+        });
+        text.on('scaling', function() {
+            positionBtn(text)
+        });
+
+        text.on('mouseup', function() {
+            console.log("text mouseup");
+            positionBtn(text);
+        });
+    }
+
+    function addText1() {
+        var text = new fabric.IText('我是誰 皮卡丘', {
+            fontFamily: 'Libian TC',
+            left: 50,
+            top: 50,
+        });
+
+        canvas.add(text);
+    }
+    
+    function changeFont(obj, fontName){
+        obj.fontFamily = fontName;
+        canvas.renderAll();
+    }
+
+    var fontControl = $('#font-control');
+    $(document.body).on('change', '#font-control', function() {
+        text.fontFamily = fontControl.val();
+        canvas.renderAll();
+    });
+
+    function positionBtn(obj) {
+        var absCoords = canvas.getAbsoluteCoords(obj);
+        //console.log("left: " + (absCoords.left - btnWidth / 2) + 'px');
+        //console.log("top: " + (absCoords.top - btnHeight / 2) + 'px');
+        //console.log("right: " + obj.width * obj.scaleX);
+
+        let container = $('.text_control_container');
+        //let top = (absCoords.top - container.height() / 2);
+        //let left = (absCoords.left - container.width() / 2);
+        //let right = absCoords.left + absCoords.object;
+
+        let width = obj.width * obj.scaleX;
+        let height = obj.height * obj.scaleY;
+
+        container.css({
+            "top": absCoords.top,
+            "left": absCoords.left + width
+        });
+    }
 </script>
