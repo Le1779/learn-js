@@ -173,7 +173,8 @@
                 let className = $(this).attr('class').split(' ');
                 console.log(className[1]);
                 console.log(color[className[1]]);
-                selectedObj.set({fill: color[className[1]]});
+                canvas.getActiveObject().set({fill: color[className[1]]});
+                canvas.renderAll();
             });
         }
     };
