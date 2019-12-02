@@ -9,15 +9,62 @@
         body {
             margin: 0;
         }
-        
+
         .text_control_container {
             position: absolute;
             background-color: antiquewhite;
             padding: 12px;
-            width: 100px;
-            height: 50px;
         }
+        
 
+        .color{
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .red{
+            background-color: #ff4040;
+        }
+        
+        .orange{
+            background-color: #ff6518;
+        }
+        
+        .yellow{
+            background-color: #ffbb3b;
+        }
+        
+        .green{
+            background-color: #03bd9e;
+        }
+        
+        .light_blue{
+            background-color: #00a9ff;
+        }
+        
+        .blue{
+            background-color: #515ce6;
+        }
+        
+        .purple{
+            background-color: #9e5fff;
+        }
+        
+        .pink{
+            background-color: #ff5583;
+        }
+        
+        .white{
+            background-color: #ffffff;
+        }
+        
+        .black{
+            background-color: #000000;
+        }
+        
         @font-face {
             font-family: 'MyFont';
             src: url(https://d1eex2z7lomdjl.cloudfront.net/fonts/jester.ttf);
@@ -26,26 +73,40 @@
 </head>
 
 <body>
-    <canvas id="myCanvas" name="myCanvas" width="1000" height="500" style="border:1px dotted;float:left">
-        
-    </canvas>
-    
+    <canvas id="myCanvas" name="myCanvas" width="1000" height="500" style="border:1px dotted;float:left"></canvas>
+
     <div class="addText" style="left: 950px; top: 10px;"></div>
 
     <div class="text_control_container">
-        <label for="font-control">Font family:</label>
-        <select id="font-control" name="font-control">
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times</option>
-            <option value="HanziPen TC">HanziPen</option>
-            <option value="Libian TC">Libian</option>
-            <option value="MyFont">MyFont</option>
-        </select>
+        <div>
+            <label for="font-control">Font family:</label>
+            <select id="font-control" name="font-control">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times</option>
+                <option value="HanziPen TC">HanziPen</option>
+                <option value="Libian TC">Libian</option>
+                <option value="MyFont">MyFont</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Text color:</label>
+            <div class="text_color_container">
+                <div class="color white"></div>
+                <div class="color black"></div>
+                <div class="color red"></div>
+                <div class="color orange"></div>
+                <div class="color yellow"></div>
+                <div class="color green"></div>
+                <div class="color light_blue"></div>
+                <div class="color blue"></div>
+                <div class="color purple"></div>
+                <div class="color pink"></div>
+            </div>
+        </div>
     </div>
 
-</body>
-
-</html>
+</body></html>
 <script src="../script/jquery-3.3.1.min.js"></script>
 <script src="fabric.js"></script>
 <script src="canvas-text.js"></script>
@@ -53,6 +114,18 @@
     var canvas;
     var textControl;
     var selectedObj;
+    var color = {
+        white: '#ffffff',
+        black: '#000000',
+        red: '#ff4040',
+        orange: '#ff6518',
+        yellow: '#ffbb3b',
+        green: '#03bd9e',
+        light_blue: '#00a9ff',
+        blue: '#515ce6',
+        purple: '#9e5fff',
+        pink: '#ff5583'
+    }
 
     $(document).ready(function() {
         init();
@@ -64,6 +137,7 @@
         initCanvas();
         initTextControl();
         initAddTextButton();
+        initTextColorPicker();
         selectedObject(null);
         canvas.renderAll();
 
@@ -87,10 +161,19 @@
         function initTextControl() {
             textControl = $('.text_control_container');
         }
-        
-        function initAddTextButton(){
-            $('.addText').click(function(){
+
+        function initAddTextButton() {
+            $('.addText').click(function() {
                 addText();
+            });
+        }
+        
+        function initTextColorPicker(){
+            $('.color').click(function(){
+                let className = $(this).attr('class').split(' ');
+                console.log(className[1]);
+                console.log(color[className[1]]);
+                selectedObj.set({fill: color[className[1]]});
             });
         }
     };
@@ -98,8 +181,8 @@
     function addText() {
         var text = new fabric.IText('我是誰 小拳石', {
             fontFamily: 'HanziPen TC',
-            left: Math.floor(Math.random()*800)+50,
-            top: Math.floor(Math.random()*300)+50,
+            left: Math.floor(Math.random() * 800) + 50,
+            top: Math.floor(Math.random() * 300) + 50,
         });
 
         canvas.add(text);
