@@ -26,17 +26,17 @@
 
 <body>
     <canvas id="myCanvas" name="myCanvas" width="1000" height="500" style="border:1px dotted;float:left"></canvas>
-    <label for="font-control">Font family:</label>
-    <select id="font-control" name="font-control">
-        <option value="Arial">Arial</option>
-        <option value="Times New Roman">Times</option>
-        <option value="HanziPen TC">HanziPen</option>
-        <option value="Libian TC">Libian</option>
-        <option value="MyFont">MyFont</option>
-    </select>
+
 
     <div class="text_control_container">
-
+        <label for="font-control">Font family:</label>
+        <select id="font-control" name="font-control">
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times</option>
+            <option value="HanziPen TC">HanziPen</option>
+            <option value="Libian TC">Libian</option>
+            <option value="MyFont">MyFont</option>
+        </select>
     </div>
 
 </body>
@@ -47,6 +47,9 @@
 <script src="canvas-text.js"></script>
 <script type="text/javascript">
     var canvas;
+    var textControl;
+    var selectedObj;
+
     $(document).ready(function() {
         init();
         addText();
@@ -55,7 +58,8 @@
 
     function init() {
         initCanvas();
-
+        initTextControl();
+        selectedObject(null);
         canvas.renderAll();
 
         function initCanvas() {
@@ -70,11 +74,14 @@
 
             canvas.on('selection:cleared', function() {
                 console.log("canvas selection cleared");
+                selectedObject(null);
             });
 
         }
 
-
+        function initTextControl() {
+            textControl = $('.text_control_container');
+        }
     };
 
     function addText() {
@@ -87,15 +94,15 @@
         canvas.add(text);
 
         text.on('moving', function() {
-            positionBtn(text)
+            positionTextControl(text)
         });
         text.on('scaling', function() {
-            positionBtn(text)
+            positionTextControl(text)
         });
 
         text.on('mouseup', function() {
             console.log("text mouseup");
-            positionBtn(text);
+            selectedObject(text);
         });
     }
 
@@ -107,36 +114,51 @@
         });
 
         canvas.add(text);
+
+        text.on('moving', function() {
+            positionTextControl(text)
+        });
+        text.on('scaling', function() {
+            positionTextControl(text)
+        });
+
+        text.on('mouseup', function() {
+            console.log("text mouseup");
+            selectedObject(text);
+        });
     }
-    
-    function changeFont(obj, fontName){
+
+    function changeFont(obj, fontName) {
         obj.fontFamily = fontName;
         canvas.renderAll();
     }
 
-    var fontControl = $('#font-control');
-    $(document.body).on('change', '#font-control', function() {
-        text.fontFamily = fontControl.val();
-        canvas.renderAll();
-    });
+    function selectedObject(obj) {
+        selectedObj = obj;
+        if (obj == null) {
+            textControl.hide();
+            return;
+        }
+        textControl.show();
+        positionTextControl(obj);
+    }
 
-    function positionBtn(obj) {
-        var absCoords = canvas.getAbsoluteCoords(obj);
-        //console.log("left: " + (absCoords.left - btnWidth / 2) + 'px');
-        //console.log("top: " + (absCoords.top - btnHeight / 2) + 'px');
-        //console.log("right: " + obj.width * obj.scaleX);
-
-        let container = $('.text_control_container');
-        //let top = (absCoords.top - container.height() / 2);
-        //let left = (absCoords.left - container.width() / 2);
-        //let right = absCoords.left + absCoords.object;
-
+    function positionTextControl(obj) {
+        let absCoords = canvas.getAbsoluteCoords(obj);
         let width = obj.width * obj.scaleX;
         let height = obj.height * obj.scaleY;
 
-        container.css({
+        textControl.css({
             "top": absCoords.top,
             "left": absCoords.left + width
         });
     }
+
+    var fontControl = $('#font-control');
+    $(document.body).on('change', '#font-control', function() {
+        if (selectedObj != null) {
+            selectedObj.fontFamily = fontControl.val();
+            canvas.renderAll();
+        }
+    });
 </script>
