@@ -307,7 +307,9 @@
 
     $(document).keyup(function(e) {
         if (e.keyCode == 46 || e.keyCode == 8) {
-            canvas.remove(canvas.getActiveObject());
+            if (!canvas.getActiveObject().isEditing){
+                canvas.remove(canvas.getActiveObject());
+            }
         }
     });
 </script>
