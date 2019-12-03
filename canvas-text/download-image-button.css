@@ -1,4 +1,4 @@
-.upload-image-button {
+.download-image-button {
     position: absolute;
     top: 0;
     height: 40px;
@@ -18,15 +18,15 @@
     cursor: pointer;
 }
 
-.upload-image-button:hover {
+.download-image-button:hover {
     box-shadow: 0 0 5px 0 #333;
 }
 
-.upload-image-button::before {
+.download-image-button::before {
     content: "";
     position: absolute;
     margin: auto;
-    top: 15px;
+    top: 12px;
     left: 17px;
     width: 15px;
     height: 10px;
@@ -37,16 +37,16 @@
     transition: all .5s;
 }
 
-.upload-image-button::after {
+.download-image-button::after {
     content: "";
     position: absolute;
     margin: auto;
     left: 13px;
-    top: 10px;
+    bottom: 10px;
     width: 10px;
     height: 10px;
-    border-top: 2px solid blue;
-    border-left: 2px solid green;
+    border-bottom: 2px solid blue;
+    border-right: 2px solid green;
     opacity: .7;
     transform: rotate(45deg);
     transition: all .5s;
