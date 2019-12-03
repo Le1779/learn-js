@@ -157,7 +157,11 @@
         initTextColorPicker();
         initImageUploadButton();
         selectedObject(null);
-        canvas.renderAll();
+        resizeCanvas();
+
+        $(window).resize(function() {
+            resizeCanvas();
+        });
 
         function initCanvas() {
             canvas = new fabric.Canvas('myCanvas', {});
@@ -237,13 +241,19 @@
                 obj.left = 0;
             }
         }
+
+        function resizeCanvas() {
+            canvas.setHeight(window.innerHeight);
+            canvas.setWidth(window.innerWidth);
+            canvas.renderAll();
+        }
     };
 
     function addText() {
         var text = new fabric.IText('我是誰 小拳石', {
             fontFamily: 'HanziPen TC',
-            left: Math.floor(Math.random() * 800) + 50,
-            top: Math.floor(Math.random() * 300) + 50,
+            left: Math.floor(Math.random() * (canvas.getWidth() - canvas.getWidth()*0.1)) + canvas.getWidth()*0.1,
+            top: Math.floor(Math.random() * (canvas.getHeight() - canvas.getHeight()*0.1)) + canvas.getHeight()*0.1,
         });
 
         canvas.add(text);
