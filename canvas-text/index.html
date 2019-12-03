@@ -252,8 +252,8 @@
     function addText() {
         var text = new fabric.IText('我是誰 小拳石', {
             fontFamily: 'HanziPen TC',
-            left: Math.floor(Math.random() * (canvas.getWidth() - canvas.getWidth()*0.3)) + canvas.getWidth()*0.3,
-            top: Math.floor(Math.random() * (canvas.getHeight() - canvas.getHeight()*0.3)) + canvas.getHeight()*0.3,
+            left: Math.floor(Math.random() * canvas.getWidth()*0.7) + canvas.getWidth()*0.05,
+            top: Math.floor(Math.random() * canvas.getHeight()*0.7) + canvas.getHeight()*0.1,
         });
 
         canvas.add(text);
