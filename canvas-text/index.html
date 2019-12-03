@@ -15,56 +15,56 @@
             background-color: antiquewhite;
             padding: 12px;
         }
-        
 
-        .color{
+
+        .color {
             width: 20px;
             height: 20px;
             border-radius: 10px;
             display: inline-block;
             cursor: pointer;
         }
-        
-        .red{
+
+        .red {
             background-color: #ff4040;
         }
-        
-        .orange{
+
+        .orange {
             background-color: #ff6518;
         }
-        
-        .yellow{
+
+        .yellow {
             background-color: #ffbb3b;
         }
-        
-        .green{
+
+        .green {
             background-color: #03bd9e;
         }
-        
-        .light_blue{
+
+        .light_blue {
             background-color: #00a9ff;
         }
-        
-        .blue{
+
+        .blue {
             background-color: #515ce6;
         }
-        
-        .purple{
+
+        .purple {
             background-color: #9e5fff;
         }
-        
-        .pink{
+
+        .pink {
             background-color: #ff5583;
         }
-        
-        .white{
+
+        .white {
             background-color: #ffffff;
         }
-        
-        .black{
+
+        .black {
             background-color: #000000;
         }
-        
+
         @font-face {
             font-family: 'MyFont';
             src: url(https://d1eex2z7lomdjl.cloudfront.net/fonts/jester.ttf);
@@ -106,7 +106,9 @@
         </div>
     </div>
 
-</body></html>
+</body>
+
+</html>
 <script src="../script/jquery-3.3.1.min.js"></script>
 <script src="fabric.js"></script>
 <script src="canvas-text.js"></script>
@@ -167,13 +169,21 @@
                 addText();
             });
         }
-        
-        function initTextColorPicker(){
-            $('.color').click(function(){
+
+        function initTextColorPicker() {
+            $('.color').click(function() {
                 let className = $(this).attr('class').split(' ');
                 console.log(className[1]);
                 console.log(color[className[1]]);
-                canvas.getActiveObject().set({fill: color[className[1]]});
+                //canvas.getActiveObject().set({
+                //    fill: color[className[1]]
+                //});
+
+                var style = {
+                    fill: color[className[1]]
+                };
+                canvas.getActiveObject().setSelectionStyles(style).setCoords();
+
                 canvas.renderAll();
             });
         }
