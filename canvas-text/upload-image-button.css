@@ -1,0 +1,53 @@
+.upload-image-button {
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 0 5px 0 #ccc;
+    transition: all .2s;
+    padding: 0;
+
+    font-weight: bold;
+    float: left;
+
+    transition: all 2s, color 1s;
+    overflow: hidden;
+    
+    cursor: pointer;
+}
+
+.upload-image-button:hover {
+    box-shadow: 0 0 5px 0 #333;
+}
+
+.upload-image-button::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 15px;
+    left: 17px;
+    width: 15px;
+    height: 10px;
+    border: 0;
+    border-bottom: 2px solid orange;
+    opacity: .7;
+    transform: rotate(90deg);
+    transition: all .5s;
+}
+
+.upload-image-button::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    left: 14px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid blue;
+    border-left: 2px solid green;
+    opacity: .7;
+    transform: rotate(45deg);
+    transition: all .5s;
+}
