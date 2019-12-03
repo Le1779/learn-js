@@ -62,7 +62,7 @@
         }
 
         .white {
-            border:1px dotted;
+            border: 1px dotted;
             background-color: #ffffff;
         }
 
@@ -93,7 +93,7 @@
     <div class="upload-image-button" style="left: 10px; top: 70px;">
         <input type='file' id="load-image" />
     </div>
-    <div class="download-image-button" style="left: 10px; top: 130px;"></div>
+    <div class="download-image-button" style="left: 10px; top: 130px;" onclick="saveImage()"></div>
 
     <div class="text_control_container">
         <div>
@@ -127,7 +127,9 @@
         </div>
     </div>
 
-</body></html>
+</body>
+
+</html>
 <script src="../script/jquery-3.3.1.min.js"></script>
 <script src="fabric.js"></script>
 <script src="canvas-text.js"></script>
@@ -156,6 +158,7 @@
 
     function init() {
         initCanvas();
+        initDeleteEvent();
         initTextControl();
         initAddTextButton();
         initTextColorPicker();
@@ -226,7 +229,7 @@
                         canvas.centerObject(image);
                         resizeImage(image);
                         canvas.add(image);
-                        canvas.moveTo(image, 0);
+                        canvas.sendToBack(image)
                         canvas.renderAll();
                     }
                 }
@@ -246,6 +249,16 @@
             }
         }
 
+        function initDeleteEvent() {
+            $(document).keyup(function(e) {
+                if (e.keyCode == 46 || e.keyCode == 8) {
+                    if (!canvas.getActiveObject().isEditing) {
+                        canvas.remove(canvas.getActiveObject());
+                    }
+                }
+            });
+        }
+
         function resizeCanvas() {
             canvas.setHeight(window.innerHeight);
             canvas.setWidth(window.innerWidth);
@@ -256,8 +269,8 @@
     function addText() {
         var text = new fabric.IText('我是誰 小拳石', {
             fontFamily: 'HanziPen TC',
-            left: Math.floor(Math.random() * canvas.getWidth()*0.7) + canvas.getWidth()*0.05,
-            top: Math.floor(Math.random() * canvas.getHeight()*0.7) + canvas.getHeight()*0.1,
+            left: Math.floor(Math.random() * canvas.getWidth() * 0.7) + canvas.getWidth() * 0.05,
+            top: Math.floor(Math.random() * canvas.getHeight() * 0.7) + canvas.getHeight() * 0.1,
         });
 
         canvas.add(text);
@@ -309,11 +322,16 @@
         }
     });
 
-    $(document).keyup(function(e) {
-        if (e.keyCode == 46 || e.keyCode == 8) {
-            if (!canvas.getActiveObject().isEditing){
-                canvas.remove(canvas.getActiveObject());
-            }
-        }
-    });
+    function saveImage() {
+        console.log('export image');
+        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        var link = document.createElement("a");
+
+        link.href = image;
+        link.download = 'image.png';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 </script>
