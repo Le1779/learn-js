@@ -147,7 +147,7 @@
     $(document).ready(function() {
         init();
         //addText();
-        addTextDefault();
+        addText();
     });
 
     function init() {
@@ -252,30 +252,8 @@
     function addText() {
         var text = new fabric.IText('我是誰 小拳石', {
             fontFamily: 'HanziPen TC',
-            left: Math.floor(Math.random() * (canvas.getWidth() - canvas.getWidth()*0.1)) + canvas.getWidth()*0.1,
-            top: Math.floor(Math.random() * (canvas.getHeight() - canvas.getHeight()*0.1)) + canvas.getHeight()*0.1,
-        });
-
-        canvas.add(text);
-
-        text.on('moving', function() {
-            positionTextControl(text)
-        });
-        text.on('scaling', function() {
-            positionTextControl(text)
-        });
-
-        text.on('mouseup', function() {
-            console.log("text mouseup");
-            selectedObject(text);
-        });
-    }
-
-    function addTextDefault() {
-        var text = new fabric.IText('我是誰 皮卡丘', {
-            fontFamily: 'Libian TC',
-            left: 50,
-            top: 50,
+            left: Math.floor(Math.random() * (canvas.getWidth() - canvas.getWidth()*0.3)) + canvas.getWidth()*0.3,
+            top: Math.floor(Math.random() * (canvas.getHeight() - canvas.getHeight()*0.3)) + canvas.getHeight()*0.3,
         });
 
         canvas.add(text);
