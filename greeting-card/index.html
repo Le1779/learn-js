@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Greeting Card Demo</title>
+    <link rel="stylesheet" href="css/add-text-button.css">
+    <link rel="stylesheet" href="css/upload-image-button.css">
+    <link rel="stylesheet" href="css/download-image-button.css">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .text_control_container {
+            position: absolute;
+            background-color: antiquewhite;
+            padding: 24px 20px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 0 5px 0 #ccc;
+        }
+
+        .color {
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .red {
+            background-color: #ff4040;
+        }
+
+        .orange {
+            background-color: #ff6518;
+        }
+
+        .yellow {
+            background-color: #ffbb3b;
+        }
+
+        .green {
+            background-color: #03bd9e;
+        }
+
+        .light_blue {
+            background-color: #00a9ff;
+        }
+
+        .blue {
+            background-color: #515ce6;
+        }
+
+        .purple {
+            background-color: #9e5fff;
+        }
+
+        .pink {
+            background-color: #ff5583;
+        }
+
+        .white {
+            border: 1px dotted;
+            background-color: #ffffff;
+        }
+
+        .black {
+            background-color: #000000;
+        }
+
+        @font-face {
+            font-family: 'DFT_HF3';
+            src: url(fonts/DFT_HF3.ttc);
+        }
+
+        @font-face {
+            font-family: 'Love';
+            src: url(fonts/DFPLove-TC1-W5.ttf);
+        }
+
+        @font-face {
+            font-family: 'KingGothic';
+            src: url(fonts/DFPKingGothicTC-Regular.ttf);
+        }
+
+        #load-image {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            cursor: pointer;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" name="myCanvas" width="1000" height="500" style="border:1px dotted;float:left"></canvas>
+
+    <div class="add-text-button" style="left: 10px; top: 10px;"></div>
+    <div class="upload-image-button" style="left: 10px; top: 70px;">
+        <input type='file' id="load-image" />
+    </div>
+    <div class="download-image-button" style="left: 10px; top: 130px;" onclick="saveImage()"></div>
+
+    <div class="text_control_container" style="display: none;">
+        <div>
+            <label for="font-control">Font family:</label>
+            <select id="font-control" name="font-control">
+                <optgroup label="Mac">
+                    <option value="Hannotate TC">手扎體</option>
+                    <option value="Xingkai TC">行楷</option>
+                    <option value="Songti TC">宋體</option>
+                    <option value="Wawati TC">娃娃體</option>
+                    <option value="LingWai TC">凌慧體</option>
+                    <option value="Baoli TC">報隸</option>
+                    <option value="HanziPen TC">翩翩體</option>
+                    <option value="Libian TC">隸變</option>
+                </optgroup>
+                <optgroup label="Windows">
+                    <option value="Microsoft JhengHei">微軟正黑體</option>
+                    <option value="DFKai-sb">標楷體</option>
+                    <option value="PMingLiU">新細明體</option>
+                    <option value="DFT_HF3">秀風體</option>
+                    <option value="Love">愛情體</option>
+                    <option value="KingGothic">金剛黑體</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div>
+            <label>Text color:</label>
+            <div class="text_color_container">
+                <div class="color white"></div>
+                <div class="color black"></div>
+                <div class="color red"></div>
+                <div class="color orange"></div>
+                <div class="color yellow"></div>
+                <div class="color green"></div>
+                <div class="color light_blue"></div>
+                <div class="color blue"></div>
+                <div class="color purple"></div>
+                <div class="color pink"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="font_preload" style="opacity: 0">
+       <!--preload font-->
+        <span style="font-family: DFT_HF3;"></span>
+        <span style="font-family: Love;"></span>
+        <span style="font-family: KingGothic;"></span>
+    </div>
+</body></html>
+<script src="script/jquery-3.3.1.min.js"></script>
+<script src="script/fabric.js"></script>
+<script src="script/index.js"></script>
