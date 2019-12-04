@@ -152,7 +152,6 @@
 
     $(document).ready(function() {
         init();
-        //addText();
         addText();
     });
 
@@ -172,6 +171,7 @@
 
         function initCanvas() {
             canvas = new fabric.Canvas('myCanvas', {});
+            canvas.preserveObjectStacking = true;
 
             fabric.Canvas.prototype.getAbsoluteCoords = function(object) {
                 return {
