@@ -278,12 +278,20 @@
         text.on('moving', function() {
             positionTextControl(text)
         });
+        
         text.on('scaling', function() {
             positionTextControl(text)
         });
+        
+        text.on('rotating', function() {
+            positionTextControl(text);
+        });
+        
+        text.on('changed', function() {
+            positionTextControl(text);
+        });
 
         text.on('mouseup', function() {
-            console.log("text mouseup");
             selectedObject(text);
         });
     }
@@ -307,10 +315,11 @@
         let absCoords = canvas.getAbsoluteCoords(obj);
         let width = obj.width * obj.scaleX;
         let height = obj.height * obj.scaleY;
+        let centerPoint = obj.getCenterPoint();
 
         textControl.css({
-            "top": absCoords.top + height + 10,
-            "left": absCoords.left
+            "top": centerPoint.y - height * 0.5,
+            "left": centerPoint.x + width * 0.5 + 10
         });
     }
 
