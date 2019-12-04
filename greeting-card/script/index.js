@@ -16,7 +16,7 @@ var color = {
 
 $(document).ready(function () {
     init();
-    addText();
+    makeDefaultObject();
 });
 
 function init() {
@@ -62,7 +62,7 @@ function init() {
 
     function initAddTextButton() {
         $('.add-text-button').click(function () {
-            addText();
+            addText('微風迎客，軟語伴茶', 'HanziPen TC');
         });
     }
 
@@ -99,18 +99,6 @@ function init() {
             }
             reader.readAsDataURL(e.target.files[0]);
         }
-
-        function resizeImage(obj) {
-            if (obj.width < obj.height) {
-                obj.scaleToWidth(canvas.getWidth() * 0.8);
-            } else {
-                obj.scaleToHeight(canvas.getHeight() * 0.8);
-            }
-
-
-            obj.top = 0;
-            obj.left = 0;
-        }
     }
 
     function initDeleteEvent() {
@@ -130,12 +118,17 @@ function init() {
     }
 };
 
-function addText() {
-    var text = new fabric.IText('微風迎客，軟語伴茶', {
-        fontFamily: 'HanziPen TC',
-        left: Math.floor(Math.random() * canvas.getWidth() * 0.7) + canvas.getWidth() * 0.05,
-        top: Math.floor(Math.random() * canvas.getHeight() * 0.7) + canvas.getHeight() * 0.1,
-    });
+function addText(t, font, style) {
+    var text;
+    if (style == null) {
+        text = new fabric.IText(t, {
+            fontFamily: font,
+            left: Math.floor(Math.random() * canvas.getWidth() * 0.7) + canvas.getWidth() * 0.05,
+            top: Math.floor(Math.random() * canvas.getHeight() * 0.7) + canvas.getHeight() * 0.1,
+        });
+    } else {
+        text = new fabric.IText(t, style);
+    }
 
     canvas.add(text);
 
@@ -206,4 +199,55 @@ function saveImage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+function resizeImage(obj) {
+    if (obj.width < obj.height) {
+        obj.scaleToWidth(canvas.getWidth() * 1);
+    } else {
+        obj.scaleToHeight(canvas.getHeight() * 1);
+    }
+
+
+    obj.top = 0;
+    obj.left = 0;
+}
+
+function makeDefaultObject() {
+    setBackground();
+    let style = {
+        fontFamily: 'Love',
+        fill: '#03bd9e',
+        fontSize: canvas.getHeight() * 0.09,
+        left: canvas.getHeight() * 0.25,
+        top: canvas.getHeight() * 0.55,
+    }
+    addText('聖誕快樂', 'Love', style);
+    style.fill = '#ff4040'
+    style.left += 5;
+    style.top += 2;
+    addText('聖誕快樂', 'Love', style);
+    
+    style = {
+        fontFamily: 'Love',
+        fill: '#161616',
+        fontSize: canvas.getHeight() * 0.05,
+        left: canvas.getHeight() * 0.7,
+        top: canvas.getHeight() * 0.77,
+    }
+    addText('NTD', 'Love', style);
+
+    function setBackground() {
+        fabric.Image.fromURL('background.jpg', function (img) {
+            let image = img.set({
+                left: 0,
+                top: 0,
+            });
+            canvas.centerObject(image);
+            resizeImage(image);
+            canvas.add(image);
+            canvas.sendToBack(image)
+            canvas.renderAll();
+        });
+    }
 }
