@@ -14,6 +14,12 @@ var color = {
     pink: '#ff5583'
 }
 
+var gif = new GIF({
+    workers: 2,
+    quality: 30,
+    workerScript: './script/gif.worker.js'
+});
+
 $(document).ready(function () {
     init();
     makeDefaultObject();
@@ -111,8 +117,8 @@ function init() {
             }
         });
     }
-    
-    function initAnimateSelector(){
+
+    function initAnimateSelector() {
         $('.anim').click(function () {
             blinkingText(canvas.getActiveObject(), 500);
         });
@@ -158,7 +164,7 @@ function addText(t, font, style) {
     text.on('mouseup', function () {
         selectedObject(text);
     });
-    
+
     return text;
 }
 
@@ -210,6 +216,33 @@ function saveImage() {
     document.body.removeChild(link);
 }
 
+function saveAsGIF() {
+    let renderFinished = false;
+    setInterval(ad, 10);
+    function ad(){
+        addFrame(document.getElementById('myCanvas'));
+    }
+    gif.on('finished', function (blob) {
+        window.open(URL.createObjectURL(blob));
+    });
+
+    function addFrame(canvas) {
+        if(renderFinished){
+            return;
+        }
+        if (gif.frames.length < 10) {
+            console.log('add frame: ' + gif.frames.length);
+            gif.addFrame(canvas, {
+                delay: 250
+            });
+        } else {
+            console.log('add frame end');
+            renderFinished = true;
+            gif.render();
+        }
+    }
+}
+
 function resizeImage(obj) {
     if (obj.width < obj.height) {
         obj.scaleToWidth(canvas.getWidth() * 1);
@@ -232,14 +265,14 @@ function makeDefaultObject() {
         top: canvas.getHeight() * 0.55,
     }
     let t1 = addText('聖誕快樂', 'Love', style);
-    blinkingText(t1, 500);
-    
+    rotateText(t1, 500);
+
     style.fill = '#ff4040'
     style.left += 5;
     style.top += 2;
     let t2 = addText('聖誕快樂', 'Love', style);
-    blinkingText(t2, 500, 500);
-    
+    rotateText(t2, 500);
+
     style = {
         fontFamily: 'Love',
         fill: '#161616',
@@ -247,7 +280,8 @@ function makeDefaultObject() {
         left: canvas.getHeight() * 0.7,
         top: canvas.getHeight() * 0.77,
     }
-    addText('NTD', 'Love', style);
+    let t3 = addText('NTD', 'Love', style);
+    moveText(t3, 500);
 
     function setBackground() {
         fabric.Image.fromURL('background.jpg', function (img) {
