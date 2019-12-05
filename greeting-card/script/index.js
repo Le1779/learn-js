@@ -218,22 +218,24 @@ function saveImage() {
 
 function saveAsGIF() {
     let renderFinished = false;
-    setInterval(ad, 10);
-    function ad(){
+    window.requestAnimationFrame(ad);
+    //setInterval(ad, 17);
+    function ad() {
         addFrame(document.getElementById('myCanvas'));
+        window.requestAnimationFrame(ad);
     }
     gif.on('finished', function (blob) {
         window.open(URL.createObjectURL(blob));
     });
 
     function addFrame(canvas) {
-        if(renderFinished){
+        if (renderFinished) {
             return;
         }
-        if (gif.frames.length < 10) {
+        if (gif.frames.length < 20) {
             console.log('add frame: ' + gif.frames.length);
             gif.addFrame(canvas, {
-                delay: 250
+                delay: 187
             });
         } else {
             console.log('add frame end');
