@@ -26,6 +26,7 @@ function init() {
     initAddTextButton();
     initTextColorPicker();
     initImageUploadButton();
+    initAnimateSelector();
     selectedObject(null);
     resizeCanvas();
 
@@ -110,6 +111,12 @@ function init() {
             }
         });
     }
+    
+    function initAnimateSelector(){
+        $('.anim').click(function () {
+            blinkingText(canvas.getActiveObject(), 500);
+        });
+    }
 
     function resizeCanvas() {
         canvas.setHeight(window.innerHeight);
@@ -119,7 +126,7 @@ function init() {
 };
 
 function addText(t, font, style) {
-    var text;
+    let text;
     if (style == null) {
         text = new fabric.IText(t, {
             fontFamily: font,
@@ -151,6 +158,8 @@ function addText(t, font, style) {
     text.on('mouseup', function () {
         selectedObject(text);
     });
+    
+    return text;
 }
 
 function changeFont(obj, fontName) {
@@ -222,11 +231,14 @@ function makeDefaultObject() {
         left: canvas.getHeight() * 0.25,
         top: canvas.getHeight() * 0.55,
     }
-    addText('聖誕快樂', 'Love', style);
+    let t1 = addText('聖誕快樂', 'Love', style);
+    blinkingText(t1, 500);
+    
     style.fill = '#ff4040'
     style.left += 5;
     style.top += 2;
-    addText('聖誕快樂', 'Love', style);
+    let t2 = addText('聖誕快樂', 'Love', style);
+    blinkingText(t2, 500, 500);
     
     style = {
         fontFamily: 'Love',
