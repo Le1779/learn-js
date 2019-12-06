@@ -258,6 +258,7 @@ function resizeImage(obj) {
 }
 
 function makeDefaultObject() {
+    setTest();
     setBackground();
     let style = {
         fontFamily: 'Love',
@@ -267,13 +268,13 @@ function makeDefaultObject() {
         top: canvas.getHeight() * 0.55,
     }
     let t1 = addText('聖誕快樂', 'Love', style);
-    rotateText(t1, 500);
+    //rotateText(t1, 500);
 
     style.fill = '#ff4040'
     style.left += 5;
     style.top += 2;
     let t2 = addText('聖誕快樂', 'Love', style);
-    rotateText(t2, 500);
+    //rotateText(t2, 500);
 
     style = {
         fontFamily: 'Love',
@@ -283,7 +284,7 @@ function makeDefaultObject() {
         top: canvas.getHeight() * 0.77,
     }
     let t3 = addText('NTD', 'Love', style);
-    moveText(t3, 500);
+    //moveText(t3, 500);
 
     function setBackground() {
         fabric.Image.fromURL('background.jpg', function (img) {
@@ -298,4 +299,111 @@ function makeDefaultObject() {
             canvas.renderAll();
         });
     }
+
+    function setTest() {
+        var patternCanvas = document.createElement('canvas');
+
+        var ctx;
+
+        var shape = new fabric.Rect({
+            width: 250,
+            height: 70,
+            left: 10,
+            top: 300,
+        });
+        let fontSize;
+
+        //patternCanvas.width = shape.width;
+        //patternCanvas.height = shape.height;
+
+
+        initCanvas();
+        shape.on('scaling', function () {
+            console.log("scaling")
+            var height = shape.height * shape.scaleY;
+            var width = shape.width * shape.scaleX;
+            shape.height = height;
+            shape.width = width;
+            shape.scaleX = 1;
+            shape.scaleY = 1;
+            initCanvas();
+        });
+        getPattern(shape)
+        canvas.add(shape);
+
+
+
+        function initCanvas() {
+            patternCanvas = document.createElement('canvas');
+
+            ctx = patternCanvas.getContext('2d');
+            ctx.canvas.width = shape.width;
+            ctx.canvas.height = shape.height;
+
+            fontSize = ctx.canvas.height * 0.8;
+
+            ctx.font = fontSize + "px Love, sans-serif";
+            ctx.lineWidth = 2;
+            ctx.lineJoin = "round";
+            ctx.globalAlpha = 2 / 3;
+            ctx.strokeStyle = ctx.fillStyle = "#ff4040";
+
+            console.log(ctx.canvas.width)
+            console.log(ctx)
+        }
+
+        function getPattern() {
+            var squareWidth = 10,
+                squareDistance = 2;
+
+            var dashLen = 220,
+                dashOffset = dashLen,
+                speed = 5,
+                txt = "聖誕快樂",
+                x = 0,
+                i = 0;
+
+            loop();
+
+
+            function loop() {
+                //console.log(ctx.canvas.width)
+                //console.log(ctx)
+                shape.set('fill', new fabric.Pattern({
+                    source: patternCanvas
+                }));
+                canvas.renderAll();
+
+                ctx.clearRect(x, 0, fontSize, ctx.canvas.height);
+                ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
+                dashOffset -= speed; // reduce dash length
+                ctx.strokeText(txt[i], x, fontSize); // stroke letter
+
+                if (dashOffset > 0) requestAnimationFrame(loop); // animate
+                else {
+                    ctx.fillText(txt[i], x, fontSize); // fill final letter
+                    dashOffset = dashLen; // prep next char
+                    x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
+                    ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
+                    ctx.rotate(Math.random() * 0.005); // random rotation
+                    if (i < txt.length) {
+                        requestAnimationFrame(loop);
+                    } else {
+                        dashLen = 220;
+                        dashOffset = dashLen;
+                        speed = 5;
+                        txt = "聖誕快樂";
+                        x = 0;
+                        i = 0;
+
+                        requestAnimationFrame(loop);
+                    }
+                }
+            }
+
+            return patternCanvas;
+        }
+    }
+
+
 }
