@@ -232,10 +232,10 @@ function saveAsGIF() {
         if (renderFinished) {
             return;
         }
-        if (gif.frames.length < 20) {
+        if (gif.frames.length < 60) {
             console.log('add frame: ' + gif.frames.length);
             gif.addFrame(canvas, {
-                delay: 187
+                delay: 204
             });
         } else {
             console.log('add frame end');
