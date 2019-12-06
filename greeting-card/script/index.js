@@ -258,7 +258,6 @@ function resizeImage(obj) {
 }
 
 function makeDefaultObject() {
-    setTest();
     setBackground();
     let style = {
         fontFamily: 'Love',
@@ -285,6 +284,8 @@ function makeDefaultObject() {
     }
     let t3 = addText('NTD', 'Love', style);
     //moveText(t3, 500);
+    
+    setTest();
 
     function setBackground() {
         fabric.Image.fromURL('background.jpg', function (img) {
@@ -301,25 +302,29 @@ function makeDefaultObject() {
     }
 
     function setTest() {
-        var patternCanvas = document.createElement('canvas');
+        var dashLen = 220,
+            dashOffset = dashLen,
+            speed = 5,
+            txt = "聖誕快樂",
+            x = 0,
+            i = 0;
 
-        var ctx;
+        let patternCanvas = document.createElement('canvas');
+        let ctx;
 
-        var shape = new fabric.Rect({
-            width: 250,
-            height: 70,
+        let shape = new fabric.Rect({
+            width: 320,
+            height: 100,
             left: 10,
             top: 300,
         });
+
+        shape.width = shape.height * 0.8 * 4;
+
         let fontSize;
-
-        //patternCanvas.width = shape.width;
-        //patternCanvas.height = shape.height;
-
 
         initCanvas();
         shape.on('scaling', function () {
-            console.log("scaling")
             var height = shape.height * shape.scaleY;
             var width = shape.width * shape.scaleX;
             shape.height = height;
@@ -328,80 +333,56 @@ function makeDefaultObject() {
             shape.scaleY = 1;
             initCanvas();
         });
-        getPattern(shape)
+
+        loop()
         canvas.add(shape);
-
-
 
         function initCanvas() {
             patternCanvas = document.createElement('canvas');
 
             ctx = patternCanvas.getContext('2d');
-            ctx.canvas.width = shape.width;
-            ctx.canvas.height = shape.height;
+            ctx.canvas.width = shape.width * 2;
+            ctx.canvas.height = shape.height * 2;
 
-            fontSize = ctx.canvas.height * 0.8;
-
+            fontSize = shape.height * 0.8;
             ctx.font = fontSize + "px Love, sans-serif";
             ctx.lineWidth = 2;
             ctx.lineJoin = "round";
-            ctx.globalAlpha = 2 / 3;
-            ctx.strokeStyle = ctx.fillStyle = "#ff4040";
-
-            console.log(ctx.canvas.width)
-            console.log(ctx)
+            //ctx.globalAlpha = 2 / 3;
+            ctx.strokeStyle = "#ff4040";
+            ctx.fillStyle = "#ff4040";
         }
 
-        function getPattern() {
-            var squareWidth = 10,
-                squareDistance = 2;
+        function loop() {
+            shape.set('fill', new fabric.Pattern({
+                source: patternCanvas
+            }));
+            canvas.renderAll();
 
-            var dashLen = 220,
-                dashOffset = dashLen,
-                speed = 5,
-                txt = "聖誕快樂",
-                x = 0,
-                i = 0;
+            ctx.clearRect(x, 0, fontSize, ctx.canvas.height);
+            ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
+            dashOffset -= speed; // reduce dash length
+            ctx.strokeText(txt[i], x, fontSize); // stroke letter
 
-            loop();
+            if (dashOffset > 0) {
+                requestAnimationFrame(loop); // animate
+            } else {
+                ctx.fillText(txt[i], x, fontSize); // fill final letter
+                dashOffset = dashLen; // prep next char
+                x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
+                ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
+                ctx.rotate(Math.random() * 0.005); // random rotation
+                if (i < txt.length) {
+                    requestAnimationFrame(loop);
+                } else {
+                    dashLen = 220;
+                    dashOffset = dashLen;
+                    x = 0;
+                    i = 0;
 
-
-            function loop() {
-                //console.log(ctx.canvas.width)
-                //console.log(ctx)
-                shape.set('fill', new fabric.Pattern({
-                    source: patternCanvas
-                }));
-                canvas.renderAll();
-
-                ctx.clearRect(x, 0, fontSize, ctx.canvas.height);
-                ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
-                dashOffset -= speed; // reduce dash length
-                ctx.strokeText(txt[i], x, fontSize); // stroke letter
-
-                if (dashOffset > 0) requestAnimationFrame(loop); // animate
-                else {
-                    ctx.fillText(txt[i], x, fontSize); // fill final letter
-                    dashOffset = dashLen; // prep next char
-                    x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
-                    ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
-                    ctx.rotate(Math.random() * 0.005); // random rotation
-                    if (i < txt.length) {
-                        requestAnimationFrame(loop);
-                    } else {
-                        dashLen = 220;
-                        dashOffset = dashLen;
-                        speed = 5;
-                        txt = "聖誕快樂";
-                        x = 0;
-                        i = 0;
-
-                        requestAnimationFrame(loop);
-                    }
+                    requestAnimationFrame(loop);
                 }
             }
-
-            return patternCanvas;
         }
     }
 
