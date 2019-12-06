@@ -284,8 +284,16 @@ function makeDefaultObject() {
     }
     let t3 = addText('NTD', 'Love', style);
     //moveText(t3, 500);
-    
+
     setTest();
+
+    addSignatureText("聖誕快樂", {
+        height: canvas.getHeight() * 0.09,
+        left: canvas.getHeight() * 0.25,
+        top: canvas.getHeight() * 0.65,
+        fontFamily: 'Love',
+        fill: '#03bd9e',
+    });
 
     function setBackground() {
         fabric.Image.fromURL('background.jpg', function (img) {
@@ -387,4 +395,67 @@ function makeDefaultObject() {
     }
 
 
+    function addSignatureText(t, style) {
+        let mainStyle = {
+            height: style.height,
+            left: style.left,
+            top: style.top,
+        };
+        mainStyle.width = mainStyle.height * 0.8 * t.length;
+
+        let fontStyle = {
+            height: mainStyle.height,
+            width: mainStyle.width,
+            left: mainStyle.left,
+            top: mainStyle.top,
+            fontFamily: style.fontFamily,
+            fill: style.fill,
+            fontSize: mainStyle.height * 0.8,
+            opacity: 1,
+        }
+
+        let main = new fabric.Rect(mainStyle);
+        
+        let editText = addText(t, 'Love', fontStyle);
+
+        let group = new fabric.Group([main, editText]);
+        canvas.add(group);
+
+        group.on('mousedblclick', function () {
+            console.log(group);
+            ungroup(group);
+            canvas.setActiveObject(editText);
+            editText.enterEditing();
+            editText.selectAll();
+        });
+
+        let ungroup = function (group) {
+            items = group._objects;
+            group._restoreObjectsState();
+            canvas.remove(group);
+            for (var i = 0; i < items.length; i++) {
+                canvas.add(items[i]);
+            }
+        };
+
+        editText.on('editing:exited', function () {
+            console.log("editing:exited");
+            let items = [];
+            items.push(editText);
+            items.push(main);
+            console.log(items);
+            canvas.remove(main);
+            canvas.remove(editText);
+            let group = new fabric.Group(items.reverse(), {});
+            canvas.add(group);
+            console.log(group);
+            group.on('mousedblclick', function () {
+                console.log(group);
+                ungroup(group);
+                canvas.setActiveObject(editText);
+                editText.enterEditing();
+                editText.selectAll();
+            });
+        });
+    }
 }
