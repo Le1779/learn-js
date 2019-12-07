@@ -396,66 +396,75 @@ function makeDefaultObject() {
 
 
     function addSignatureText(t, style) {
-        let mainStyle = {
-            height: style.height,
-            left: style.left,
-            top: style.top,
-        };
-        mainStyle.width = mainStyle.height * 0.8 * t.length;
+        let mainStyle, fontStyle;
+        let main, editText;
 
-        let fontStyle = {
-            height: mainStyle.height,
-            width: mainStyle.width,
-            left: mainStyle.left,
-            top: mainStyle.top,
-            fontFamily: style.fontFamily,
-            fill: style.fill,
-            fontSize: mainStyle.height * 0.8,
-            opacity: 1,
+        initStyle();
+        initObject();
+        initGroup();
+
+        function initStyle() {
+            mainStyle = {
+                height: style.height,
+                left: style.left,
+                top: style.top,
+            };
+            mainStyle.width = mainStyle.height * 0.8 * t.length;
+
+            fontStyle = {
+                height: mainStyle.height,
+                width: mainStyle.width,
+                left: mainStyle.left,
+                top: mainStyle.top,
+                fontFamily: style.fontFamily,
+                fill: style.fill,
+                fontSize: mainStyle.height * 0.8,
+                opacity: 1,
+            }
         }
 
-        let main = new fabric.Rect(mainStyle);
-        
-        let editText = addText(t, 'Love', fontStyle);
+        function initObject() {
+            main = new fabric.Rect(mainStyle);
+            editText = addText(t, 'Love', fontStyle);
 
-        let group = new fabric.Group([main, editText]);
-        canvas.add(group);
+            main.on('scaling', function () {
+                console.log('main scaling')
+            });
+        }
 
-        group.on('mousedblclick', function () {
-            console.log(group);
-            ungroup(group);
-            canvas.setActiveObject(editText);
-            editText.enterEditing();
-            editText.selectAll();
-        });
-
-        let ungroup = function (group) {
-            items = group._objects;
-            group._restoreObjectsState();
-            canvas.remove(group);
-            for (var i = 0; i < items.length; i++) {
-                canvas.add(items[i]);
-            }
-        };
-
-        editText.on('editing:exited', function () {
-            console.log("editing:exited");
+        function initGroup() {
             let items = [];
             items.push(editText);
             items.push(main);
-            console.log(items);
-            canvas.remove(main);
-            canvas.remove(editText);
-            let group = new fabric.Group(items.reverse(), {});
+            let group = new fabric.Group(items.reverse(), {subTargetCheck: true});
             canvas.add(group);
-            console.log(group);
+            
             group.on('mousedblclick', function () {
-                console.log(group);
                 ungroup(group);
                 canvas.setActiveObject(editText);
                 editText.enterEditing();
                 editText.selectAll();
             });
+            
+            group.on('scaling', function () {
+                console.log('group scaling')
+            });
+
+            function ungroup(group) {
+                items = group._objects;
+                group._restoreObjectsState();
+                canvas.remove(group);
+                for (var i = 0; i < items.length; i++) {
+                    canvas.add(items[i]);
+                }
+            }
+        }
+
+        editText.on('editing:exited', function () {
+            console.log(editText);
+            canvas.remove(main);
+            canvas.remove(editText);
+            initGroup();
         });
     }
 }
