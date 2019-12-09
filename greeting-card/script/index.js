@@ -135,7 +135,7 @@ function init() {
             let selectObj = canvas.getActiveObject();
             selectObj.id = signatureText(selectObj);
         });
-        
+
         $('#clear').click(function () {
             let func = canvas.getActiveObject().id;
             if (typeof func !== 'undefined' && $.isFunction(func)) {
@@ -305,17 +305,8 @@ function makeDefaultObject() {
         top: canvas.getHeight() * 0.77,
     }
     let t3 = addText('NTD', 'Love', style);
-    //moveText(t3, 500);
 
-    //setTest();
-
-    addSignatureText("測試看看", {
-        height: canvas.getHeight() * 0.09,
-        left: canvas.getHeight() * 0.25,
-        top: canvas.getHeight() * 0.65,
-        fontFamily: 'Love',
-        fill: '#03bd9e',
-    });
+    t3.id = signatureText(t3);
 
 
     function setBackground() {
