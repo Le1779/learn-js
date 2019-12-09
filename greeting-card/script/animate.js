@@ -19,8 +19,9 @@ function blinkingText(obj, duration, delay) {
     }, delay);
 
     return function () {
-        console.log("claer timeout")
         clearInterval(intervalID);
+        flag = false
+        animate();
     }
 }
 
@@ -199,19 +200,19 @@ function signatureText(editText) {
             main.opacity = 1;
         }
     }
-    
+
     function cleared() {
         editText.sendToBack();
-            editText.selectable = false;
-            editText.opacity = 0;
-            main.opacity = 1;
+        editText.selectable = false;
+        editText.opacity = 0;
+        main.opacity = 1;
     }
-    
+
     function exited() {
         text = editText.text;
-            main.height = editText.height * editText.scaleY;
-            main.width = editText.width * editText.scaleX;
-            initCanvas();
+        main.height = editText.height * editText.scaleY;
+        main.width = editText.width * editText.scaleX;
+        initCanvas();
     }
 
     let dashLen = 220,

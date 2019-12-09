@@ -135,6 +135,13 @@ function init() {
             let selectObj = canvas.getActiveObject();
             selectObj.id = signatureText(selectObj);
         });
+        
+        $('#clear').click(function () {
+            let func = canvas.getActiveObject().id;
+            if (typeof func !== 'undefined' && $.isFunction(func)) {
+                func();
+            }
+        });
     }
 
     function resizeCanvas() {
