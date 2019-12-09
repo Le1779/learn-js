@@ -119,8 +119,19 @@ function init() {
     }
 
     function initAnimateSelector() {
-        $('.anim').click(function () {
+        $('#blinking').click(function () {
             blinkingText(canvas.getActiveObject(), 500);
+        });
+
+        $('#handwriting').click(function () {
+            let selectObj = canvas.getActiveObject();
+            addSignatureText("聖誕快樂", {
+                height: selectObj .height,
+                left: selectObj.left,
+                top: selectObj.top,
+                fontFamily: selectObj.fontFamily,
+                fill: selectObj.fill,
+            });
         });
     }
 
@@ -289,13 +300,14 @@ function makeDefaultObject() {
 
     //setTest();
 
-    addSignatureText("聖誕快樂", {
+    addSignatureText("測試看看", {
         height: canvas.getHeight() * 0.09,
         left: canvas.getHeight() * 0.25,
         top: canvas.getHeight() * 0.65,
         fontFamily: 'Love',
         fill: '#03bd9e',
     });
+
 
     function setBackground() {
         fabric.Image.fromURL('background.jpg', function (img) {
@@ -310,11 +322,12 @@ function makeDefaultObject() {
             canvas.renderAll();
         });
     }
+}
 
-    function addSignatureText(text, style) {
+function addSignatureText(text, style) {
         let mainStyle, fontStyle;
         let main, editText;
-
+    
         initStyle();
         initObject();
 
@@ -342,7 +355,10 @@ function makeDefaultObject() {
             main = new fabric.Rect(mainStyle);
             canvas.add(main);
             editText = addText(text, 'Love', fontStyle);
-            editText.moveTo(-1);
+            
+            console.log(main);
+            console.log(editText);
+            editText.sendToBack();
             editText.selectable = false;
             editText.opacity = 0;
             main.opacity = 1;
@@ -382,6 +398,7 @@ function makeDefaultObject() {
             });
 
             main.on('mousedblclick', function () {
+                console.log('mousedblclick');
                 editText.bringToFront();
                 editText.selectable = true;
                 canvas.setActiveObject(editText);
@@ -393,7 +410,7 @@ function makeDefaultObject() {
 
             canvas.on('selection:updated', function () {
                 if (canvas.getActiveObject() != editText) {
-                    editText.moveTo(-1);
+                    editText.sendToBack();
                     editText.selectable = false;
                     editText.opacity = 0;
                     main.opacity = 1;
@@ -401,7 +418,7 @@ function makeDefaultObject() {
             });
 
             canvas.on('selection:cleared', function () {
-                editText.moveTo(-1);
+                editText.sendToBack();
                 editText.selectable = false;
                 editText.opacity = 0;
                 main.opacity = 1;
@@ -416,7 +433,7 @@ function makeDefaultObject() {
             });
         }
 
-        var dashLen = 220,
+        let dashLen = 220,
             dashOffset = dashLen,
             speed = 5,
             x = 0,
@@ -430,7 +447,7 @@ function makeDefaultObject() {
         loop();
 
         function initCanvas() {
-            patternCanvas = document.createElement('canvas');
+            //patternCanvas = document.createElement('canvas');
 
             ctx = patternCanvas.getContext('2d');
             ctx.canvas.width = main.width * 2;
@@ -457,7 +474,6 @@ function makeDefaultObject() {
             ctx.strokeText(text[i], x, fontSize * 0.9); // stroke letter
 
             if (editText.styles['0'] != null) {
-                console.log(editText.styles);
                 if (editText.styles['0'][i] != null) {
                     ctx.strokeStyle = editText.styles['0'][i].fill;
                     ctx.fillStyle = editText.styles['0'][i].fill;
@@ -489,4 +505,3 @@ function makeDefaultObject() {
             }
         }
     }
-}
