@@ -179,8 +179,10 @@ function selectedObject(obj) {
         textControl.hide();
         return;
     }
-    textControl.show();
-    positionTextControl(obj);
+    if (obj.top > 0 && obj.left > 0) {
+        textControl.show();
+        positionTextControl(obj);
+    }
 }
 
 function positionTextControl(obj) {
@@ -436,16 +438,18 @@ function makeDefaultObject() {
             let items = [];
             items.push(editText);
             items.push(main);
-            let group = new fabric.Group(items.reverse(), {subTargetCheck: true});
+            let group = new fabric.Group(items.reverse(), {
+                subTargetCheck: true
+            });
             canvas.add(group);
-            
+
             group.on('mousedblclick', function () {
                 ungroup(group);
                 canvas.setActiveObject(editText);
                 editText.enterEditing();
                 editText.selectAll();
             });
-            
+
             group.on('scaling', function () {
                 console.log('group scaling')
             });
