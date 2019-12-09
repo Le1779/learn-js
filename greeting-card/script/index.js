@@ -120,12 +120,20 @@ function init() {
 
     function initAnimateSelector() {
         $('#blinking').click(function () {
-            blinkingText(canvas.getActiveObject(), 500);
+            let func = canvas.getActiveObject().id;
+            if (typeof func !== 'undefined' && $.isFunction(func)) {
+                func();
+            }
+            canvas.getActiveObject().id = blinkingText(canvas.getActiveObject(), 500);
         });
 
         $('#handwriting').click(function () {
+            let func = canvas.getActiveObject().id;
+            if (typeof func !== 'undefined' && $.isFunction(func)) {
+                func();
+            }
             let selectObj = canvas.getActiveObject();
-            signatureText(selectObj);
+            selectObj.id = signatureText(selectObj);
         });
     }
 
@@ -319,183 +327,183 @@ function makeDefaultObject() {
 }
 
 function addSignatureText(text, style) {
-        let mainStyle, fontStyle;
-        let main, editText;
-    
-        initStyle();
-        initObject();
+    let mainStyle, fontStyle;
+    let main, editText;
 
-        function initStyle() {
-            mainStyle = {
-                height: style.height,
-                left: style.left,
-                top: style.top,
-            };
-            mainStyle.width = mainStyle.height * 0.8 * text.length;
+    initStyle();
+    initObject();
 
-            fontStyle = {
-                height: mainStyle.height,
-                width: mainStyle.width,
-                left: mainStyle.left,
-                top: mainStyle.top,
-                fontFamily: style.fontFamily,
-                fill: style.fill,
-                fontSize: mainStyle.height * 0.8,
-                opacity: 1,
-            }
+    function initStyle() {
+        mainStyle = {
+            height: style.height,
+            left: style.left,
+            top: style.top,
+        };
+        mainStyle.width = mainStyle.height * 0.8 * text.length;
+
+        fontStyle = {
+            height: mainStyle.height,
+            width: mainStyle.width,
+            left: mainStyle.left,
+            top: mainStyle.top,
+            fontFamily: style.fontFamily,
+            fill: style.fill,
+            fontSize: mainStyle.height * 0.8,
+            opacity: 1,
         }
+    }
 
-        function initObject() {
-            main = new fabric.Rect(mainStyle);
-            canvas.add(main);
-            editText = addText(text, 'Love', fontStyle);
-            
-            console.log(main);
-            console.log(editText);
-            editText.sendToBack();
-            editText.selectable = false;
-            editText.opacity = 0;
-            main.opacity = 1;
+    function initObject() {
+        main = new fabric.Rect(mainStyle);
+        canvas.add(main);
+        editText = addText(text, 'Love', fontStyle);
 
-            main.on('scaling', function () {
-                console.log('main scaling')
-                var height = main.height * main.scaleY;
-                var width = main.width * main.scaleX;
-                main.height = height;
-                main.width = width;
+        console.log(main);
+        console.log(editText);
+        editText.sendToBack();
+        editText.selectable = false;
+        editText.opacity = 0;
+        main.opacity = 1;
 
-                main.scaleX = 1;
-                main.scaleY = 1;
+        main.on('scaling', function () {
+            console.log('main scaling')
+            var height = main.height * main.scaleY;
+            var width = main.width * main.scaleX;
+            main.height = height;
+            main.width = width;
 
-                editText.scaleToHeight(height);
-                editText.scaleToWidth(width);
-                editText.set({
-                    top: main.top,
-                    left: main.left
-                });
+            main.scaleX = 1;
+            main.scaleY = 1;
 
-                initCanvas();
+            editText.scaleToHeight(height);
+            editText.scaleToWidth(width);
+            editText.set({
+                top: main.top,
+                left: main.left
             });
 
-            main.on('moving', function () {
-                editText.top = main.top;
-                editText.left = main.left;
-                console.log('main moving')
-            });
+            initCanvas();
+        });
 
-            main.on('rotating', function () {
-                editText.set({
-                    angle: main.angle,
-                    top: main.top,
-                    left: main.left
-                });
-            });
+        main.on('moving', function () {
+            editText.top = main.top;
+            editText.left = main.left;
+            console.log('main moving')
+        });
 
-            main.on('mousedblclick', function () {
-                console.log('mousedblclick');
-                editText.bringToFront();
-                editText.selectable = true;
-                canvas.setActiveObject(editText);
-                editText.enterEditing();
-                editText.selectAll();
-                editText.opacity = 1;
-                main.opacity = 0;
+        main.on('rotating', function () {
+            editText.set({
+                angle: main.angle,
+                top: main.top,
+                left: main.left
             });
+        });
 
-            canvas.on('selection:updated', function () {
-                if (canvas.getActiveObject() != editText) {
-                    editText.sendToBack();
-                    editText.selectable = false;
-                    editText.opacity = 0;
-                    main.opacity = 1;
-                }
-            });
+        main.on('mousedblclick', function () {
+            console.log('mousedblclick');
+            editText.bringToFront();
+            editText.selectable = true;
+            canvas.setActiveObject(editText);
+            editText.enterEditing();
+            editText.selectAll();
+            editText.opacity = 1;
+            main.opacity = 0;
+        });
 
-            canvas.on('selection:cleared', function () {
+        canvas.on('selection:updated', function () {
+            if (canvas.getActiveObject() != editText) {
                 editText.sendToBack();
                 editText.selectable = false;
                 editText.opacity = 0;
                 main.opacity = 1;
-            });
-
-            editText.on('editing:exited', function () {
-                console.log(editText);
-                text = editText.text;
-                main.height = editText.height * editText.scaleY;
-                main.width = editText.width * editText.scaleX;
-                initCanvas();
-            });
-        }
-
-        let dashLen = 220,
-            dashOffset = dashLen,
-            speed = 5,
-            x = 0,
-            i = 0;
-
-        let patternCanvas = document.createElement('canvas');
-        let ctx;
-        let fontSize;
-
-        initCanvas();
-        loop();
-
-        function initCanvas() {
-            //patternCanvas = document.createElement('canvas');
-
-            ctx = patternCanvas.getContext('2d');
-            ctx.canvas.width = main.width * 2;
-            ctx.canvas.height = main.height * 2;
-
-            fontSize = main.height * 0.8;
-            ctx.font = fontSize + "px " + editText.fontFamily + ", sans-serif";
-            ctx.lineWidth = 1;
-            ctx.lineJoin = "round";
-            //ctx.globalAlpha = 2 / 3;
-            ctx.strokeStyle = editText.fill;
-            ctx.fillStyle = editText.fill;
-        }
-
-        function loop() {
-            main.set('fill', new fabric.Pattern({
-                source: patternCanvas
-            }));
-            canvas.renderAll();
-
-            ctx.clearRect(x, 0, fontSize, ctx.canvas.height);
-            ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
-            dashOffset -= speed; // reduce dash length
-            ctx.strokeText(text[i], x, fontSize * 0.9); // stroke letter
-
-            if (editText.styles['0'] != null) {
-                if (editText.styles['0'][i] != null) {
-                    ctx.strokeStyle = editText.styles['0'][i].fill;
-                    ctx.fillStyle = editText.styles['0'][i].fill;
-                } else {
-                    ctx.strokeStyle = editText.fill;
-                    ctx.fillStyle = editText.fill;
-                }
             }
+        });
 
-            if (dashOffset > 0) {
-                requestAnimationFrame(loop); // animate
+        canvas.on('selection:cleared', function () {
+            editText.sendToBack();
+            editText.selectable = false;
+            editText.opacity = 0;
+            main.opacity = 1;
+        });
+
+        editText.on('editing:exited', function () {
+            console.log(editText);
+            text = editText.text;
+            main.height = editText.height * editText.scaleY;
+            main.width = editText.width * editText.scaleX;
+            initCanvas();
+        });
+    }
+
+    let dashLen = 220,
+        dashOffset = dashLen,
+        speed = 5,
+        x = 0,
+        i = 0;
+
+    let patternCanvas = document.createElement('canvas');
+    let ctx;
+    let fontSize;
+
+    initCanvas();
+    loop();
+
+    function initCanvas() {
+        //patternCanvas = document.createElement('canvas');
+
+        ctx = patternCanvas.getContext('2d');
+        ctx.canvas.width = main.width * 2;
+        ctx.canvas.height = main.height * 2;
+
+        fontSize = main.height * 0.8;
+        ctx.font = fontSize + "px " + editText.fontFamily + ", sans-serif";
+        ctx.lineWidth = 1;
+        ctx.lineJoin = "round";
+        //ctx.globalAlpha = 2 / 3;
+        ctx.strokeStyle = editText.fill;
+        ctx.fillStyle = editText.fill;
+    }
+
+    function loop() {
+        main.set('fill', new fabric.Pattern({
+            source: patternCanvas
+        }));
+        canvas.renderAll();
+
+        ctx.clearRect(x, 0, fontSize, ctx.canvas.height);
+        ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
+        dashOffset -= speed; // reduce dash length
+        ctx.strokeText(text[i], x, fontSize * 0.9); // stroke letter
+
+        if (editText.styles['0'] != null) {
+            if (editText.styles['0'][i] != null) {
+                ctx.strokeStyle = editText.styles['0'][i].fill;
+                ctx.fillStyle = editText.styles['0'][i].fill;
             } else {
-                ctx.fillText(text[i], x, fontSize * 0.9); // fill final letter
-                dashOffset = dashLen; // prep next char
-                x += ctx.measureText(text[i++]).width + ctx.lineWidth * Math.random();
-                ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
-                ctx.rotate(Math.random() * 0.005); // random rotation
-                if (i < text.length) {
-                    requestAnimationFrame(loop);
-                } else {
-                    dashLen = 220;
-                    dashOffset = dashLen;
-                    x = 0;
-                    i = 0;
+                ctx.strokeStyle = editText.fill;
+                ctx.fillStyle = editText.fill;
+            }
+        }
 
-                    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-                    requestAnimationFrame(loop);
-                }
+        if (dashOffset > 0) {
+            requestAnimationFrame(loop); // animate
+        } else {
+            ctx.fillText(text[i], x, fontSize * 0.9); // fill final letter
+            dashOffset = dashLen; // prep next char
+            x += ctx.measureText(text[i++]).width + ctx.lineWidth * Math.random();
+            ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
+            ctx.rotate(Math.random() * 0.005); // random rotation
+            if (i < text.length) {
+                requestAnimationFrame(loop);
+            } else {
+                dashLen = 220;
+                dashOffset = dashLen;
+                x = 0;
+                i = 0;
+
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                requestAnimationFrame(loop);
             }
         }
     }
+}

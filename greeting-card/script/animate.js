@@ -12,10 +12,16 @@ function blinkingText(obj, duration, delay) {
         flag = !flag;
     }
 
+    let intervalID;
     setTimeout(function () {
         animate();
-        setInterval(animate, duration);
+        intervalID = setInterval(animate, duration);
     }, delay);
+
+    return function () {
+        console.log("claer timeout")
+        clearInterval(intervalID);
+    }
 }
 
 function radomText(obj, duration, delay) {
@@ -33,10 +39,15 @@ function radomText(obj, duration, delay) {
         })
     }
 
+    let intervalID;
     setTimeout(function () {
         animate();
-        setInterval(animate, duration);
+        intervalID = setInterval(animate, duration);
     }, delay);
+
+    return function () {
+        clearInterval(intervalID);
+    }
 }
 
 function rotateText(obj, duration, delay) {
@@ -48,10 +59,15 @@ function rotateText(obj, duration, delay) {
         flag = !flag;
     }
 
+    let intervalID;
     setTimeout(function () {
         animate();
-        setInterval(animate, duration);
+        intervalID = setInterval(animate, duration);
     }, delay);
+
+    return function () {
+        clearInterval(intervalID);
+    }
 }
 
 function moveText(obj, duration, delay) {
@@ -71,10 +87,15 @@ function moveText(obj, duration, delay) {
         flag = !flag;
     }
 
+    let intervalID
     setTimeout(function () {
         animate();
-        setInterval(animate, duration);
+        intervalID = setInterval(animate, duration);
     }, delay);
+
+    return function () {
+        clearInterval(intervalID);
+    }
 }
 
 function signatureText(editText) {
@@ -103,75 +124,94 @@ function signatureText(editText) {
         editText.selectable = false;
         editText.opacity = 0;
         main.opacity = 1;
+    }
 
-        main.on('scaling', function () {
-            console.log('main scaling')
-            var height = main.height * main.scaleY;
-            var width = main.width * main.scaleX;
-            main.height = height;
-            main.width = width;
+    bind();
 
-            main.scaleX = 1;
-            main.scaleY = 1;
+    function bind() {
+        main.on('scaling', scaling);
+        main.on('moving', moving);
+        main.on('rotating', rotating);
+        main.on('mousedblclick', mousedblclick);
+        canvas.on('selection:updated', updated);
+        canvas.on('selection:cleared', cleared);
+        editText.on('editing:exited', exited);
+    }
 
-            editText.scaleToHeight(height);
-            editText.scaleToWidth(width);
-            editText.set({
-                top: main.top,
-                left: main.left
-            });
+    function unbind() {
+        main.off('scaling', scaling);
+        main.off('moving', moving);
+        main.off('rotating', rotating);
+        main.off('mousedblclick', mousedblclick);
+        canvas.off('selection:updated', updated);
+        canvas.off('selection:cleared', cleared);
+        editText.off('editing:exited', exited);
+    }
 
-            initCanvas();
+    function scaling() {
+        console.log('main scaling')
+        var height = main.height * main.scaleY;
+        var width = main.width * main.scaleX;
+        main.height = height;
+        main.width = width;
+
+        main.scaleX = 1;
+        main.scaleY = 1;
+
+        editText.scaleToHeight(height);
+        editText.scaleToWidth(width);
+        editText.set({
+            top: main.top,
+            left: main.left
         });
 
-        main.on('moving', function () {
-            editText.top = main.top;
-            editText.left = main.left;
-            console.log('main moving')
-        });
+        initCanvas();
+    }
 
-        main.on('rotating', function () {
-            editText.set({
-                angle: main.angle,
-                top: main.top,
-                left: main.left
-            });
-        });
+    function moving() {
+        editText.top = main.top;
+        editText.left = main.left;
+    }
 
-        main.on('mousedblclick', function () {
-            console.log('mousedblclick');
-            editText.bringToFront();
-            editText.selectable = true;
-            canvas.setActiveObject(editText);
-            editText.enterEditing();
-            editText.selectAll();
-            editText.opacity = 1;
-            main.opacity = 0;
+    function rotating() {
+        editText.set({
+            angle: main.angle,
+            top: main.top,
+            left: main.left
         });
+    }
 
-        canvas.on('selection:updated', function () {
-            if (canvas.getActiveObject() != editText) {
-                editText.sendToBack();
-                editText.selectable = false;
-                editText.opacity = 0;
-                main.opacity = 1;
-            }
-        });
+    function mousedblclick() {
+        editText.bringToFront();
+        editText.selectable = true;
+        canvas.setActiveObject(editText);
+        editText.enterEditing();
+        editText.selectAll();
+        editText.opacity = 1;
+        main.opacity = 0;
+    }
 
-        canvas.on('selection:cleared', function () {
+    function updated() {
+        if (canvas.getActiveObject() != editText) {
             editText.sendToBack();
             editText.selectable = false;
             editText.opacity = 0;
             main.opacity = 1;
-        });
-
-        editText.on('editing:exited', function () {
-            console.log(editText);
-            text = editText.text;
+        }
+    }
+    
+    function cleared() {
+        editText.sendToBack();
+            editText.selectable = false;
+            editText.opacity = 0;
+            main.opacity = 1;
+    }
+    
+    function exited() {
+        text = editText.text;
             main.height = editText.height * editText.scaleY;
             main.width = editText.width * editText.scaleX;
             initCanvas();
-        });
     }
 
     let dashLen = 220,
@@ -244,5 +284,16 @@ function signatureText(editText) {
                 requestAnimationFrame(loop);
             }
         }
+    }
+
+    return function () {
+        unbind();
+        canvas.remove(main);
+        editText.bringToFront();
+        editText.selectable = true;
+        canvas.setActiveObject(editText);
+        editText.enterEditing();
+        editText.selectAll();
+        editText.opacity = 1;
     }
 }
