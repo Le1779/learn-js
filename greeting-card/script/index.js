@@ -311,92 +311,6 @@ function makeDefaultObject() {
         });
     }
 
-    function setTest() {
-        var dashLen = 220,
-            dashOffset = dashLen,
-            speed = 5,
-            txt = "聖誕快樂",
-            x = 0,
-            i = 0;
-
-        let patternCanvas = document.createElement('canvas');
-        let ctx;
-
-        let shape = new fabric.Rect({
-            width: 320,
-            height: 100,
-            left: 10,
-            top: 300,
-        });
-
-        shape.width = shape.height * 0.8 * 4;
-
-        let fontSize;
-
-        initCanvas();
-        shape.on('scaling', function () {
-            var height = shape.height * shape.scaleY;
-            var width = shape.width * shape.scaleX;
-            shape.height = height;
-            shape.width = width;
-            shape.scaleX = 1;
-            shape.scaleY = 1;
-            initCanvas();
-            console.log(shape)
-        });
-
-        loop()
-        canvas.add(shape);
-
-        function initCanvas() {
-            patternCanvas = document.createElement('canvas');
-
-            ctx = patternCanvas.getContext('2d');
-            ctx.canvas.width = shape.width * 2;
-            ctx.canvas.height = shape.height * 2;
-
-            fontSize = shape.height * 0.8;
-            ctx.font = fontSize + "px Love, sans-serif";
-            ctx.lineWidth = 2;
-            ctx.lineJoin = "round";
-            //ctx.globalAlpha = 2 / 3;
-            ctx.strokeStyle = "#ff4040";
-            ctx.fillStyle = "#ff4040";
-        }
-
-        function loop() {
-            shape.set('fill', new fabric.Pattern({
-                source: patternCanvas
-            }));
-            canvas.renderAll();
-
-            ctx.clearRect(x, 0, fontSize, ctx.canvas.height);
-            ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
-            dashOffset -= speed; // reduce dash length
-            ctx.strokeText(txt[i], x, fontSize); // stroke letter
-
-            if (dashOffset > 0) {
-                requestAnimationFrame(loop); // animate
-            } else {
-                ctx.fillText(txt[i], x, fontSize); // fill final letter
-                dashOffset = dashLen; // prep next char
-                x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
-                ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
-                ctx.rotate(Math.random() * 0.005); // random rotation
-                if (i < txt.length) {
-                    requestAnimationFrame(loop);
-                } else {
-                    dashLen = 220;
-                    dashOffset = dashLen;
-                    x = 0;
-                    i = 0;
-
-                    requestAnimationFrame(loop);
-                }
-            }
-        }
-    }
-
     function addSignatureText(text, style) {
         let mainStyle, fontStyle;
         let main, editText;
@@ -468,7 +382,6 @@ function makeDefaultObject() {
             });
 
             main.on('mousedblclick', function () {
-                console.log('main mousedblclick')
                 editText.bringToFront();
                 editText.selectable = true;
                 canvas.setActiveObject(editText);
@@ -499,6 +412,7 @@ function makeDefaultObject() {
                 text = editText.text;
                 main.height = editText.height * editText.scaleY;
                 main.width = editText.width * editText.scaleX;
+                initCanvas();
             });
         }
 
@@ -523,8 +437,8 @@ function makeDefaultObject() {
             ctx.canvas.height = main.height * 2;
 
             fontSize = main.height * 0.8;
-            ctx.font = fontSize + "px Love, sans-serif";
-            ctx.lineWidth = 2;
+            ctx.font = fontSize + "px " + editText.fontFamily + ", sans-serif";
+            ctx.lineWidth = 1;
             ctx.lineJoin = "round";
             //ctx.globalAlpha = 2 / 3;
             ctx.strokeStyle = editText.fill;
