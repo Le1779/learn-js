@@ -125,13 +125,7 @@ function init() {
 
         $('#handwriting').click(function () {
             let selectObj = canvas.getActiveObject();
-            addSignatureText("聖誕快樂", {
-                height: selectObj .height,
-                left: selectObj.left,
-                top: selectObj.top,
-                fontFamily: selectObj.fontFamily,
-                fill: selectObj.fill,
-            });
+            signatureText(selectObj);
         });
     }
 
