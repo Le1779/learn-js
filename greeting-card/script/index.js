@@ -126,6 +126,22 @@ function init() {
             }
             canvas.getActiveObject().id = blinkingText(canvas.getActiveObject(), 500);
         });
+        
+        $('#moving').click(function () {
+            let func = canvas.getActiveObject().id;
+            if (typeof func !== 'undefined' && $.isFunction(func)) {
+                func();
+            }
+            canvas.getActiveObject().id = moveText(canvas.getActiveObject(), 500);
+        });
+        
+        $('#rotating').click(function () {
+            let func = canvas.getActiveObject().id;
+            if (typeof func !== 'undefined' && $.isFunction(func)) {
+                func();
+            }
+            canvas.getActiveObject().id = rotateText(canvas.getActiveObject(), 500);
+        });
 
         $('#handwriting').click(function () {
             let func = canvas.getActiveObject().id;

@@ -20,7 +20,7 @@ function blinkingText(obj, duration, delay) {
 
     return function () {
         clearInterval(intervalID);
-        flag = false
+        flag = false;
         animate();
     }
 }
@@ -68,6 +68,8 @@ function rotateText(obj, duration, delay) {
 
     return function () {
         clearInterval(intervalID);
+        flag = false;
+        animate();
     }
 }
 
@@ -96,6 +98,8 @@ function moveText(obj, duration, delay) {
 
     return function () {
         clearInterval(intervalID);
+        flag = false;
+        animate();
     }
 }
 
