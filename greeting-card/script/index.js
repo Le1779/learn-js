@@ -442,14 +442,14 @@ function makeDefaultObject() {
 
                 main.scaleX = 1;
                 main.scaleY = 1;
-                
+
                 editText.scaleToHeight(height);
                 editText.scaleToWidth(width);
                 editText.set({
                     top: main.top,
                     left: main.left
                 });
-                
+
                 initCanvas();
             });
 
@@ -541,13 +541,13 @@ function makeDefaultObject() {
             ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
             dashOffset -= speed; // reduce dash length
             ctx.strokeText(text[i], x, fontSize * 0.9); // stroke letter
-            
-            if(editText.styles['0'] != null){
+
+            if (editText.styles['0'] != null) {
                 console.log(editText.styles);
-                if(editText.styles['0'][i] != null){
+                if (editText.styles['0'][i] != null) {
                     ctx.strokeStyle = editText.styles['0'][i].fill;
                     ctx.fillStyle = editText.styles['0'][i].fill;
-                }else{
+                } else {
                     ctx.strokeStyle = editText.fill;
                     ctx.fillStyle = editText.fill;
                 }
@@ -569,6 +569,7 @@ function makeDefaultObject() {
                     x = 0;
                     i = 0;
 
+                    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
                     requestAnimationFrame(loop);
                 }
             }
