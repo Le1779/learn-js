@@ -287,7 +287,7 @@ function makeDefaultObject() {
     let t3 = addText('NTD', 'Love', style);
     //moveText(t3, 500);
 
-    setTest();
+    //setTest();
 
     addSignatureText("聖誕快樂", {
         height: canvas.getHeight() * 0.09,
@@ -342,6 +342,7 @@ function makeDefaultObject() {
             shape.scaleX = 1;
             shape.scaleY = 1;
             initCanvas();
+            console.log(shape)
         });
 
         loop()
@@ -396,14 +397,12 @@ function makeDefaultObject() {
         }
     }
 
-
-    function addSignatureText(t, style) {
+    function addSignatureText(text, style) {
         let mainStyle, fontStyle;
         let main, editText;
 
         initStyle();
         initObject();
-        initGroup();
 
         function initStyle() {
             mainStyle = {
@@ -411,7 +410,7 @@ function makeDefaultObject() {
                 left: style.left,
                 top: style.top,
             };
-            mainStyle.width = mainStyle.height * 0.8 * t.length;
+            mainStyle.width = mainStyle.height * 0.8 * text.length;
 
             fontStyle = {
                 height: mainStyle.height,
@@ -427,48 +426,152 @@ function makeDefaultObject() {
 
         function initObject() {
             main = new fabric.Rect(mainStyle);
-            editText = addText(t, 'Love', fontStyle);
+            canvas.add(main);
+            editText = addText(text, 'Love', fontStyle);
+            editText.moveTo(-1);
+            editText.selectable = false;
+            editText.opacity = 0;
+            main.opacity = 1;
 
             main.on('scaling', function () {
                 console.log('main scaling')
-            });
-        }
+                var height = main.height * main.scaleY;
+                var width = main.width * main.scaleX;
+                main.height = height;
+                main.width = width;
 
-        function initGroup() {
-            let items = [];
-            items.push(editText);
-            items.push(main);
-            let group = new fabric.Group(items.reverse(), {
-                subTargetCheck: true
+                main.scaleX = 1;
+                main.scaleY = 1;
+                
+                editText.scaleToHeight(height);
+                editText.scaleToWidth(width);
+                editText.set({
+                    top: main.top,
+                    left: main.left
+                });
+                
+                initCanvas();
             });
-            canvas.add(group);
 
-            group.on('mousedblclick', function () {
-                ungroup(group);
+            main.on('moving', function () {
+                editText.top = main.top;
+                editText.left = main.left;
+                console.log('main moving')
+            });
+
+            main.on('rotating', function () {
+                editText.set({
+                    angle: main.angle,
+                    top: main.top,
+                    left: main.left
+                });
+            });
+
+            main.on('mousedblclick', function () {
+                console.log('main mousedblclick')
+                editText.bringToFront();
+                editText.selectable = true;
                 canvas.setActiveObject(editText);
                 editText.enterEditing();
                 editText.selectAll();
+                editText.opacity = 1;
+                main.opacity = 0;
             });
 
-            group.on('scaling', function () {
-                console.log('group scaling')
+            canvas.on('selection:updated', function () {
+                if (canvas.getActiveObject() != editText) {
+                    editText.moveTo(-1);
+                    editText.selectable = false;
+                    editText.opacity = 0;
+                    main.opacity = 1;
+                }
             });
 
-            function ungroup(group) {
-                items = group._objects;
-                group._restoreObjectsState();
-                canvas.remove(group);
-                for (var i = 0; i < items.length; i++) {
-                    canvas.add(items[i]);
+            canvas.on('selection:cleared', function () {
+                editText.moveTo(-1);
+                editText.selectable = false;
+                editText.opacity = 0;
+                main.opacity = 1;
+            });
+
+            editText.on('editing:exited', function () {
+                console.log(editText);
+                text = editText.text;
+                main.height = editText.height * editText.scaleY;
+                main.width = editText.width * editText.scaleX;
+            });
+        }
+
+        var dashLen = 220,
+            dashOffset = dashLen,
+            speed = 5,
+            x = 0,
+            i = 0;
+
+        let patternCanvas = document.createElement('canvas');
+        let ctx;
+        let fontSize;
+
+        initCanvas();
+        loop();
+
+        function initCanvas() {
+            patternCanvas = document.createElement('canvas');
+
+            ctx = patternCanvas.getContext('2d');
+            ctx.canvas.width = main.width * 2;
+            ctx.canvas.height = main.height * 2;
+
+            fontSize = main.height * 0.8;
+            ctx.font = fontSize + "px Love, sans-serif";
+            ctx.lineWidth = 2;
+            ctx.lineJoin = "round";
+            //ctx.globalAlpha = 2 / 3;
+            ctx.strokeStyle = editText.fill;
+            ctx.fillStyle = editText.fill;
+        }
+
+        function loop() {
+            main.set('fill', new fabric.Pattern({
+                source: patternCanvas
+            }));
+            canvas.renderAll();
+
+            ctx.clearRect(x, 0, fontSize, ctx.canvas.height);
+            ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
+            dashOffset -= speed; // reduce dash length
+            ctx.strokeText(text[i], x, fontSize * 0.9); // stroke letter
+            
+            if(editText.styles['0'] != null){
+                console.log(editText.styles);
+                if(editText.styles['0'][i] != null){
+                    ctx.strokeStyle = editText.styles['0'][i].fill;
+                    ctx.fillStyle = editText.styles['0'][i].fill;
+                }else{
+                    ctx.strokeStyle = editText.fill;
+                    ctx.fillStyle = editText.fill;
+                }
+            }
+
+            if (dashOffset > 0) {
+                requestAnimationFrame(loop); // animate
+            } else {
+                ctx.fillText(text[i], x, fontSize * 0.9); // fill final letter
+                dashOffset = dashLen; // prep next char
+                x += ctx.measureText(text[i++]).width + ctx.lineWidth * Math.random();
+                ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
+                ctx.rotate(Math.random() * 0.005); // random rotation
+                if (i < text.length) {
+                    requestAnimationFrame(loop);
+                } else {
+                    dashLen = 220;
+                    dashOffset = dashLen;
+                    x = 0;
+                    i = 0;
+
+                    requestAnimationFrame(loop);
                 }
             }
         }
-
-        editText.on('editing:exited', function () {
-            console.log(editText);
-            canvas.remove(main);
-            canvas.remove(editText);
-            initGroup();
-        });
     }
 }
