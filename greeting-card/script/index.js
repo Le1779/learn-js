@@ -14,11 +14,9 @@ var color = {
     pink: '#ff5583'
 }
 
-var gif = new GIF({
-    workers: 2,
-    quality: 30,
-    workerScript: './script/gif.worker.js'
-});
+
+let gif;
+let isExportGif = true;
 
 $(document).ready(function () {
     init();
@@ -126,7 +124,7 @@ function init() {
             }
             canvas.getActiveObject().id = blinkingText(canvas.getActiveObject(), 500);
         });
-        
+
         $('#moving').click(function () {
             let func = canvas.getActiveObject().id;
             if (typeof func !== 'undefined' && $.isFunction(func)) {
@@ -134,7 +132,7 @@ function init() {
             }
             canvas.getActiveObject().id = moveText(canvas.getActiveObject(), 500);
         });
-        
+
         $('#rotating').click(function () {
             let func = canvas.getActiveObject().id;
             if (typeof func !== 'undefined' && $.isFunction(func)) {
@@ -255,6 +253,18 @@ function saveImage() {
 }
 
 function saveAsGIF() {
+    if (isExportGif) {
+        isExportGif = false;
+        $('.download-image-button').addClass('load');
+        gif = new GIF({
+            workers: 2,
+            quality: 30,
+            workerScript: './script/gif.worker.js'
+        });
+    } else {
+        return;
+    }
+    
     let renderFinished = false;
     window.requestAnimationFrame(ad);
     //setInterval(ad, 17);
@@ -263,6 +273,8 @@ function saveAsGIF() {
         window.requestAnimationFrame(ad);
     }
     gif.on('finished', function (blob) {
+        isExportGif = true;
+        $('.download-image-button').removeClass('load');
         window.open(URL.createObjectURL(blob));
     });
 
