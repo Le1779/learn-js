@@ -335,7 +335,7 @@ function makeDefaultObject() {
         left: canvas.getHeight() * 0.7,
         top: canvas.getHeight() * 0.77,
     }
-    let t3 = addText('我是誰', 'Love', style);
+    let t3 = addText('NTD', 'Love', style);
 
     t3.id = signatureText(t3);
 
