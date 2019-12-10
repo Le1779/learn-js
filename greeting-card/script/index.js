@@ -17,6 +17,8 @@ var color = {
 
 let gif;
 let isExportGif = true;
+let gifInterval;
+let gifFrames = 130;
 
 $(document).ready(function () {
     init();
@@ -123,6 +125,7 @@ function init() {
                 func();
             }
             canvas.getActiveObject().id = blinkingText(canvas.getActiveObject(), 500);
+            gifFrames = 25;
         });
 
         $('#moving').click(function () {
@@ -148,6 +151,7 @@ function init() {
             }
             let selectObj = canvas.getActiveObject();
             selectObj.id = signatureText(selectObj);
+            gifFrames = selectObj.text.length * 44;
         });
 
         $('#clear').click(function () {
@@ -257,7 +261,7 @@ function saveAsGIF() {
         isExportGif = false;
         $('.download-image-button').addClass('load');
         gif = new GIF({
-            workers: 2,
+            workers: 4,
             quality: 30,
             workerScript: './script/gif.worker.js'
         });
@@ -266,14 +270,15 @@ function saveAsGIF() {
     }
     
     let renderFinished = false;
-    window.requestAnimationFrame(ad);
-    //setInterval(ad, 17);
+    clearInterval(gifInterval);
+    gifInterval = setInterval(ad, 20);
+    
     function ad() {
         addFrame(document.getElementById('myCanvas'));
-        window.requestAnimationFrame(ad);
     }
     gif.on('finished', function (blob) {
         isExportGif = true;
+        clearInterval(gifInterval);
         $('.download-image-button').removeClass('load');
         window.open(URL.createObjectURL(blob));
     });
@@ -282,11 +287,9 @@ function saveAsGIF() {
         if (renderFinished) {
             return;
         }
-        if (gif.frames.length < 60) {
+        if (gif.frames.length < gifFrames) {
             console.log('add frame: ' + gif.frames.length);
-            gif.addFrame(canvas, {
-                delay: 204
-            });
+            gif.addFrame(canvas, {copy: true, delay: 25});
         } else {
             console.log('add frame end');
             renderFinished = true;
@@ -332,7 +335,7 @@ function makeDefaultObject() {
         left: canvas.getHeight() * 0.7,
         top: canvas.getHeight() * 0.77,
     }
-    let t3 = addText('NTD', 'Love', style);
+    let t3 = addText('我是誰', 'Love', style);
 
     t3.id = signatureText(t3);
 
