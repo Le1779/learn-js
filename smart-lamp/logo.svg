@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 108 108" style="enable-background:new 0 0 108 108;">
+    <g>
+        <rect x="43" y="27" rx="3" ry="3" width="15" height="40" style="fill:#161616;" />
+        <rect x="43" y="52" rx="3" ry="3" width="25" height="15" style="fill:#161616;" />
+    </g>
+
+    <g>
+        <rect x="42" y="28" rx="3" ry="3" width="15" height="40" style="fill:#363636;" />
+        <rect x="42" y="53" rx="3" ry="3" width="25" height="15" style="fill:#363636;" />
+    </g>
+
+    <g>
+        <rect x="41" y="29" rx="3" ry="3" width="15" height="40" style="fill:#565656;" />
+        <rect x="41" y="54" rx="3" ry="3" width="25" height="15" style="fill:#565656;" />
+    </g>
+
+    <g>
+        <rect x="40" y="30" rx="3" ry="3" width="15" height="40" style="fill:#767676;" />
+        <rect x="40" y="55" rx="3" ry="3" width="25" height="15" style="fill:#767676;" />
+    </g>
+
+    <g>
+        <rect x="39" y="31" rx="3" ry="3" width="15" height="40" style="fill:#A6A6A6;" />
+        <rect x="39" y="56" rx="3" ry="3" width="25" height="15" style="fill:#A6A6A6;" />
+    </g>
+
+    <g>
+        <rect x="38" y="32" rx="3" ry="3" width="15" height="40" style="fill:#C6C6C6;" />
+        <rect x="38" y="57" rx="3" ry="3" width="25" height="15" style="fill:#C6C6C6;" />
+    </g>
+
+    <g>
+        <rect x="37" y="33" rx="3" ry="3" width="15" height="40" style="fill:#E6E6E6;" />
+        <rect x="37" y="58" rx="3" ry="3" width="25" height="15" style="fill:#E6E6E6;" />
+    </g>
+</svg>
