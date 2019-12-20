@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File I/O</title>
+    <link rel="stylesheet" href="le-file-io.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row">
+    <div class="container-upload">
+        <div id="nav-directory" class="nav-directory"></div>
+        <div class="container-directory">
+            <table id="table-directory" class="table table-directory col-12">
+                <thead>
+                    <tr>
+                        <th class="table-item-checkbox head"><input id="checkbox-head" type="checkbox"><label for="checkbox-head"></label></th>
+                        <th class="table-item-icon"></th>
+                        <th class="table-item-filename" style="color:rgb(0,0,0,0.5);text-align: start;" onclick="setSortColumn(2)">
+                            <div class="sort-button-filename" style="float: right;"></div>
+                            名稱
+                        </th>
+                        <th class="table-item-last-write-time" style="color:rgb(0,0,0,0.5);" onclick="setSortColumn(3)">
+                            <div class="sort-button-last-write-time" style="float: right;">↓</div>
+                            上次修改
+                        </th>
+                        <th class="table-item-file-size" style="color:rgb(0,0,0,0.5);">檔案大小</th>
+                    </tr>
+                </thead>
+                <tbody id="table-directory-body" class="table-directory-body"></tbody>
+            </table>
+            <div class="toolbar-directory">
+                <div class="title">
+                    <button type="button" class="btn btn-outline-primary" id="ftp" name="複製FTP網址">
+                        <div id="help" onclick="window.open('/Document/FTPHelp.pdf', '_blank', 'fullscreen=yes')">
+                            <svg id="icon_help" class="a-s-fa-Ha-pa" width="24px" height="24px" viewBox="0 0 24 24" focusable="false">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+                <div class="content">
+                    <button id="rename-file" type="button" class="btn btn-outline-primary">重新命名</button>
+                    <button id="delete-file" type="button" class="btn btn-outline-danger">刪除</button>
+                    <button id="download-file" type="button" class="btn btn-outline-primary">下載</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="layer-mask" class="layer-mask"></div>
+    <div id="snackbar"></div>
+
+    <div id="dialog" class="dialog">
+        <div class="layerMask"></div>
+        <div class="dialogContainer">
+            <div class="title"></div>
+            <div class="content"></div>
+            <div class="error-message">error message</div>
+            <div class="buttonGroup">
+                <button id="dialogCancelButton" type="button" class="btn btn-danger">取消</button>
+                <button id="dialogConfirmButton" type="button" class="btn btn-primary">確認<div class="dialog-loader"></div></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="download-progress-view">
+        <div class="download-file-name"></div>
+        <div class="download-progress">
+            <div class="download-progress-bar">
+                <div class="background"></div>
+                <div class="current"></div>
+            </div>
+            <div class="download-progress-percent">50%</div>
+        </div>
+    </div>
+</div>
+
+<div class="file-count"></div>
+</body>
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="fake.js"></script>
+<script src="le-file-io.js"></script>
+<script type="text/javascript">
+</script>
