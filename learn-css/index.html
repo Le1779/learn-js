@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn CSS</title>
+    <style>
+        body {
+            padding: 24px 48px;
+        }
+
+        code {
+            font-family: Consolas, "courier new";
+            color: crimson;
+            background-color: #f1f1f1;
+            font-size: 105%;
+        }
+
+        pre {
+            margin: 0;
+        }
+
+        .container {
+            border-width: 1px;
+            border-color: #181d2d;
+            border-style: solid;
+            border-radius: 5px;
+            padding: 12px 24px;
+            margin: 8px 24px;
+        }
+
+        p {
+            color: red;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        #green {
+            color: green;
+        }
+
+        .blue.dark {
+            color: darkblue;
+        }
+
+        span {
+            color: black;
+            background-color: white;
+        }
+
+        .selector1 span {
+            color: #e5dfca;
+            background-color: #181d2d
+        }
+
+        .selector2>span {
+            color: #e5dfca;
+            background-color: #181d2d
+        }
+
+        .selector3+span {
+            color: #e5dfca;
+            background-color: #181d2d
+        }
+
+        .selector4~span {
+            color: #e5dfca;
+            background-color: #181d2d
+        }
+
+        .selector5 span:hover {
+            color: #e5dfca;
+            background-color: #181d2d
+        }
+
+        .selector5 span:active {
+            color: #181d2d;
+            background-color: #e5dfca
+        }
+
+        .selector6 span:before {
+            content: "這是before";
+            color: #181d2d;
+            background-color: #e5dfca
+        }
+
+        .selector6 span:after {
+            content: "這是after";
+            color: #e5dfca;
+            background-color: #181d2d
+        }
+
+        .position {
+            position: relative;
+        }
+
+        .position1 {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin: 0;
+        }
+
+        .position2:hover {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <span>Selector:</span>
+    <div class="container">
+        後代
+        <code>
+            <pre>
+p { ... }
+.blue { ... }
+#green { ... }
+.blue.dark { ... }
+            </pre></code>
+
+        <div class="selector">
+            <p>這是紅色</p>
+            <p class="blue">這是藍色</p>
+            <p id="green">這是綠色</p>
+            <p class="blue dark">這是深藍色</p>
+        </div>
+    </div>
+
+    <div class="container">
+        後代
+        <code>
+            <pre>
+div span { ... }
+            </pre></code>
+
+        <div class="selector1">
+            <span>被選到了</span>
+        </div>
+    </div>
+
+    <div class="container">
+        直屬
+        <code>
+            <pre>
+div > span { ... }
+            </pre></code>
+
+        <div class="selector2">
+            <span>
+                被選到了
+                <span>只是一般的文字</span>
+            </span>
+            <span>被選到了</span>
+        </div>
+    </div>
+
+    <div class="container">
+        相鄰
+        <code>
+            <pre>
+div + span { ... }
+            </pre></code>
+
+        <div class="selector3">
+            <span>只是一般的文字</span>
+        </div>
+        <span>被選到了</span>
+        <span>只是一般的文字</span>
+    </div>
+
+    <div class="container">
+        同層
+        <code>
+            <pre>
+div + span { ... }
+            </pre></code>
+
+        <div class="selector4">
+            <span>只是一般的文字</span>
+        </div>
+        <span>被選到了</span>
+        <span>被選到了</span>
+    </div>
+    <span>只是一般的文字</span>
+
+    <div class="container">
+        狀態
+        <code>
+            <pre>
+div span:active { ... }
+div span:hover { ... }
+            </pre></code>
+
+        <div class="selector5">
+            <span>只是一般的文字</span>
+        </div>
+    </div>
+
+    <div class="container">
+        偽元素
+        <code>
+            <pre>
+div span:before { ... }
+div span:after { ... }
+            </pre></code>
+
+        <div class="selector6">
+            <span>只是一般的文字</span>
+        </div>
+    </div>
+
+    <span>Position:</span>
+    <div class="container position">
+        <code>
+            <pre>
+AB容器下面的子元素 都設定為
+
+.child {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+            </pre></code>
+
+        <div class="container position">
+            <span>這是A容器 position: relative;</span>
+            <div class="container position1">
+                <span>A容器: 這會在裡面</span>
+            </div>
+        </div>
+
+        <div class="container">
+            <span>這是B容器 position: static;(預設)</span>
+            <div class="container position1">
+                <span>B容器: 這會跑到外面</span>
+            </div>
+        </div>
+
+        <code>
+            <pre>
+因為子元素使用float布局導致高度塌陷
+
+.child {
+    float: right
+}
+            </pre></code>
+        <div class="container position2">
+            <span>這是容器 (hover有解答)</span>
+            <div class="container" style="float: right">
+                <span>這會跑到外面</span>
+            </div>
+        </div>
+    </div>
+</body></html>
