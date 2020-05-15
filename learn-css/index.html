@@ -111,7 +111,7 @@
 <body>
     <span>Selector:</span>
     <div class="container">
-        後代
+        class & id
         <code>
             <pre>
 p { ... }
@@ -174,7 +174,7 @@ div + span { ... }
         同層
         <code>
             <pre>
-div + span { ... }
+div ~ span { ... }
             </pre></code>
 
         <div class="selector4">
@@ -253,4 +253,97 @@ AB容器下面的子元素 都設定為
             </div>
         </div>
     </div>
+
+    常用指令:
+    <div class="container">
+        <div class="container">
+            <code>
+                <pre>
+不站位的隱藏
+display: none;
+
+佔位的隱藏
+opacity: 0;
+           
+高度
+z-index: 1;
+            </pre></code>
+        </div>
+        <div class="container" style="display: inline-block;">
+            <code>
+                <pre>
+display: inline-block;
+            </pre></code>
+            這是行元素的容器
+        </div>
+
+        <div class="container">
+            <code>
+                <pre>
+height:100px; 
+line-height: 100px;
+text-align:center;
+            </pre></code>
+            <div class="container" style="height:100px; line-height: 100px;text-align:center;">
+                這段文字想置中
+            </div>
+        </div>
+        
+        <div class="container" style="display: inline-block; border: 1px solid red;">
+            <code>
+                <pre>
+border: 1px solid red;
+[width] [style] [color]
+
+圓角
+border-radius: 5px;
+            </pre></code>
+            邊框
+        </div>
+        
+        <div class="container" style="box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .5);">
+            <code>
+                <pre>
+box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .5);
+[平移x(必填)] [平移y(必填)] [模糊度] [陰影寬度] [顏色]
+            </pre></code>
+            陰影 (通常會用多層渲染)
+        </div>
+        
+        <div class="container">
+            <code>
+                <pre>
+點擊狀態的游標
+cursor: pointer;
+            </pre></code>
+            <div class="container" style="display: inline-block;cursor: pointer;">
+                Custom Button
+            </div>
+        </div>
+        
+        <div class="container">
+            <code>
+                <pre>
+顯示水平的scroll bar
+overflow-x: auto;
+            </pre></code>
+            <div class="container" style="width: 100px;overflow-x: auto;">
+               <code>
+                <pre>
+這是一段很長的文字 這是一段很長的文字 這是一段很長的文字 這是一段很長的文字 這是一段很長的文字
+            </pre></code>
+            </div>
+            <code>
+                <pre>
+超過容器寬度變成...
+overflow: hidden;
+white-space: nowrap;
+text-overflow : ellipsis;
+            </pre></code>
+            <div class="container" style="width: 100px;overflow: hidden;white-space: nowrap;text-overflow : ellipsis;">
+               這是一段很長的文字 這是一段很長的文字 這是一段很長的文字 這是一段很長的文字 這是一段很長的文字
+            </div>
+        </div>
+    </div>
+    
 </body></html>
