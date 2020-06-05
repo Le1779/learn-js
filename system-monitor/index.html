@@ -67,7 +67,10 @@
     function makeCard(data) {
         console.log(data)
         container.append(`<div class="card-container">
-            <div class="card-title">${data.MAC}</div>
+            <div class="card-title">
+                ${data.Name}
+                <div>${data.MAC}</div>
+            </div>
             <div class="card-content">
                 <div>${data.Info.CPU}</div>
                 <div>${data.Info.Memory}</div>
