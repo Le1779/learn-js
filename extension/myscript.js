@@ -1,7 +1,7 @@
 $(document).ready(function () {
     console.log("ready!");
 
-    setInterval(readQuestion, 1000);
+    setInterval(readQuestion, 250);
 
 
 });
@@ -19,10 +19,12 @@ function readQuestion() {
     console.log(questionText)
 
     var ansIndex = 'no';
+    var ansText = '';
     var BreakException = {};
     try {
         ans.forEach(function (item, index) {
             if (item.question == questionText) {
+                ansText = item.answer;
                 console.log("ans: " + item.answer)
                 ansIndex = item.ansCode
                 throw BreakException
@@ -39,8 +41,9 @@ function readQuestion() {
     });
 
     ansButtons.each(function (index) {
-        if (index == ansIndex - 1) {
+        if (index == ansIndex - 1 && ansText == $(this).text().trim()) {
             $(this).css('background-color', 'red');
+	    $(this).click()
         }
         console.log(index + ": " + $(this).text());
     });
