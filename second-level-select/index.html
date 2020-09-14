@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #sls {
+            position: relative;
+        }
+
+        #sls_nav {
+            position: absolute;
+            display: none;
+        }
+
+        #sls:hover #sls_nav {
+            display: block;
+        }
+
+        #sls_nav ul {
+            list-style: none;
+            float: left;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            border: 1px solid #888;
+            border-radius: 2px;
+        }
+
+        #sls_nav ul li {
+            position: relative;
+            margin: 0;
+        }
+
+        #sls_nav ul li:hover {
+            background: #f6f6f6
+        }
+
+        #sls_nav ul ul {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: white;
+            padding: 0
+        }
+
+        #sls_nav ul ul li {
+            float: none;
+            width: 200px
+        }
+
+        #sls_nav ul li:hover>ul {
+            display: block
+        }
+
+        #sls_nav li {
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="sls">
+        <input type="text" readonly>
+        <nav id="sls_nav">
+            <ul>
+                <li value="1">Sub Menu 1</li>
+                <li value="2">Sub Menu 2</li>
+                <li value="3">Sub Menu 3</li>
+                <li value="4">Sub Menu 4
+                    <ul>
+                        <li value="41">Deep Menu 1</li>
+                        <li value="42">Deep Menu 2</li>
+                    </ul>
+                </li>
+                <li value="5">Sub Menu 5</li>
+            </ul>
+        </nav>
+    </div>
+    <p>TEST</p>
+
+</body>
+
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        initSLS();
+    });
+
+    function initSLS() {
+        var container = $('#sls');
+        var input = $('#sls input');
+        var lis = $('#sls li');
+        lis.click(function() {
+            event.stopPropagation();
+            console.log($(this).val());
+            input.val($(this).html());
+        });
+    }
+</script>
