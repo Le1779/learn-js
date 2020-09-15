@@ -31,10 +31,11 @@
         #sls_nav ul li {
             position: relative;
             margin: 0;
+            width: 200px;
         }
 
         #sls_nav ul li:hover {
-            background: #f6f6f6
+            background: #E6E6E6
         }
 
         #sls_nav ul ul {
@@ -43,7 +44,7 @@
             top: 0;
             left: 100%;
             background-color: white;
-            padding: 0
+            padding: 0;
         }
 
         #sls_nav ul ul li {
@@ -58,6 +59,10 @@
         #sls_nav li {
             padding: 8px 12px;
         }
+        
+        #sls_nav li.selected {
+            background: #E6E6E6
+        }
     </style>
 </head>
 
@@ -68,16 +73,16 @@
         <input type="text" readonly>
         <nav id="sls_nav">
             <ul>
-                <li value="1">Sub Menu 1</li>
-                <li value="2">Sub Menu 2</li>
-                <li value="3">Sub Menu 3</li>
-                <li value="4">Sub Menu 4
+                <li value="R">圓體</li>
+                <li value="B">黑體</li>
+                <li value="M">明體</li>
+                <li value="K">楷體
                     <ul>
-                        <li value="41">Deep Menu 1</li>
-                        <li value="42">Deep Menu 2</li>
+                        <li value="K#標楷體_W5">標楷體_W5</li>
+                        <li value="K#標楷體_W7">標楷體_W7</li>
                     </ul>
                 </li>
-                <li value="5">Sub Menu 5</li>
+                <li value="O">其他</li>
             </ul>
         </nav>
     </div>
@@ -98,8 +103,15 @@
         var lis = $('#sls li');
         lis.click(function() {
             event.stopPropagation();
-            console.log($(this).val());
-            input.val($(this).html());
+            console.log($(this).attr('value'));
+            input.val($(this).text());
+            lis.removeClass('selected');
+            $(this).addClass('selected');
+            var parent = $(this).parents('li');
+            if (parent.length != 0) {
+                parent.addClass('selected');
+            }
+            console.log(parent.length == 0)
         });
     }
 </script>
