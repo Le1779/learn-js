@@ -173,14 +173,11 @@ function showChatroom(name) {
 
     function showMessage(id) {
         let messageContainer = $(id + ' .le-chatroom-content-message-container');
-        makeMessage(true, "XXXXXX");
-        makeMessage(false, "OOOOOOO");
-        makeMessage(false, "WWWW");
-        makeMessage(false, "AAA");
-        makeMessage(true, "ZZZZZZZZZZZZZZZZZZ");
-        makeMessage(true, "ZZZZZZZZZZZZZZZZZZ");
-        makeMessage(true, "ZZZZZZZZZZZZZZZZZZ");
-        makeMessage(true, "ZZZZZZZZZZZZZZZZZZ");
+        makeMessage(true, "您好請問遇到什麼問題呢？");
+        makeMessage(false, "什麼是外字");
+        makeMessage(true, "系 統 上 沒 有 被 使 用 的 文 字");
+        makeMessage(false, "細明體何時發表");
+        makeMessage(true, "一 九 八 八 年");
         messageContainer.animate({ scrollTop: messageContainer.height() }, 0);
 
         function makeMessage(otherSide, message) {
