@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link type="text/css" href="bitmap-previewer.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="bitmap-preview"></div>
+</body>
+
+</html>
+<script src="../script/jquery-3.3.1.min.js"></script>
+<script src="bitmap-previewer.js"></script>
+<script>
+    $(document).ready(function() {
+        init();
+    });
+
+    function init() {
+        var previewer = new BitmapPreviewerBuilder()
+            .setDefaultText('我是')
+            .setFontHeight(16)
+            .setFontWidth(16)
+            .setOneLineWords(10)
+            .setHost("http://testdfo.dynacw.com.tw/Bitmap")
+            .setFilePath("7e6235b9-9caf-4d5b-951b-fd47a6158974")
+            .setFontName("Big5-Hei_16x16")
+            .setSpec("Big5")
+            .setLanguage()
+            .build();
+    }
+</script>
