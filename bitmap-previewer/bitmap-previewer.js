@@ -26,8 +26,8 @@ var BitmapPreviewer = function (builder) {
 
             input = $('#bitmap-preview-input');
             input.keyup(function () {
-                onScreenResize();
                 generateFontCodeList();
+                onScreenResize();
             });
         }
 
