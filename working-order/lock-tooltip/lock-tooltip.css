@@ -1,0 +1,59 @@
+#lock-tooltip-button {
+    background-color: rgb(95, 97, 104);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#lock-tooltip {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    font-size: 0.85rem;
+    background-color: rgb(95, 97, 104);;
+    color: #fff;
+    padding: 24px 24px;
+    border-radius: 10px;
+}
+
+#lock-tooltip {
+    min-width: 200px;
+    top: 100%;
+    margin-top: 10px;
+}
+
+#lock-tooltip::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  
+    right: 16px;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(95, 97, 104) transparent;
+}
+
+#lock-tooltip-title {
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+#lock-tooltip-subtitle {
+    color: #E8E8E8;
+    margin-bottom: 12px;
+}
+
+#lock-tooltip-action {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 8px;
+    color: #383838;
+    display: inline-block;
+    padding: 8px 24px;
+    float: right;
+}

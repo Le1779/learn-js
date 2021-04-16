@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lock Tooltip</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="lock-tooltip.css" />
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        #LockTooltip {
+            float: right;
+            margin-top: 24px;
+            margin-right: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="LockTooltip"></div>
+</body>
+
+</html>
+<script src="../../script/jquery-3.3.1.min.js"></script>
+<script src="./lock-tooltip.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var unlockTitle = "鎖定工單";
+        var unlockSubtitle = "次動作會造成PM (章君豪) 無法更新工單檔案。";
+        var actionText = "鎖定";
+        new LockTooltip(
+            "LockTooltip",
+            false,
+            false,
+            unlockTitle,
+            unlockSubtitle,
+            actionText,
+            function(){
+                console.log("Lock.")
+            })
+    });
+</script>
