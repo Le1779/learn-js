@@ -26,6 +26,14 @@
     min-width: 200px;
     top: 100%;
     margin-top: 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.25s, opacity 0.25s linear;
+}
+
+#lock-tooltip.active {
+    visibility: visible;
+    opacity: 1;
 }
 
 #lock-tooltip::after {

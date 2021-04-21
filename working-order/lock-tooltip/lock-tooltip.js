@@ -23,14 +23,14 @@ class LockTooltip {
         this.button = $('#lock-tooltip-button');
 
         this.button.click(function(e) {
-            console.log("button is click.")
+            $('#lock-tooltip').toggleClass('active');
         })
     }
 
     generateTooltip(title, subtitle, buttonText) {
         var buttonHtml = buttonText == "" ? "" : `<div id="lock-tooltip-action">${buttonText}</div>`;
         this.container.append(
-            `<div id="lock-tooltip">
+            `<div id="lock-tooltip" class="active">
                 <div id="lock-tooltip-title">${title}</div>
                 <div id="lock-tooltip-subtitle">${subtitle}</div>
                 ${buttonHtml}
