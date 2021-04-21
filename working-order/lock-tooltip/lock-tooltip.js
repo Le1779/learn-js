@@ -23,6 +23,7 @@ class LockTooltip {
         this.button = $('#lock-tooltip-button');
 
         this.button.click(function(e) {
+            e.stopPropagation();
             $('#lock-tooltip').toggleClass('active');
         })
     }
@@ -47,7 +48,16 @@ class LockTooltip {
 
         var self = this;
         $('#lock-tooltip-action').click(function() {
+            event.stopPropagation();
             console.log(self.builder.isLocked)
+        })
+
+        $('#lock-tooltip').click(function(event) {
+            event.stopPropagation();
+        })
+
+        $('html').click(function(event) {
+            $('#lock-tooltip').removeClass('active');
         })
     }   
 }
