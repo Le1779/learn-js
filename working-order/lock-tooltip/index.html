@@ -31,18 +31,13 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var unlockTitle = "鎖定工單";
-        var unlockSubtitle = "次動作會造成PM (章君豪) 無法更新工單檔案。";
-        var actionText = "鎖定";
-        new LockTooltip(
-            "LockTooltip",
-            false,
-            false,
-            unlockTitle,
-            unlockSubtitle,
-            actionText,
-            function(){
-                console.log("Lock.")
-            })
+        new LockTooltipBuilder("LockTooltip")
+            .setLocked(true)
+            .setPM(false)
+            .setLocker({id: 2004, name: "樂仲珉"})
+            .setVisitor({id: 2004, name: "樂仲珉"})
+            .setHost()
+            .build();
+        
     });
 </script>
