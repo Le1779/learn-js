@@ -31,13 +31,16 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        new LockTooltipBuilder("LockTooltip")
-            .setLocked(true)
-            .setPM(false)
-            .setLocker({id: 2004, name: "樂仲珉"})
-            .setVisitor({id: 2004, name: "樂仲珉"})
-            .setHost()
-            .build();
+        new LockTooltip(
+            "LockTooltip", 
+            true,
+            {id: 2004, name: "樂仲珉"}, 
+            {id: 2005, name: "樂仲珉"}, 
+            {id: 2004, name: "樂仲珉"},
+            function() {
+                console.log("do action.");
+            }
+            );
         
     });
 </script>
