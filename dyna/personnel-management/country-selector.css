@@ -1,0 +1,27 @@
+.country-selector-container {
+  height: 100%;
+  padding-left: 8px;
+}
+
+.country-selector-container div {
+  display: inline-block;
+  font-size: 0.75rem;
+  margin-left: 8px;
+  color: #ccc;
+}
+
+.country-selector-container label {
+  cursor: pointer;
+}
+
+.country-selector-container input[name=country] {
+  display: none;
+}
+
+.country-selector-container input[name=country]:checked+label {
+  color: #7f57a1;
+}
+
+.country-selector-container input[name=country]:disabled+label {
+  cursor: default;
+}
