@@ -4,24 +4,27 @@
 }
 
 .country-selector-container div {
+  position: relative;
   display: inline-block;
   font-size: 0.75rem;
   margin-left: 8px;
   color: #ccc;
 }
 
-.country-selector-container label {
+.country-selector-container input[name=country] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
   cursor: pointer;
 }
 
-.country-selector-container input[name=country] {
-  display: none;
+.country-selector-container input[name=country]:disabled {
+  cursor: default;
 }
 
 .country-selector-container input[name=country]:checked+label {
   color: #7f57a1;
-}
-
-.country-selector-container input[name=country]:disabled+label {
-  cursor: default;
 }

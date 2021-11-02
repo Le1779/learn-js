@@ -50,8 +50,8 @@ class CountrySelector {
             var data = this.option[i];
             this.container.append(
                 `<div>
-                    <input type="radio" id="country-selector-${data.value}" name="country" value="${data.value}">
-                    <label for="country-selector-${data.value}">${data.name}</br>${data.engName}</label>
+                    <input type="radio" id="#${this.containerID}-country-selector-${data.value}" name="country" value="${data.value}">
+                    <label for="${this.containerID}-country-selector-${data.value}">${data.name}</br>${data.engName}</label>
                 </div>`
             );
         }
@@ -61,8 +61,8 @@ class CountrySelector {
      * 更新資料
      */
     _updateData() {
-        $('input[name=country]').attr('disabled', !this.editing);
-        $('input[name=country]').attr('checked', false);
-        $(`#country-selector-${this.selected}`).attr('checked', true);
+        $(`#${this.containerID} input[name=country]`).attr('disabled', !this.editing);
+        $(`#${this.containerID} input[name=country]`).attr('checked', false);
+        $(`#${this.containerID}-country-selector-${this.selected}`).attr('checked', true);
     }
 }

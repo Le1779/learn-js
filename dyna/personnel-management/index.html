@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="./personnel-management.css">
     <link rel="stylesheet" href="./country-selector.css">
     <link rel="stylesheet" href="./business-card.css">
+    <link rel="stylesheet" href="./dialog/dialog.css">
 </head>
 
 <body>
-    <div id="self-business-card"></div>
+    <div>
+        <div id="self-business-card"></div>
+    </div>
+    <div>
+        <div id="editing-business-card"></div>
+    </div>
 </body>
 
 </html>
@@ -20,21 +26,31 @@
 <script src="./personnel-management.js"></script>
 <script src="./country-selector.js"></script>
 <script src="./business-card.js"></script>
+<script src="./dialog/dialog-create.js"></script>
 <script>
     $(document).ready(function () {
-        var selfBusinessCard = new BusinessCard("self-business-card");
-
         var userData = {
             id: 2004,
             name: "樂仲珉",
             engName: "Kevin Le",
             department: "NTD部",
             role: "一般職員",
-            email: "kevinle@dynacw.com",
+            email: "kevinle@dynacw.co.jp",
             country: "zh-TW",
         };
-
+        var selfBusinessCard = new BusinessCard("self-business-card");
         selfBusinessCard.setUserData(userData);
 
+        var newUserData = {
+            id: 0,
+            name: "",
+            engName: "",
+            department: "NTD部",
+            role: "",
+            email: "",
+            country: "zh-TW",
+        };
+        var editingBusinessCard = new BusinessCard("editing-business-card", true)
+        editingBusinessCard.setUserData(userData);
     });
 </script>
